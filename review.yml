@@ -1,0 +1,112 @@
+aid: orb-billing
+name: Orb
+review:
+  question: Does Orb expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Orb's only documented event-driven
+    surface is outbound HTTP webhooks (server-to-server POST callbacks). There
+    is no WebSocket (ws://, wss://) endpoint and no Server-Sent Events (SSE)
+    streaming surface documented. Under current API Evangelist scope, AsyncAPI
+    modeling is reserved for real streaming transports (WebSocket or HTTP SSE);
+    plain outbound webhooks are documented in the catalog as a webhooks API but
+    are not modeled as AsyncAPI. No asyncapi/ artifact was authored.
+findings:
+  summary: |
+    Orb does not publish a documented public WebSocket API. The Orb platform
+    is a REST (HTTPS) API served under https://api.withorb.com/v1, with Bearer
+    API key authentication. Usage events are ingested via a synchronous REST
+    POST to /ingest (batched, idempotent). Orb delivers asynchronous
+    notifications exclusively through outbound HTTP webhooks - at-least-once
+    POST callbacks to a customer-configured endpoint, signed with an
+    HMAC-SHA256 X-Orb-Signature header and an X-Orb-Timestamp header for
+    replay protection, with a scheduled retry backoff. No realtime,
+    bidirectional, or streaming WebSocket or SSE surface is documented for
+    events, customers, subscriptions, invoices, or credits.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.withorb.com/v1
+      documented: true
+    - protocol: Webhooks
+      scheme: https
+      note: Outbound at-least-once server-to-server POST callbacks signed with HMAC-SHA256 (X-Orb-Signature) plus X-Orb-Timestamp. Not WebSocket.
+      documented: true
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events streaming surface is documented.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in Orb's API reference or webhooks documentation as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://api.withorb.com/v1/customers
+    - GET    https://api.withorb.com/v1/customers
+    - GET    https://api.withorb.com/v1/customers/{customer_id}
+    - PUT    https://api.withorb.com/v1/customers/{customer_id}
+    - DELETE https://api.withorb.com/v1/customers/{customer_id}
+    - GET    https://api.withorb.com/v1/customers/{customer_id}/costs
+    - POST   https://api.withorb.com/v1/customers/{customer_id}/portal_sessions
+    - POST   https://api.withorb.com/v1/plans
+    - GET    https://api.withorb.com/v1/plans
+    - GET    https://api.withorb.com/v1/plans/{plan_id}
+    - POST   https://api.withorb.com/v1/subscriptions
+    - GET    https://api.withorb.com/v1/subscriptions
+    - GET    https://api.withorb.com/v1/subscriptions/{subscription_id}
+    - POST   https://api.withorb.com/v1/subscriptions/{subscription_id}/cancel
+    - GET    https://api.withorb.com/v1/subscriptions/{subscription_id}/usage
+    - POST   https://api.withorb.com/v1/subscriptions/{subscription_id}/schedule_plan_change
+    - POST   https://api.withorb.com/v1/ingest
+    - PUT    https://api.withorb.com/v1/events/{event_id}/amend
+    - POST   https://api.withorb.com/v1/events/search
+    - GET    https://api.withorb.com/v1/events/volume
+    - POST   https://api.withorb.com/v1/metrics
+    - GET    https://api.withorb.com/v1/metrics
+    - GET    https://api.withorb.com/v1/metrics/{metric_id}
+    - POST   https://api.withorb.com/v1/invoices
+    - GET    https://api.withorb.com/v1/invoices
+    - GET    https://api.withorb.com/v1/invoices/{invoice_id}
+    - POST   https://api.withorb.com/v1/invoices/{invoice_id}/issue
+    - POST   https://api.withorb.com/v1/invoices/{invoice_id}/void
+    - GET    https://api.withorb.com/v1/customers/{customer_id}/credits
+    - GET    https://api.withorb.com/v1/customers/{customer_id}/credits/ledger
+    - POST   https://api.withorb.com/v1/customers/{customer_id}/credits/ledger_entries
+    - POST   https://api.withorb.com/v1/customers/{customer_id}/credits/top_ups
+    - POST   https://api.withorb.com/v1/prices
+    - GET    https://api.withorb.com/v1/prices
+    - GET    https://api.withorb.com/v1/prices/{price_id}
+    - POST   https://api.withorb.com/v1/prices/evaluate
+    - POST   https://api.withorb.com/v1/items
+    - GET    https://api.withorb.com/v1/items
+    - POST   https://api.withorb.com/v1/coupons
+    - GET    https://api.withorb.com/v1/coupons
+    - POST   https://api.withorb.com/v1/coupons/{coupon_id}/archive
+    - POST   https://api.withorb.com/v1/alerts
+    - GET    https://api.withorb.com/v1/alerts
+    - POST   https://api.withorb.com/v1/alerts/{alert_id}/enable
+    - POST   https://api.withorb.com/v1/alerts/{alert_id}/disable
+sources:
+  - url: https://docs.withorb.com/api-reference
+    type: APIReference
+    note: All documented endpoints are HTTPS REST under https://api.withorb.com/v1 with Bearer auth.
+  - url: https://docs.withorb.com/events-and-metrics/event-ingestion
+    type: Documentation
+    note: Event ingestion is a synchronous REST POST to /ingest with batched, idempotent events; no streaming socket.
+  - url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+    type: Documentation
+    note: Asynchronous notifications use outbound HTTP webhooks signed with HMAC-SHA256 (X-Orb-Signature) and X-Orb-Timestamp; not WebSocket.
+  - url: https://docs.withorb.com/api-reference/rate-limits
+    type: Documentation
+    note: No hard published rate limit; 429 with exponential backoff guidance.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE streaming protocol surface exists. Orb's only
+    event-driven mechanism is outbound HTTP webhooks, which are catalogued as
+    a webhooks API in apis.yml but not modeled as AsyncAPI under current scope.
+    No asyncapi/ document was authored.

@@ -1,0 +1,2219 @@
+openapi: 3.1.0
+info:
+  title: Orb API
+  description: >-
+    Orb is a usage-based billing and metering platform. The REST API ingests
+    timestamped usage events, models customers, plans, prices, items, and
+    billable metrics, manages subscriptions, and automates invoicing, credit
+    ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS
+    at https://api.withorb.com/v1 and authenticated with a Bearer API key.
+  termsOfService: https://www.withorb.com/legal/terms-of-service
+  contact:
+    name: Orb Support
+    url: https://www.withorb.com
+    email: team@withorb.com
+  version: '1.0'
+servers:
+  - url: https://api.withorb.com/v1
+    description: Orb production API
+security:
+  - bearerAuth: []
+tags:
+  - name: Customers
+  - name: Plans
+  - name: Subscriptions
+  - name: Events
+  - name: Metrics
+  - name: Invoices
+  - name: Credits
+  - name: Prices
+  - name: Items
+  - name: Coupons
+  - name: Alerts
+paths:
+  /customers:
+    get:
+      operationId: listCustomers
+      tags:
+        - Customers
+      summary: List customers
+      description: Returns a paginated list of customers, ordered by descending creation time.
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of customers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomer
+      tags:
+        - Customers
+      summary: Create customer
+      description: Creates a new customer, optionally with an external_customer_id alias.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '201':
+          description: The newly created customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /customers/{customer_id}:
+    parameters:
+      - $ref: '#/components/parameters/CustomerId'
+    get:
+      operationId: fetchCustomer
+      tags:
+        - Customers
+      summary: Fetch customer
+      responses:
+        '200':
+          description: The requested customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateCustomer
+      tags:
+        - Customers
+      summary: Update customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdate'
+      responses:
+        '200':
+          description: The updated customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCustomer
+      tags:
+        - Customers
+      summary: Delete customer
+      description: Permanently deletes a customer. This operation is irreversible.
+      responses:
+        '204':
+          description: The customer was deleted.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/external_customer_id/{external_customer_id}:
+    parameters:
+      - $ref: '#/components/parameters/ExternalCustomerId'
+    get:
+      operationId: fetchCustomerByExternalId
+      tags:
+        - Customers
+      summary: Fetch customer by external ID
+      responses:
+        '200':
+          description: The requested customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/{customer_id}/costs:
+    parameters:
+      - $ref: '#/components/parameters/CustomerId'
+    get:
+      operationId: fetchCustomerCosts
+      tags:
+        - Customers
+      summary: Fetch customer costs
+      description: Returns the cost breakdown for a customer over a time range.
+      parameters:
+        - name: timeframe_start
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: timeframe_end
+          in: query
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: The customer's cost breakdown.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostList'
+  /customers/{customer_id}/portal_sessions:
+    parameters:
+      - $ref: '#/components/parameters/CustomerId'
+    post:
+      operationId: createPortalSession
+      tags:
+        - Customers
+      summary: Create portal session
+      description: Creates a hosted customer portal session URL for the customer.
+      responses:
+        '201':
+          description: A portal session with a URL the customer can visit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortalSession'
+  /plans:
+    get:
+      operationId: listPlans
+      tags:
+        - Plans
+      summary: List plans
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of plans.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanList'
+    post:
+      operationId: createPlan
+      tags:
+        - Plans
+      summary: Create plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanCreate'
+      responses:
+        '201':
+          description: The newly created plan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+  /plans/{plan_id}:
+    parameters:
+      - name: plan_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: fetchPlan
+      tags:
+        - Plans
+      summary: Fetch plan
+      responses:
+        '200':
+          description: The requested plan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updatePlan
+      tags:
+        - Plans
+      summary: Update plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: object
+                  additionalProperties:
+                    type: string
+                external_plan_id:
+                  type: string
+      responses:
+        '200':
+          description: The updated plan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+  /subscriptions:
+    get:
+      operationId: listSubscriptions
+      tags:
+        - Subscriptions
+      summary: List subscriptions
+      parameters:
+        - name: customer_id
+          in: query
+          schema:
+            type: string
+        - name: external_customer_id
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - active
+              - ended
+              - upcoming
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of subscriptions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+    post:
+      operationId: createSubscription
+      tags:
+        - Subscriptions
+      summary: Create subscription
+      description: >-
+        Creates a subscription that associates a customer with a plan, starting
+        the accrual of usage charges into a draft invoice.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionCreate'
+      responses:
+        '201':
+          description: The newly created subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+  /subscriptions/{subscription_id}:
+    parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: fetchSubscription
+      tags:
+        - Subscriptions
+      summary: Fetch subscription
+      responses:
+        '200':
+          description: The requested subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateSubscription
+      tags:
+        - Subscriptions
+      summary: Update subscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: object
+                  additionalProperties:
+                    type: string
+      responses:
+        '200':
+          description: The updated subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+  /subscriptions/{subscription_id}/cancel:
+    parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: cancelSubscription
+      tags:
+        - Subscriptions
+      summary: Cancel subscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - cancel_option
+              properties:
+                cancel_option:
+                  type: string
+                  enum:
+                    - end_of_subscription_term
+                    - immediate
+                    - requested_date
+                cancellation_date:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: The canceled subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+  /subscriptions/{subscription_id}/usage:
+    parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: fetchSubscriptionUsage
+      tags:
+        - Subscriptions
+      summary: Fetch subscription usage
+      description: Returns usage quantities for the subscription's billable metrics over a window.
+      parameters:
+        - name: timeframe_start
+          in: query
+          schema:
+            type: string
+            format: date-time
+        - name: timeframe_end
+          in: query
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: The subscription usage breakdown.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionUsage'
+  /subscriptions/{subscription_id}/schedule_plan_change:
+    parameters:
+      - name: subscription_id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: schedulePlanChange
+      tags:
+        - Subscriptions
+      summary: Schedule plan change
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - change_option
+              properties:
+                plan_id:
+                  type: string
+                external_plan_id:
+                  type: string
+                change_option:
+                  type: string
+                  enum:
+                    - requested_date
+                    - end_of_subscription_term
+                    - immediate
+                change_date:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: The subscription with the scheduled change.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+  /ingest:
+    post:
+      operationId: ingestEvents
+      tags:
+        - Events
+      summary: Ingest events
+      description: >-
+        Ingests a batch of usage events into Orb's metering pipeline. Each event
+        is idempotent via its idempotency_key and must reference exactly one of
+        customer_id or external_customer_id. Pass debug=true to receive a
+        per-event accept/duplicate breakdown in the response.
+      parameters:
+        - name: debug
+          in: query
+          description: When true, returns a debug breakdown of processed and ignored events.
+          schema:
+            type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestRequest'
+      responses:
+        '200':
+          description: The ingestion result, including any events that failed validation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /events/{event_id}/amend:
+    parameters:
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      operationId: amendEvent
+      tags:
+        - Events
+      summary: Amend event
+      description: Replaces the properties of a previously ingested event.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventAmend'
+      responses:
+        '200':
+          description: The amended event reference.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amended:
+                    type: string
+                    description: The idempotency key of the amended event.
+  /events/search:
+    post:
+      operationId: searchEvents
+      tags:
+        - Events
+      summary: Search events
+      description: Searches raw ingested events by event_ids or timeframe.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_ids:
+                  type: array
+                  items:
+                    type: string
+                timeframe_start:
+                  type: string
+                  format: date-time
+                timeframe_end:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: Matching events.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+  /events/volume:
+    get:
+      operationId: getEventVolume
+      tags:
+        - Events
+      summary: Get event volume
+      description: Returns counts of ingested events bucketed over a timeframe.
+      parameters:
+        - name: timeframe_start
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: timeframe_end
+          in: query
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Event volume buckets.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        timeframe_start:
+                          type: string
+                          format: date-time
+                        timeframe_end:
+                          type: string
+                          format: date-time
+                        count:
+                          type: integer
+  /metrics:
+    get:
+      operationId: listMetrics
+      tags:
+        - Metrics
+      summary: List metrics
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of billable metrics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricList'
+    post:
+      operationId: createMetric
+      tags:
+        - Metrics
+      summary: Create metric
+      description: Creates a billable metric defined by a SQL expression over events.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetricCreate'
+      responses:
+        '201':
+          description: The newly created metric.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Metric'
+  /metrics/{metric_id}:
+    parameters:
+      - name: metric_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getMetric
+      tags:
+        - Metrics
+      summary: Get metric
+      responses:
+        '200':
+          description: The requested metric.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Metric'
+  /invoices:
+    get:
+      operationId: listInvoices
+      tags:
+        - Invoices
+      summary: List invoices
+      parameters:
+        - name: customer_id
+          in: query
+          schema:
+            type: string
+        - name: subscription_id
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum:
+              - draft
+              - issued
+              - paid
+              - synced
+              - void
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of invoices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceList'
+    post:
+      operationId: createInvoice
+      tags:
+        - Invoices
+      summary: Create a one-off invoice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceCreate'
+      responses:
+        '201':
+          description: The newly created one-off invoice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+  /invoices/{invoice_id}:
+    parameters:
+      - name: invoice_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: fetchInvoice
+      tags:
+        - Invoices
+      summary: Fetch invoice
+      responses:
+        '200':
+          description: The requested invoice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /invoices/{invoice_id}/issue:
+    parameters:
+      - name: invoice_id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: issueInvoice
+      tags:
+        - Invoices
+      summary: Issue invoice
+      description: Transitions a draft invoice to issued, triggering payment collection.
+      responses:
+        '200':
+          description: The issued invoice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+  /invoices/{invoice_id}/void:
+    parameters:
+      - name: invoice_id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: voidInvoice
+      tags:
+        - Invoices
+      summary: Void invoice
+      responses:
+        '200':
+          description: The voided invoice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+  /customers/{customer_id}/credits:
+    parameters:
+      - $ref: '#/components/parameters/CustomerId'
+    get:
+      operationId: fetchCustomerCredits
+      tags:
+        - Credits
+      summary: Fetch customer credit balance
+      description: Returns the unexpired, available credit blocks for a customer.
+      responses:
+        '200':
+          description: The customer's credit blocks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditBlockList'
+  /customers/{customer_id}/credits/ledger:
+    parameters:
+      - $ref: '#/components/parameters/CustomerId'
+    get:
+      operationId: fetchCustomerCreditsLedger
+      tags:
+        - Credits
+      summary: Fetch customer credits ledger
+      description: Returns the full ledger of credit additions, decrements, and expirations.
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated credit ledger.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerEntryList'
+  /customers/{customer_id}/credits/ledger_entries:
+    parameters:
+      - $ref: '#/components/parameters/CustomerId'
+    post:
+      operationId: createLedgerEntry
+      tags:
+        - Credits
+      summary: Create ledger entry
+      description: Adds, sets expiry, voids, or amends credits on a customer's ledger.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LedgerEntryCreate'
+      responses:
+        '201':
+          description: The created ledger entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerEntry'
+  /customers/{customer_id}/credits/top_ups:
+    parameters:
+      - $ref: '#/components/parameters/CustomerId'
+    post:
+      operationId: createTopUp
+      tags:
+        - Credits
+      summary: Create top-up
+      description: Configures an automatic credit top-up that fires when a balance falls below a threshold.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopUpCreate'
+      responses:
+        '201':
+          description: The created top-up.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopUp'
+    get:
+      operationId: listTopUps
+      tags:
+        - Credits
+      summary: List top-ups
+      responses:
+        '200':
+          description: The customer's top-ups.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TopUp'
+  /prices:
+    get:
+      operationId: listPrices
+      tags:
+        - Prices
+      summary: List prices
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of prices.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceList'
+    post:
+      operationId: createPrice
+      tags:
+        - Prices
+      summary: Create price
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceCreate'
+      responses:
+        '201':
+          description: The newly created price.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Price'
+  /prices/{price_id}:
+    parameters:
+      - name: price_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: fetchPrice
+      tags:
+        - Prices
+      summary: Fetch price
+      responses:
+        '200':
+          description: The requested price.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Price'
+  /prices/evaluate:
+    post:
+      operationId: evaluatePrices
+      tags:
+        - Prices
+      summary: Evaluate multiple prices
+      description: Evaluates one or more prices against a set of events over a timeframe.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - timeframe_start
+              properties:
+                timeframe_start:
+                  type: string
+                  format: date-time
+                timeframe_end:
+                  type: string
+                  format: date-time
+                price_evaluations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      price_id:
+                        type: string
+                      external_price_id:
+                        type: string
+                      filter:
+                        type: string
+      responses:
+        '200':
+          description: The evaluated price results.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        price_id:
+                          type: string
+                        amount:
+                          type: string
+  /items:
+    get:
+      operationId: listItems
+      tags:
+        - Items
+      summary: List items
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of items.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+    post:
+      operationId: createItem
+      tags:
+        - Items
+      summary: Create item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: The newly created item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+  /items/{item_id}:
+    parameters:
+      - name: item_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: fetchItem
+      tags:
+        - Items
+      summary: Fetch item
+      responses:
+        '200':
+          description: The requested item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+  /coupons:
+    get:
+      operationId: listCoupons
+      tags:
+        - Coupons
+      summary: List coupons
+      parameters:
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of coupons.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CouponList'
+    post:
+      operationId: createCoupon
+      tags:
+        - Coupons
+      summary: Create coupon
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CouponCreate'
+      responses:
+        '201':
+          description: The newly created coupon.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+  /coupons/{coupon_id}/archive:
+    parameters:
+      - name: coupon_id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: archiveCoupon
+      tags:
+        - Coupons
+      summary: Archive coupon
+      responses:
+        '200':
+          description: The archived coupon.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+  /alerts:
+    get:
+      operationId: listAlerts
+      tags:
+        - Alerts
+      summary: List alerts
+      parameters:
+        - name: customer_id
+          in: query
+          schema:
+            type: string
+        - name: subscription_id
+          in: query
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Cursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of alerts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertList'
+    post:
+      operationId: createAlert
+      tags:
+        - Alerts
+      summary: Create alert
+      description: Creates a usage, cost, or credit-balance alert on a customer or subscription.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertCreate'
+      responses:
+        '201':
+          description: The newly created alert.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+  /alerts/{alert_id}:
+    parameters:
+      - name: alert_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: fetchAlert
+      tags:
+        - Alerts
+      summary: Fetch alert
+      responses:
+        '200':
+          description: The requested alert.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+  /alerts/{alert_id}/enable:
+    parameters:
+      - name: alert_id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: enableAlert
+      tags:
+        - Alerts
+      summary: Enable alert
+      responses:
+        '200':
+          description: The enabled alert.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+  /alerts/{alert_id}/disable:
+    parameters:
+      - name: alert_id
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: disableAlert
+      tags:
+        - Alerts
+      summary: Disable alert
+      responses:
+        '200':
+          description: The disabled alert.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Authenticate with an Orb API key sent as a Bearer token in the
+        Authorization header: `Authorization: Bearer <ORB_API_KEY>`.
+  parameters:
+    CustomerId:
+      name: customer_id
+      in: path
+      required: true
+      description: The Orb-generated customer identifier.
+      schema:
+        type: string
+    ExternalCustomerId:
+      name: external_customer_id
+      in: path
+      required: true
+      description: The external customer ID alias mapped when the customer was created.
+      schema:
+        type: string
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key was missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        external_customer_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        currency:
+          type: string
+          example: USD
+        timezone:
+          type: string
+          example: America/New_York
+        payment_provider:
+          type: string
+          nullable: true
+          enum:
+            - stripe_charge
+            - stripe_invoice
+            - quickbooks
+            - bill.com
+            - netsuite
+        balance:
+          type: string
+          description: The customer's account balance in the smallest currency unit.
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+    CustomerCreate:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        external_customer_id:
+          type: string
+        currency:
+          type: string
+        timezone:
+          type: string
+        payment_provider_id:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    CustomerUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        external_customer_id:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    CustomerList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    PortalSession:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        token:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+    Cost:
+      type: object
+      properties:
+        timeframe_start:
+          type: string
+          format: date-time
+        timeframe_end:
+          type: string
+          format: date-time
+        total:
+          type: string
+        subtotal:
+          type: string
+    CostList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cost'
+    Plan:
+      type: object
+      properties:
+        id:
+          type: string
+        external_plan_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - archived
+            - draft
+        currency:
+          type: string
+        net_terms:
+          type: integer
+          nullable: true
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        created_at:
+          type: string
+          format: date-time
+    PlanCreate:
+      type: object
+      required:
+        - name
+        - currency
+      properties:
+        name:
+          type: string
+        currency:
+          type: string
+        external_plan_id:
+          type: string
+        net_terms:
+          type: integer
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceCreate'
+    PlanList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Plan'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        plan:
+          $ref: '#/components/schemas/Plan'
+        status:
+          type: string
+          enum:
+            - active
+            - ended
+            - upcoming
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+        current_billing_period_start_date:
+          type: string
+          format: date-time
+        current_billing_period_end_date:
+          type: string
+          format: date-time
+        net_terms:
+          type: integer
+        auto_collection:
+          type: boolean
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+    SubscriptionCreate:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        external_customer_id:
+          type: string
+        plan_id:
+          type: string
+        external_plan_id:
+          type: string
+        start_date:
+          type: string
+          format: date-time
+        net_terms:
+          type: integer
+        auto_collection:
+          type: boolean
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    SubscriptionList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    SubscriptionUsage:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              billable_metric:
+                $ref: '#/components/schemas/Metric'
+              usage:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    quantity:
+                      type: number
+                    timeframe_start:
+                      type: string
+                      format: date-time
+                    timeframe_end:
+                      type: string
+                      format: date-time
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        event_name:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        customer_id:
+          type: string
+          nullable: true
+        external_customer_id:
+          type: string
+          nullable: true
+        properties:
+          type: object
+          additionalProperties: true
+    EventInput:
+      type: object
+      required:
+        - event_name
+        - timestamp
+        - idempotency_key
+        - properties
+      properties:
+        event_name:
+          type: string
+          description: A name that meaningfully identifies the action or event type.
+        timestamp:
+          type: string
+          format: date-time
+          description: An ISO 8601 UTC timestamp with no timezone offset.
+        idempotency_key:
+          type: string
+          description: A client-generated unique value used to de-duplicate events.
+        customer_id:
+          type: string
+          description: The Orb-generated customer identifier. Exactly one of customer_id or external_customer_id is required.
+        external_customer_id:
+          type: string
+          description: The external customer alias. Exactly one of customer_id or external_customer_id is required.
+        properties:
+          type: object
+          description: Custom properties whose values must be numeric, boolean, or string.
+          additionalProperties: true
+    IngestRequest:
+      type: object
+      required:
+        - events
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventInput'
+    IngestResponse:
+      type: object
+      properties:
+        validation_failed:
+          type: array
+          description: Events that failed validation, keyed by idempotency_key.
+          items:
+            type: object
+            properties:
+              idempotency_key:
+                type: string
+              validation_errors:
+                type: array
+                items:
+                  type: string
+        debug:
+          type: object
+          nullable: true
+          description: Present only when debug=true; lists ingested and duplicate idempotency keys.
+          properties:
+            duplicate:
+              type: array
+              items:
+                type: string
+            ingested:
+              type: array
+              items:
+                type: string
+    EventAmend:
+      type: object
+      required:
+        - event_name
+        - timestamp
+        - properties
+      properties:
+        event_name:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        customer_id:
+          type: string
+        external_customer_id:
+          type: string
+        properties:
+          type: object
+          additionalProperties: true
+    Metric:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum:
+            - active
+            - draft
+            - archived
+        item:
+          $ref: '#/components/schemas/Item'
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    MetricCreate:
+      type: object
+      required:
+        - name
+        - sql
+        - item_id
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        sql:
+          type: string
+          description: The SQL expression that aggregates events into a billable quantity.
+        item_id:
+          type: string
+    MetricList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metric'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        invoice_number:
+          type: string
+        status:
+          type: string
+          enum:
+            - draft
+            - issued
+            - paid
+            - synced
+            - void
+        customer:
+          $ref: '#/components/schemas/Customer'
+        subscription:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: string
+        currency:
+          type: string
+        total:
+          type: string
+        subtotal:
+          type: string
+        amount_due:
+          type: string
+        due_date:
+          type: string
+          format: date-time
+          nullable: true
+        issued_at:
+          type: string
+          format: date-time
+          nullable: true
+        hosted_invoice_url:
+          type: string
+          format: uri
+          nullable: true
+        line_items:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceLineItem'
+        created_at:
+          type: string
+          format: date-time
+    InvoiceLineItem:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        quantity:
+          type: number
+        amount:
+          type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+    InvoiceCreate:
+      type: object
+      required:
+        - currency
+        - invoice_date
+        - line_items
+      properties:
+        customer_id:
+          type: string
+        external_customer_id:
+          type: string
+        currency:
+          type: string
+        invoice_date:
+          type: string
+          format: date-time
+        net_terms:
+          type: integer
+        memo:
+          type: string
+        line_items:
+          type: array
+          items:
+            type: object
+            required:
+              - name
+              - quantity
+              - unit_config
+            properties:
+              name:
+                type: string
+              quantity:
+                type: number
+              item_id:
+                type: string
+              start_date:
+                type: string
+                format: date
+              end_date:
+                type: string
+                format: date
+              unit_config:
+                type: object
+                properties:
+                  unit_amount:
+                    type: string
+    InvoiceList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    CreditBlock:
+      type: object
+      properties:
+        id:
+          type: string
+        balance:
+          type: number
+        status:
+          type: string
+          enum:
+            - active
+            - pending_payment
+        effective_date:
+          type: string
+          format: date-time
+          nullable: true
+        expiry_date:
+          type: string
+          format: date-time
+          nullable: true
+        per_unit_cost_basis:
+          type: string
+          nullable: true
+    CreditBlockList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditBlock'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    LedgerEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        entry_type:
+          type: string
+          enum:
+            - increment
+            - decrement
+            - expiration_change
+            - credit_block_expiry
+            - void
+            - void_initiated
+            - amendment
+        entry_status:
+          type: string
+          enum:
+            - committed
+            - pending
+        amount:
+          type: number
+        starting_balance:
+          type: number
+        ending_balance:
+          type: number
+        credit_block:
+          $ref: '#/components/schemas/CreditBlock'
+        description:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+    LedgerEntryCreate:
+      type: object
+      required:
+        - entry_type
+      properties:
+        entry_type:
+          type: string
+          enum:
+            - increment
+            - decrement
+            - expiration_change
+            - void
+            - amendment
+        amount:
+          type: number
+        currency:
+          type: string
+        effective_date:
+          type: string
+          format: date-time
+        expiry_date:
+          type: string
+          format: date-time
+        per_unit_cost_basis:
+          type: string
+        description:
+          type: string
+    LedgerEntryList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerEntry'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    TopUp:
+      type: object
+      properties:
+        id:
+          type: string
+        threshold:
+          type: string
+        amount:
+          type: string
+        currency:
+          type: string
+        per_unit_cost_basis:
+          type: string
+        active_from:
+          type: string
+          format: date-time
+          nullable: true
+    TopUpCreate:
+      type: object
+      required:
+        - threshold
+        - amount
+        - currency
+        - per_unit_cost_basis
+      properties:
+        threshold:
+          type: string
+          description: Trigger a top-up when the balance falls to or below this value.
+        amount:
+          type: string
+          description: The number of credits to add per top-up.
+        currency:
+          type: string
+        per_unit_cost_basis:
+          type: string
+        expires_after:
+          type: integer
+          nullable: true
+        expires_after_unit:
+          type: string
+          enum:
+            - day
+            - month
+          nullable: true
+    Price:
+      type: object
+      properties:
+        id:
+          type: string
+        external_price_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        price_type:
+          type: string
+          enum:
+            - usage_price
+            - fixed_price
+        model_type:
+          type: string
+          enum:
+            - unit
+            - tiered
+            - package
+            - matrix
+            - bulk
+            - tiered_package
+            - grouped_tiered
+            - threshold_total_amount
+        cadence:
+          type: string
+          enum:
+            - one_time
+            - monthly
+            - quarterly
+            - semi_annual
+            - annual
+        currency:
+          type: string
+        item:
+          $ref: '#/components/schemas/Item'
+        unit_config:
+          type: object
+          nullable: true
+          properties:
+            unit_amount:
+              type: string
+        created_at:
+          type: string
+          format: date-time
+    PriceCreate:
+      type: object
+      required:
+        - name
+        - item_id
+        - cadence
+        - currency
+        - model_type
+      properties:
+        name:
+          type: string
+        item_id:
+          type: string
+        cadence:
+          type: string
+          enum:
+            - one_time
+            - monthly
+            - quarterly
+            - semi_annual
+            - annual
+        currency:
+          type: string
+        model_type:
+          type: string
+          enum:
+            - unit
+            - tiered
+            - package
+            - matrix
+            - bulk
+        billable_metric_id:
+          type: string
+        unit_config:
+          type: object
+          properties:
+            unit_amount:
+              type: string
+        external_price_id:
+          type: string
+    PriceList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    Item:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        external_connections:
+          type: array
+          items:
+            type: object
+            properties:
+              external_connection_name:
+                type: string
+              external_entity_id:
+                type: string
+        created_at:
+          type: string
+          format: date-time
+    ItemList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    Coupon:
+      type: object
+      properties:
+        id:
+          type: string
+        redemption_code:
+          type: string
+        discount:
+          type: object
+          properties:
+            discount_type:
+              type: string
+              enum:
+                - percentage
+                - amount
+            percentage_discount:
+              type: number
+              nullable: true
+            amount_discount:
+              type: string
+              nullable: true
+        times_redeemed:
+          type: integer
+        max_redemptions:
+          type: integer
+          nullable: true
+        duration_in_months:
+          type: integer
+          nullable: true
+        archived_at:
+          type: string
+          format: date-time
+          nullable: true
+    CouponCreate:
+      type: object
+      required:
+        - redemption_code
+        - discount
+      properties:
+        redemption_code:
+          type: string
+        discount:
+          type: object
+          required:
+            - discount_type
+          properties:
+            discount_type:
+              type: string
+              enum:
+                - percentage
+                - amount
+            percentage_discount:
+              type: number
+            amount_discount:
+              type: string
+        max_redemptions:
+          type: integer
+        duration_in_months:
+          type: integer
+    CouponList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coupon'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    Alert:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+            - usage_exceeded
+            - cost_exceeded
+            - credit_balance_depleted
+            - credit_balance_dropped
+            - credit_balance_recovered
+        enabled:
+          type: boolean
+        customer:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: string
+            external_customer_id:
+              type: string
+        subscription:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: string
+        currency:
+          type: string
+          nullable: true
+        thresholds:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+        created_at:
+          type: string
+          format: date-time
+    AlertCreate:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+          enum:
+            - usage_exceeded
+            - cost_exceeded
+            - credit_balance_depleted
+            - credit_balance_dropped
+            - credit_balance_recovered
+        customer_id:
+          type: string
+        external_customer_id:
+          type: string
+        subscription_id:
+          type: string
+        currency:
+          type: string
+        thresholds:
+          type: array
+          items:
+            type: object
+            required:
+              - value
+            properties:
+              value:
+                type: number
+    AlertList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alert'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'

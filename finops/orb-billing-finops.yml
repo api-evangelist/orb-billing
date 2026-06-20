@@ -1,0 +1,132 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Orb
+providerId: orb-billing
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Billing
+- Usage-Based Billing
+- Metering
+- Subscriptions
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of the Orb usage-based billing platform. Two cost lenses apply.
+  First, Orb's own platform cost is sales-led: a platform subscription fee plus
+  usage-based components tied to billed revenue and/or ingested event volume,
+  invoiced by Orb. Second, and more operationally relevant, Orb is itself the
+  metering and billing engine teams use to meter, price, and invoice THEIR own
+  customers - so the Orb API (events, metrics, prices, subscriptions, invoices,
+  credits, costs endpoints) is a primary source of FOCUS-aligned usage and cost
+  data for the businesses that run on it. Orb exposes per-customer and
+  per-subscription cost breakdowns and a credit ledger that map cleanly onto
+  FinOps visibility and allocation practices.
+notes: >-
+  Reconciled is false: Orb's platform pricing is not published, so the spend
+  side is approximate. The meters below describe the billable dimensions Orb
+  tracks and exposes via its API; verify exact platform-fee terms with Orb.
+sources:
+- https://www.withorb.com/pricing
+- https://docs.withorb.com
+- https://docs.withorb.com/api-reference/customer/fetch-customer-costs
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Orb
+serviceCategory: Billing and Revenue Operations
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Credit
+  - Adjustment
+focusColumns:
+  ServiceName: Orb
+  ServiceCategory: Billing and Revenue Operations
+  ProviderName: Orb
+  PublisherName: Orb
+  InvoiceIssuerName: Orb
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: ingested_events
+  description: Raw usage events ingested via POST /ingest, the metering pipeline's input volume.
+  unit: events
+  aggregation: sum
+  dimensions:
+  - account
+  - customer
+  - event_name
+- name: billable_metric_quantity
+  description: Quantities aggregated from events by billable metrics that prices charge against.
+  unit: units
+  aggregation: sum
+  dimensions:
+  - account
+  - customer
+  - metric
+- name: subscription_charges
+  description: Charges accrued against active subscriptions into draft invoices per billing period.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+  - customer
+  - subscription
+  - plan
+- name: invoiced_amount
+  description: Amounts issued on invoices, including usage, fixed fees, and one-off line items.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+  - customer
+  - invoice
+- name: credits_granted
+  description: Prepaid credits added to customer ledgers via ledger entries and top-ups.
+  unit: credits
+  aggregation: sum
+  dimensions:
+  - account
+  - customer
+  - credit_block
+- name: credits_consumed
+  description: Credits decremented from customer ledgers as usage is billed.
+  unit: credits
+  aggregation: sum
+  dimensions:
+  - account
+  - customer
+  - credit_block
+- name: customer_cost
+  description: Per-customer and per-subscription cost breakdown surfaced by the costs endpoints.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+  - customer
+  - subscription
+principles:
+- name: Visibility
+  description: Use /customers/{id}/costs, /subscriptions/{id}/costs, and the credit ledger to see real-time accrued spend per customer and subscription.
+- name: Allocation
+  description: Tag customers and subscriptions with metadata and external IDs to map billed usage to teams, plans, and cost centers.
+- name: Optimization
+  description: Model prepaid credits, minimums, and tiered/package prices to align customer billing with consumption; alert on usage and cost thresholds.
+- name: Accountability
+  description: Configure usage, cost, and credit-balance alerts plus webhooks so owners react to spend events; reconcile invoices against ingested events.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

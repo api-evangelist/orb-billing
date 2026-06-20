@@ -1,0 +1,299 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orb API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List customers", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/customers"
+          },
+          "docs": "Returns a paginated list of customers, ordered by descending creation time."
+        },
+        {
+          "info": { "name": "Create customer", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/customers",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"Acme, Inc.\",\n  \"email\": \"billing@acme.com\",\n  \"external_customer_id\": \"acme-001\",\n  \"currency\": \"USD\"\n}"
+            }
+          },
+          "docs": "Creates a new customer, optionally with an external_customer_id alias."
+        },
+        {
+          "info": { "name": "Fetch customer", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/customers/:customer_id"
+          },
+          "docs": "Fetches a single customer by Orb ID."
+        },
+        {
+          "info": { "name": "Fetch customer costs", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/customers/:customer_id/costs"
+          },
+          "docs": "Returns the cost breakdown for a customer over a time range."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List plans", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/plans"
+          },
+          "docs": "Returns a paginated list of plans."
+        },
+        {
+          "info": { "name": "Create plan", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/plans",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"Standard\",\n  \"currency\": \"USD\",\n  \"external_plan_id\": \"standard-v1\"\n}"
+            }
+          },
+          "docs": "Creates a plan that bundles one or more prices."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Create subscription", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"external_customer_id\": \"acme-001\",\n  \"external_plan_id\": \"standard-v1\"\n}"
+            }
+          },
+          "docs": "Associates a customer with a plan, starting accrual of usage charges."
+        },
+        {
+          "info": { "name": "Fetch subscription usage", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/subscriptions/:subscription_id/usage"
+          },
+          "docs": "Returns usage quantities for the subscription's billable metrics."
+        },
+        {
+          "info": { "name": "Cancel subscription", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/subscriptions/:subscription_id/cancel",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"cancel_option\": \"end_of_subscription_term\"\n}"
+            }
+          },
+          "docs": "Cancels a subscription at term end, immediately, or on a requested date."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Ingest events", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/ingest",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"events\": [\n    {\n      \"event_name\": \"api_request\",\n      \"timestamp\": \"2026-06-20T16:09:53Z\",\n      \"idempotency_key\": \"req-9f3c2a\",\n      \"external_customer_id\": \"acme-001\",\n      \"properties\": { \"region\": \"us-east-1\", \"count\": 1 }\n    }\n  ]\n}"
+            }
+          },
+          "docs": "Ingests a batch of idempotent, timestamped usage events into the metering pipeline."
+        },
+        {
+          "info": { "name": "Get event volume", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/events/volume"
+          },
+          "docs": "Returns counts of ingested events bucketed over a timeframe."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Create metric", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/metrics",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"API Requests\",\n  \"sql\": \"SELECT count(*) FROM events WHERE event_name = 'api_request'\",\n  \"item_id\": \"item_123\"\n}"
+            }
+          },
+          "docs": "Creates a billable metric defined by a SQL expression over events."
+        },
+        {
+          "info": { "name": "List metrics", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/metrics"
+          },
+          "docs": "Returns a paginated list of billable metrics."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Invoices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List invoices", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/invoices"
+          },
+          "docs": "Returns a paginated list of invoices filterable by customer, subscription, and status."
+        },
+        {
+          "info": { "name": "Issue invoice", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/invoices/:invoice_id/issue"
+          },
+          "docs": "Transitions a draft invoice to issued, triggering payment collection."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Credits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Fetch customer credit balance", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/customers/:customer_id/credits"
+          },
+          "docs": "Returns the unexpired, available credit blocks for a customer."
+        },
+        {
+          "info": { "name": "Create ledger entry", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/customers/:customer_id/credits/ledger_entries",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"entry_type\": \"increment\",\n  \"amount\": 100,\n  \"currency\": \"USD\",\n  \"description\": \"Monthly credit grant\"\n}"
+            }
+          },
+          "docs": "Adds, sets expiry, voids, or amends credits on a customer's ledger."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Prices & Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Create price", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/prices",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"Per API Request\",\n  \"item_id\": \"item_123\",\n  \"cadence\": \"monthly\",\n  \"currency\": \"USD\",\n  \"model_type\": \"unit\",\n  \"unit_config\": { \"unit_amount\": \"0.001\" }\n}"
+            }
+          },
+          "docs": "Creates a unit, tiered, package, matrix, or bulk price."
+        },
+        {
+          "info": { "name": "Create item", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/items",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"API Requests\"\n}"
+            }
+          },
+          "docs": "Creates an item that prices and invoice line items reference."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Alerts & Coupons",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Create alert", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/alerts",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"type\": \"cost_exceeded\",\n  \"external_customer_id\": \"acme-001\",\n  \"currency\": \"USD\",\n  \"thresholds\": [{ \"value\": 1000 }]\n}"
+            }
+          },
+          "docs": "Creates a usage, cost, or credit-balance alert on a customer or subscription."
+        },
+        {
+          "info": { "name": "Create coupon", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/coupons",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"redemption_code\": \"LAUNCH20\",\n  \"discount\": { \"discount_type\": \"percentage\", \"percentage_discount\": 20 },\n  \"duration_in_months\": 3\n}"
+            }
+          },
+          "docs": "Creates a coupon that grants a percentage or amount discount on subscriptions."
+        }
+      ]
+    }
+  ]
+}

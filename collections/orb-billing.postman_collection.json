@@ -1,0 +1,522 @@
+{
+  "item": [
+    {
+      "id": "f1a0c001-0001-4001-8001-000000000001",
+      "name": "Customers",
+      "description": {
+        "content": "Create, fetch, update, list, and delete customers and read costs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f1a0c001-0002-4001-8001-000000000002",
+          "name": "List customers",
+          "request": {
+            "name": "List customers",
+            "url": {
+              "path": ["customers"],
+              "host": ["{{baseUrl}}"],
+              "query": [
+                { "key": "cursor", "value": "" },
+                { "key": "limit", "value": "20" }
+              ],
+              "variable": []
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET",
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0003-4001-8001-000000000003",
+          "name": "Create customer",
+          "request": {
+            "name": "Create customer",
+            "url": {
+              "path": ["customers"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Acme, Inc.\",\n  \"email\": \"billing@acme.com\",\n  \"external_customer_id\": \"acme-001\",\n  \"currency\": \"USD\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0004-4001-8001-000000000004",
+          "name": "Fetch customer",
+          "request": {
+            "name": "Fetch customer",
+            "url": {
+              "path": ["customers", ":customer_id"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [{ "key": "customer_id", "value": "" }]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET",
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0005-4001-8001-000000000005",
+          "name": "Fetch customer costs",
+          "request": {
+            "name": "Fetch customer costs",
+            "url": {
+              "path": ["customers", ":customer_id", "costs"],
+              "host": ["{{baseUrl}}"],
+              "query": [
+                { "key": "timeframe_start", "value": "" },
+                { "key": "timeframe_end", "value": "" }
+              ],
+              "variable": [{ "key": "customer_id", "value": "" }]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET",
+            "auth": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "f1a0c001-0010-4001-8001-000000000010",
+      "name": "Plans",
+      "description": {
+        "content": "Create, fetch, and list plans that bundle prices.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f1a0c001-0011-4001-8001-000000000011",
+          "name": "List plans",
+          "request": {
+            "name": "List plans",
+            "url": {
+              "path": ["plans"],
+              "host": ["{{baseUrl}}"],
+              "query": [{ "key": "limit", "value": "20" }],
+              "variable": []
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET",
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0012-4001-8001-000000000012",
+          "name": "Create plan",
+          "request": {
+            "name": "Create plan",
+            "url": {
+              "path": ["plans"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Standard\",\n  \"currency\": \"USD\",\n  \"external_plan_id\": \"standard-v1\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "auth": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "f1a0c001-0020-4001-8001-000000000020",
+      "name": "Subscriptions",
+      "description": {
+        "content": "Create, fetch, list, cancel subscriptions and read usage.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f1a0c001-0021-4001-8001-000000000021",
+          "name": "Create subscription",
+          "request": {
+            "name": "Create subscription",
+            "url": {
+              "path": ["subscriptions"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"external_customer_id\": \"acme-001\",\n  \"external_plan_id\": \"standard-v1\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0022-4001-8001-000000000022",
+          "name": "Fetch subscription usage",
+          "request": {
+            "name": "Fetch subscription usage",
+            "url": {
+              "path": ["subscriptions", ":subscription_id", "usage"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [{ "key": "subscription_id", "value": "" }]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET",
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0023-4001-8001-000000000023",
+          "name": "Cancel subscription",
+          "request": {
+            "name": "Cancel subscription",
+            "url": {
+              "path": ["subscriptions", ":subscription_id", "cancel"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [{ "key": "subscription_id", "value": "" }]
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cancel_option\": \"end_of_subscription_term\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "auth": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "f1a0c001-0030-4001-8001-000000000030",
+      "name": "Events",
+      "description": {
+        "content": "Ingest, amend, search, and inspect usage events.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f1a0c001-0031-4001-8001-000000000031",
+          "name": "Ingest events",
+          "request": {
+            "name": "Ingest events",
+            "url": {
+              "path": ["ingest"],
+              "host": ["{{baseUrl}}"],
+              "query": [{ "key": "debug", "value": "false" }],
+              "variable": []
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"events\": [\n    {\n      \"event_name\": \"api_request\",\n      \"timestamp\": \"2026-06-20T16:09:53Z\",\n      \"idempotency_key\": \"req-9f3c2a\",\n      \"external_customer_id\": \"acme-001\",\n      \"properties\": {\n        \"region\": \"us-east-1\",\n        \"count\": 1\n      }\n    }\n  ]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0032-4001-8001-000000000032",
+          "name": "Get event volume",
+          "request": {
+            "name": "Get event volume",
+            "url": {
+              "path": ["events", "volume"],
+              "host": ["{{baseUrl}}"],
+              "query": [
+                { "key": "timeframe_start", "value": "" },
+                { "key": "timeframe_end", "value": "" }
+              ],
+              "variable": []
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET",
+            "auth": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "f1a0c001-0040-4001-8001-000000000040",
+      "name": "Metrics",
+      "description": {
+        "content": "Create, fetch, and list billable metrics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f1a0c001-0041-4001-8001-000000000041",
+          "name": "Create metric",
+          "request": {
+            "name": "Create metric",
+            "url": {
+              "path": ["metrics"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"API Requests\",\n  \"sql\": \"SELECT count(*) FROM events WHERE event_name = 'api_request'\",\n  \"item_id\": \"item_123\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0042-4001-8001-000000000042",
+          "name": "List metrics",
+          "request": {
+            "name": "List metrics",
+            "url": {
+              "path": ["metrics"],
+              "host": ["{{baseUrl}}"],
+              "query": [{ "key": "limit", "value": "20" }],
+              "variable": []
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET",
+            "auth": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "f1a0c001-0050-4001-8001-000000000050",
+      "name": "Invoices",
+      "description": {
+        "content": "Create, fetch, list, issue, and void invoices.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f1a0c001-0051-4001-8001-000000000051",
+          "name": "List invoices",
+          "request": {
+            "name": "List invoices",
+            "url": {
+              "path": ["invoices"],
+              "host": ["{{baseUrl}}"],
+              "query": [
+                { "key": "status", "value": "issued" },
+                { "key": "limit", "value": "20" }
+              ],
+              "variable": []
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET",
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0052-4001-8001-000000000052",
+          "name": "Issue invoice",
+          "request": {
+            "name": "Issue invoice",
+            "url": {
+              "path": ["invoices", ":invoice_id", "issue"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [{ "key": "invoice_id", "value": "" }]
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "auth": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "f1a0c001-0060-4001-8001-000000000060",
+      "name": "Credits",
+      "description": {
+        "content": "Fetch credit balances and ledger, create ledger entries and top-ups.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f1a0c001-0061-4001-8001-000000000061",
+          "name": "Fetch customer credit balance",
+          "request": {
+            "name": "Fetch customer credit balance",
+            "url": {
+              "path": ["customers", ":customer_id", "credits"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [{ "key": "customer_id", "value": "" }]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET",
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0062-4001-8001-000000000062",
+          "name": "Create ledger entry",
+          "request": {
+            "name": "Create ledger entry",
+            "url": {
+              "path": ["customers", ":customer_id", "credits", "ledger_entries"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": [{ "key": "customer_id", "value": "" }]
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entry_type\": \"increment\",\n  \"amount\": 100,\n  \"currency\": \"USD\",\n  \"description\": \"Monthly credit grant\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "auth": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "f1a0c001-0070-4001-8001-000000000070",
+      "name": "Prices & Items",
+      "description": {
+        "content": "Create and list prices and items, evaluate prices.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f1a0c001-0071-4001-8001-000000000071",
+          "name": "Create price",
+          "request": {
+            "name": "Create price",
+            "url": {
+              "path": ["prices"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Per API Request\",\n  \"item_id\": \"item_123\",\n  \"cadence\": \"monthly\",\n  \"currency\": \"USD\",\n  \"model_type\": \"unit\",\n  \"unit_config\": { \"unit_amount\": \"0.001\" }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0072-4001-8001-000000000072",
+          "name": "Create item",
+          "request": {
+            "name": "Create item",
+            "url": {
+              "path": ["items"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"API Requests\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "auth": null
+          }
+        }
+      ]
+    },
+    {
+      "id": "f1a0c001-0080-4001-8001-000000000080",
+      "name": "Alerts & Coupons",
+      "description": {
+        "content": "Create and manage usage, cost, and credit alerts and coupons.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f1a0c001-0081-4001-8001-000000000081",
+          "name": "Create alert",
+          "request": {
+            "name": "Create alert",
+            "url": {
+              "path": ["alerts"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"cost_exceeded\",\n  \"external_customer_id\": \"acme-001\",\n  \"currency\": \"USD\",\n  \"thresholds\": [{ \"value\": 1000 }]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "auth": null
+          }
+        },
+        {
+          "id": "f1a0c001-0082-4001-8001-000000000082",
+          "name": "Create coupon",
+          "request": {
+            "name": "Create coupon",
+            "url": {
+              "path": ["coupons"],
+              "host": ["{{baseUrl}}"],
+              "query": [],
+              "variable": []
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"redemption_code\": \"LAUNCH20\",\n  \"discount\": { \"discount_type\": \"percentage\", \"percentage_discount\": 20 },\n  \"duration_in_months\": 3\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "auth": null
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.withorb.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f1a0c001-0000-4001-8001-000000000000",
+    "name": "Orb API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Orb usage-based billing and metering platform REST API. Base URL https://api.withorb.com/v1 with Bearer API key auth.\n\nContact Support:\n Name: Orb Support\n Email: team@withorb.com",
+      "type": "text/plain"
+    }
+  }
+}

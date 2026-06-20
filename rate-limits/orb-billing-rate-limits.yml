@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Orb
+providerId: orb-billing
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Billing
+- Usage-Based Billing
+- Metering
+- Subscriptions
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Orb does not publish a hard, numeric rate limit for production API usage or a
+  maximum request payload size; the docs instead ask customers to notify Orb
+  before changing request volume or payload size by an order of magnitude from
+  initial setup. The event ingestion path (POST /ingest) is the primary
+  high-throughput surface and supports batched events per request. Test-mode
+  event ingestion is constrained (documented around 2,000 events/minute and
+  ~10 requests/second). When limits are exceeded the API returns HTTP 429 Too
+  Many Requests, and Orb recommends retrying with exponential backoff. Specific
+  production per-endpoint values are not reconciled in this artifact.
+notes: >-
+  Verify current ingestion throughput guidance and any account-specific limits
+  with Orb during reconciliation; production limits are soft and coordinated
+  with Orb rather than published as fixed numbers.
+sources:
+- https://docs.withorb.com/api-reference/rate-limits
+- https://docs.withorb.com/events-and-metrics/event-ingestion
+- https://docs.withorb.com/api-reference
+responseCodes:
+  throttled: 429
+limits:
+- name: Production API
+  scope: account
+  metric: requests
+  limit: no hard published limit
+  notes: Orb asks for a heads-up before changing volume by an order of magnitude; no fixed numeric cap is documented.
+- name: Event Ingestion (production)
+  scope: account
+  metric: events
+  limit: batched, coordinate high volume with Orb
+  notes: POST /ingest accepts batched events; high-throughput ingestion is supported and coordinated with Orb.
+- name: Event Ingestion (test mode)
+  scope: account
+  metric: events
+  limit: ~2000 events/minute, ~10 requests/second
+  notes: Test-mode ingestion is rate limited; production ingestion is not capped at these values.
+- name: Request Payload Size
+  scope: request
+  metric: bytes
+  limit: no hard published limit
+  notes: No fixed maximum payload size documented; notify Orb before large changes.
+policies:
+- name: Backoff Strategy
+  description: On HTTP 429, retry the request with exponential backoff.
+- name: Idempotency
+  description: Mutating requests and event ingestion support idempotency keys so retries are safe and de-duplicated.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

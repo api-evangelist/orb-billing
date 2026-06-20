@@ -1,0 +1,243 @@
+aid: orb-billing
+url: https://raw.githubusercontent.com/api-evangelist/orb-billing/refs/heads/main/apis.yml
+name: Orb
+kind: company
+description: Orb is a usage-based billing and metering platform that turns product
+  usage events into subscriptions, prices, invoices, and credits. The Orb REST API
+  ingests metered events, models customers, plans, prices, and items, runs subscriptions,
+  and automates invoicing, credit ledgers, alerts, and webhooks for modern revenue
+  teams.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Billing
+- Usage-Based Billing
+- Metering
+- Subscriptions
+- Invoicing
+- FinOps
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: orb-billing:orb-customers-api
+  name: Orb Customers API
+  tags:
+  - Customers
+  - Accounts
+  - Portal
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withorb.com/api-reference/customer
+  baseURL: https://api.withorb.com/v1
+  properties:
+  - url: https://docs.withorb.com/core-concepts/customers
+    type: Documentation
+  - url: https://docs.withorb.com/api-reference/customer
+    type: APIReference
+  - url: openapi/orb-billing-openapi.yml
+    type: OpenAPI
+  - url: collections/orb-billing.postman_collection.json
+    type: PostmanCollection
+  description: Create, fetch, update, list, and delete customers by Orb ID or external
+    ID, manage balance transactions, costs, payment methods, and hosted portal
+    sessions.
+- aid: orb-billing:orb-plans-api
+  name: Orb Plans API
+  tags:
+  - Plans
+  - Pricing
+  - Versions
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withorb.com/api-reference/plan
+  baseURL: https://api.withorb.com/v1
+  properties:
+  - url: https://docs.withorb.com/core-concepts/plans-and-prices
+    type: Documentation
+  - url: https://docs.withorb.com/api-reference/plan
+    type: APIReference
+  - url: openapi/orb-billing-openapi.yml
+    type: OpenAPI
+  - url: collections/orb-billing.postman_collection.json
+    type: PostmanCollection
+  description: Define and version plans that bundle prices, with create, fetch, list,
+    update, version, and migration operations addressable by Orb ID or external plan
+    ID.
+- aid: orb-billing:orb-subscriptions-api
+  name: Orb Subscriptions API
+  tags:
+  - Subscriptions
+  - Lifecycle
+  - Schedules
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withorb.com/api-reference/subscription
+  baseURL: https://api.withorb.com/v1
+  properties:
+  - url: https://docs.withorb.com/core-concepts/subscriptions
+    type: Documentation
+  - url: https://docs.withorb.com/api-reference/subscription
+    type: APIReference
+  - url: openapi/orb-billing-openapi.yml
+    type: OpenAPI
+  - url: collections/orb-billing.postman_collection.json
+    type: PostmanCollection
+  description: Create, fetch, list, update, and cancel subscriptions, schedule and
+    unschedule plan changes, redeem coupons, adjust price intervals and quantities,
+    and read subscription usage, costs, and schedules.
+- aid: orb-billing:orb-events-api
+  name: Orb Events & Ingestion API
+  tags:
+  - Events
+  - Ingestion
+  - Metering
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withorb.com/api-reference/event
+  baseURL: https://api.withorb.com/v1
+  properties:
+  - url: https://docs.withorb.com/events-and-metrics/event-ingestion
+    type: Documentation
+  - url: https://docs.withorb.com/api-reference/event
+    type: APIReference
+  - url: openapi/orb-billing-openapi.yml
+    type: OpenAPI
+  - url: collections/orb-billing.postman_collection.json
+    type: PostmanCollection
+  description: Ingest timestamped, idempotent usage events into Orb's metering pipeline,
+    then amend, deprecate, search, backfill, and inspect event volume that feeds
+    billable metrics.
+- aid: orb-billing:orb-metrics-api
+  name: Orb Metrics API
+  tags:
+  - Metrics
+  - Billable Metrics
+  - Usage
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withorb.com/api-reference/metrics
+  baseURL: https://api.withorb.com/v1
+  properties:
+  - url: https://docs.withorb.com/events-and-metrics/metrics
+    type: Documentation
+  - url: https://docs.withorb.com/api-reference/metrics
+    type: APIReference
+  - url: openapi/orb-billing-openapi.yml
+    type: OpenAPI
+  - url: collections/orb-billing.postman_collection.json
+    type: PostmanCollection
+  description: Create, fetch, list, and update billable metrics that aggregate raw
+    events into quantities prices can charge against.
+- aid: orb-billing:orb-invoices-api
+  name: Orb Invoices API
+  tags:
+  - Invoices
+  - Billing
+  - Line Items
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withorb.com/api-reference/invoice
+  baseURL: https://api.withorb.com/v1
+  properties:
+  - url: https://docs.withorb.com/invoicing/structure
+    type: Documentation
+  - url: https://docs.withorb.com/api-reference/invoice
+    type: APIReference
+  - url: openapi/orb-billing-openapi.yml
+    type: OpenAPI
+  - url: collections/orb-billing.postman_collection.json
+    type: PostmanCollection
+  description: Create one-off invoices, manage line items, fetch upcoming and issued
+    invoices, issue, pay, mark as paid, void, and regenerate invoice and receipt
+    PDFs.
+- aid: orb-billing:orb-credits-ledger-api
+  name: Orb Credits & Ledger API
+  tags:
+  - Credits
+  - Ledger
+  - Prepaid
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withorb.com/api-reference/credit
+  baseURL: https://api.withorb.com/v1
+  properties:
+  - url: https://docs.withorb.com/product-catalog/prepaid-credits
+    type: Documentation
+  - url: https://docs.withorb.com/api-reference/credit
+    type: APIReference
+  - url: openapi/orb-billing-openapi.yml
+    type: OpenAPI
+  - url: collections/orb-billing.postman_collection.json
+    type: PostmanCollection
+  description: Track and adjust customer credit balances through ledger entries, top-ups,
+    credit blocks, and credit notes, addressable by Orb ID or external customer ID.
+- aid: orb-billing:orb-prices-items-api
+  name: Orb Prices & Items API
+  tags:
+  - Prices
+  - Items
+  - Catalog
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withorb.com/api-reference/price
+  baseURL: https://api.withorb.com/v1
+  properties:
+  - url: https://docs.withorb.com/core-concepts/plans-and-prices
+    type: Documentation
+  - url: https://docs.withorb.com/api-reference/price
+    type: APIReference
+  - url: openapi/orb-billing-openapi.yml
+    type: OpenAPI
+  - url: collections/orb-billing.postman_collection.json
+    type: PostmanCollection
+  description: Define unit, tiered, package, matrix, and other price models, evaluate
+    prices against events, and manage the items that prices and invoice line items
+    reference.
+- aid: orb-billing:orb-alerts-coupons-api
+  name: Orb Alerts & Coupons API
+  tags:
+  - Alerts
+  - Coupons
+  - Discounts
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withorb.com/api-reference/alert
+  baseURL: https://api.withorb.com/v1
+  properties:
+  - url: https://docs.withorb.com/guides/product-catalog/coupons
+    type: Documentation
+  - url: https://docs.withorb.com/api-reference/alert
+    type: APIReference
+  - url: openapi/orb-billing-openapi.yml
+    type: OpenAPI
+  - url: collections/orb-billing.postman_collection.json
+    type: PostmanCollection
+  description: Configure usage, cost, and credit-balance alerts on customers and
+    subscriptions, and create, fetch, list, and archive coupons that grant discounts
+    on subscriptions.
+- aid: orb-billing:orb-webhooks-api
+  name: Orb Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+  baseURL: https://api.withorb.com/v1
+  properties:
+  - url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+    type: Documentation
+  - url: openapi/orb-billing-openapi.yml
+    type: OpenAPI
+  description: At-least-once outbound webhooks for customer, subscription, invoice,
+    credit note, and alert lifecycle events, signed with an HMAC-SHA256 X-Orb-Signature
+    header and X-Orb-Timestamp for replay protection.
+common:
+- type: GitHubOrganization
+  url: https://github.com/orbcorp
+- type: LinkedIn
+  url: https://www.linkedin.com/company/withorb
+- type: Website
+  url: https://www.withorb.com
+- type: Documentation
+  url: https://docs.withorb.com
+- type: Plans
+  url: plans/orb-billing-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/orb-billing-rate-limits.yml
+- type: FinOps
+  url: finops/orb-billing-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

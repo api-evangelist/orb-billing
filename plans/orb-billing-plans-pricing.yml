@@ -1,0 +1,99 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Orb
+providerId: orb-billing
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Billing
+- Usage-Based Billing
+- Metering
+- Subscriptions
+- Invoicing
+- Plans
+description: >-
+  Orb is sold through a sales-led, platform-fee model and does not publish a
+  fully public self-serve price card. Pricing for the Orb billing and metering
+  platform is quoted via Orb sales and is generally structured as a platform
+  subscription fee plus usage components tied to billed revenue and/or
+  ingested event volume. Orb advertises tiered packaging (a growth/standard
+  tier for scaling companies and an enterprise tier with advanced controls,
+  SSO, audit logging, and premium support) but list prices are not disclosed
+  publicly. Note: the "plans", "prices", and "subscriptions" Orb exposes via
+  its API are the constructs Orb's own customers use to bill THEIR end users -
+  they are not Orb's price for the Orb platform itself.
+notes: >-
+  Reconciled is false because Orb's own platform pricing is sales-led with no
+  published price card. Contact Orb sales for current platform-fee and usage
+  terms. The plan entries below describe Orb's commercial packaging at a high
+  level, not exact figures.
+sources:
+- https://www.withorb.com/pricing
+- https://www.withorb.com
+- https://docs.withorb.com
+plans:
+- id: orb-growth
+  name: Growth
+  type: subscription
+  description: >-
+    Self-serve / scaling tier for companies adopting usage-based billing,
+    bundling the metering pipeline, subscriptions, invoicing, and credits
+    with usage-based platform fees. Pricing quoted by Orb sales.
+  entries:
+  - label: Platform Fee
+    name: platform_fee
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  - label: Billed Revenue / Usage Component
+    name: usage_component
+    type: usage
+    metric: billed_revenue
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales (usage-based on billed revenue / event volume)
+    userMultiplied: false
+  elements:
+  - name: Event Ingestion & Metering
+  - name: Customers & Subscriptions
+  - name: Plans, Prices & Items
+  - name: Invoicing
+  - name: Credits & Ledger
+  - name: Alerts & Webhooks
+- id: orb-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Enterprise tier with advanced revenue controls, high-volume metering,
+    SSO/SAML, audit logging, role-based access, accounting syncs
+    (NetSuite, QuickBooks), premium support, and negotiated commercial
+    terms. Contact Orb sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: High-Volume Metering
+  - name: SSO / SAML & RBAC
+  - name: Audit Logging
+  - name: Accounting Syncs (NetSuite, QuickBooks)
+  - name: Premium Support & SLAs
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
