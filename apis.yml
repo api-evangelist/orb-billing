@@ -224,6 +224,14 @@ apis:
     credit note, and alert lifecycle events, signed with an HMAC-SHA256 X-Orb-Signature
     header and X-Orb-Timestamp for replay protection.
 common:
+- type: TrustCenter
+  url: security/orb-billing-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/orb-billing-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/orb-billing-domain-security.yml
+- type: Authentication
+  url: authentication/orb-billing-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/orbcorp
 - type: LinkedIn

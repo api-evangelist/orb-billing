@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/orb-billing-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'Authenticate with an Orb API key sent as a Bearer token in the Authorization
+    header: `Authorization: Bearer <ORB_API_KEY>`.'
+  sources:
+  - openapi/orb-billing-openapi.yml
