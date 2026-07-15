@@ -224,6 +224,8 @@ apis:
     credit note, and alert lifecycle events, signed with an HMAC-SHA256 X-Orb-Signature
     header and X-Orb-Timestamp for replay protection.
 common:
+- type: AgenticAccess
+  url: agentic-access/orb-billing-agentic-access.yml
 - type: TrustCenter
   url: security/orb-billing-trust-center.yml
 - type: VulnerabilityDisclosure
