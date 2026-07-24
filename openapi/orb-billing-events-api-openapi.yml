@@ -1,0 +1,288 @@
+openapi: 3.1.0
+info:
+  title: Orb Alerts Events API
+  description: Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.
+  termsOfService: https://www.withorb.com/legal/terms-of-service
+  contact:
+    name: Orb Support
+    url: https://www.withorb.com
+    email: team@withorb.com
+  version: '1.0'
+servers:
+- url: https://api.withorb.com/v1
+  description: Orb production API
+security:
+- bearerAuth: []
+tags:
+- name: Events
+paths:
+  /ingest:
+    post:
+      operationId: ingestEvents
+      tags:
+      - Events
+      summary: Ingest events
+      description: Ingests a batch of usage events into Orb's metering pipeline. Each event is idempotent via its idempotency_key and must reference exactly one of customer_id or external_customer_id. Pass debug=true to receive a per-event accept/duplicate breakdown in the response.
+      parameters:
+      - name: debug
+        in: query
+        description: When true, returns a debug breakdown of processed and ignored events.
+        schema:
+          type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestRequest'
+      responses:
+        '200':
+          description: The ingestion result, including any events that failed validation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngestResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /events/{event_id}/amend:
+    parameters:
+    - name: event_id
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      operationId: amendEvent
+      tags:
+      - Events
+      summary: Amend event
+      description: Replaces the properties of a previously ingested event.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventAmend'
+      responses:
+        '200':
+          description: The amended event reference.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amended:
+                    type: string
+                    description: The idempotency key of the amended event.
+  /events/search:
+    post:
+      operationId: searchEvents
+      tags:
+      - Events
+      summary: Search events
+      description: Searches raw ingested events by event_ids or timeframe.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                event_ids:
+                  type: array
+                  items:
+                    type: string
+                timeframe_start:
+                  type: string
+                  format: date-time
+                timeframe_end:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: Matching events.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Event'
+  /events/volume:
+    get:
+      operationId: getEventVolume
+      tags:
+      - Events
+      summary: Get event volume
+      description: Returns counts of ingested events bucketed over a timeframe.
+      parameters:
+      - name: timeframe_start
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+      - name: timeframe_end
+        in: query
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: Event volume buckets.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        timeframe_start:
+                          type: string
+                          format: date-time
+                        timeframe_end:
+                          type: string
+                          format: date-time
+                        count:
+                          type: integer
+components:
+  schemas:
+    EventAmend:
+      type: object
+      required:
+      - event_name
+      - timestamp
+      - properties
+      properties:
+        event_name:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        customer_id:
+          type: string
+        external_customer_id:
+          type: string
+        properties:
+          type: object
+          additionalProperties: true
+    EventInput:
+      type: object
+      required:
+      - event_name
+      - timestamp
+      - idempotency_key
+      - properties
+      properties:
+        event_name:
+          type: string
+          description: A name that meaningfully identifies the action or event type.
+        timestamp:
+          type: string
+          format: date-time
+          description: An ISO 8601 UTC timestamp with no timezone offset.
+        idempotency_key:
+          type: string
+          description: A client-generated unique value used to de-duplicate events.
+        customer_id:
+          type: string
+          description: The Orb-generated customer identifier. Exactly one of customer_id or external_customer_id is required.
+        external_customer_id:
+          type: string
+          description: The external customer alias. Exactly one of customer_id or external_customer_id is required.
+        properties:
+          type: object
+          description: Custom properties whose values must be numeric, boolean, or string.
+          additionalProperties: true
+    IngestRequest:
+      type: object
+      required:
+      - events
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventInput'
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+    IngestResponse:
+      type: object
+      properties:
+        validation_failed:
+          type: array
+          description: Events that failed validation, keyed by idempotency_key.
+          items:
+            type: object
+            properties:
+              idempotency_key:
+                type: string
+              validation_errors:
+                type: array
+                items:
+                  type: string
+        debug:
+          type: object
+          nullable: true
+          description: Present only when debug=true; lists ingested and duplicate idempotency keys.
+          properties:
+            duplicate:
+              type: array
+              items:
+                type: string
+            ingested:
+              type: array
+              items:
+                type: string
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        event_name:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        customer_id:
+          type: string
+          nullable: true
+        external_customer_id:
+          type: string
+          nullable: true
+        properties:
+          type: object
+          additionalProperties: true
+  responses:
+    Unauthorized:
+      description: The API key was missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with an Orb API key sent as a Bearer token in the Authorization header: `Authorization: Bearer <ORB_API_KEY>`.'

@@ -1,0 +1,134 @@
+openapi: 3.1.0
+info:
+  title: Orb Alerts Items API
+  description: Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.
+  termsOfService: https://www.withorb.com/legal/terms-of-service
+  contact:
+    name: Orb Support
+    url: https://www.withorb.com
+    email: team@withorb.com
+  version: '1.0'
+servers:
+- url: https://api.withorb.com/v1
+  description: Orb production API
+security:
+- bearerAuth: []
+tags:
+- name: Items
+paths:
+  /items:
+    get:
+      operationId: listItems
+      tags:
+      - Items
+      summary: List items
+      parameters:
+      - $ref: '#/components/parameters/Cursor'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of items.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+    post:
+      operationId: createItem
+      tags:
+      - Items
+      summary: Create item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: The newly created item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+  /items/{item_id}:
+    parameters:
+    - name: item_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: fetchItem
+      tags:
+      - Items
+      summary: Fetch item
+      responses:
+        '200':
+          description: The requested item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
+  schemas:
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    Item:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        external_connections:
+          type: array
+          items:
+            type: object
+            properties:
+              external_connection_name:
+                type: string
+              external_entity_id:
+                type: string
+        created_at:
+          type: string
+          format: date-time
+    ItemList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with an Orb API key sent as a Bearer token in the Authorization header: `Authorization: Bearer <ORB_API_KEY>`.'

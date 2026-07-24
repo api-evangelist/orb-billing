@@ -1,0 +1,169 @@
+openapi: 3.1.0
+info:
+  title: Orb Alerts Coupons API
+  description: Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.
+  termsOfService: https://www.withorb.com/legal/terms-of-service
+  contact:
+    name: Orb Support
+    url: https://www.withorb.com
+    email: team@withorb.com
+  version: '1.0'
+servers:
+- url: https://api.withorb.com/v1
+  description: Orb production API
+security:
+- bearerAuth: []
+tags:
+- name: Coupons
+paths:
+  /coupons:
+    get:
+      operationId: listCoupons
+      tags:
+      - Coupons
+      summary: List coupons
+      parameters:
+      - $ref: '#/components/parameters/Cursor'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of coupons.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CouponList'
+    post:
+      operationId: createCoupon
+      tags:
+      - Coupons
+      summary: Create coupon
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CouponCreate'
+      responses:
+        '201':
+          description: The newly created coupon.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+  /coupons/{coupon_id}/archive:
+    parameters:
+    - name: coupon_id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      operationId: archiveCoupon
+      tags:
+      - Coupons
+      summary: Archive coupon
+      responses:
+        '200':
+          description: The archived coupon.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Coupon'
+components:
+  schemas:
+    Coupon:
+      type: object
+      properties:
+        id:
+          type: string
+        redemption_code:
+          type: string
+        discount:
+          type: object
+          properties:
+            discount_type:
+              type: string
+              enum:
+              - percentage
+              - amount
+            percentage_discount:
+              type: number
+              nullable: true
+            amount_discount:
+              type: string
+              nullable: true
+        times_redeemed:
+          type: integer
+        max_redemptions:
+          type: integer
+          nullable: true
+        duration_in_months:
+          type: integer
+          nullable: true
+        archived_at:
+          type: string
+          format: date-time
+          nullable: true
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    CouponCreate:
+      type: object
+      required:
+      - redemption_code
+      - discount
+      properties:
+        redemption_code:
+          type: string
+        discount:
+          type: object
+          required:
+          - discount_type
+          properties:
+            discount_type:
+              type: string
+              enum:
+              - percentage
+              - amount
+            percentage_discount:
+              type: number
+            amount_discount:
+              type: string
+        max_redemptions:
+          type: integer
+        duration_in_months:
+          type: integer
+    CouponList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coupon'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with an Orb API key sent as a Bearer token in the Authorization header: `Authorization: Bearer <ORB_API_KEY>`.'

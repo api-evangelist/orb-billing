@@ -1,0 +1,229 @@
+openapi: 3.1.0
+info:
+  title: Orb Alerts API
+  description: Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.
+  termsOfService: https://www.withorb.com/legal/terms-of-service
+  contact:
+    name: Orb Support
+    url: https://www.withorb.com
+    email: team@withorb.com
+  version: '1.0'
+servers:
+- url: https://api.withorb.com/v1
+  description: Orb production API
+security:
+- bearerAuth: []
+tags:
+- name: Alerts
+paths:
+  /alerts:
+    get:
+      operationId: listAlerts
+      tags:
+      - Alerts
+      summary: List alerts
+      parameters:
+      - name: customer_id
+        in: query
+        schema:
+          type: string
+      - name: subscription_id
+        in: query
+        schema:
+          type: string
+      - $ref: '#/components/parameters/Cursor'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of alerts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertList'
+    post:
+      operationId: createAlert
+      tags:
+      - Alerts
+      summary: Create alert
+      description: Creates a usage, cost, or credit-balance alert on a customer or subscription.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertCreate'
+      responses:
+        '201':
+          description: The newly created alert.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+  /alerts/{alert_id}:
+    parameters:
+    - name: alert_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: fetchAlert
+      tags:
+      - Alerts
+      summary: Fetch alert
+      responses:
+        '200':
+          description: The requested alert.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+  /alerts/{alert_id}/enable:
+    parameters:
+    - name: alert_id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      operationId: enableAlert
+      tags:
+      - Alerts
+      summary: Enable alert
+      responses:
+        '200':
+          description: The enabled alert.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+  /alerts/{alert_id}/disable:
+    parameters:
+    - name: alert_id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      operationId: disableAlert
+      tags:
+      - Alerts
+      summary: Disable alert
+      responses:
+        '200':
+          description: The disabled alert.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
+  schemas:
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    AlertCreate:
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - usage_exceeded
+          - cost_exceeded
+          - credit_balance_depleted
+          - credit_balance_dropped
+          - credit_balance_recovered
+        customer_id:
+          type: string
+        external_customer_id:
+          type: string
+        subscription_id:
+          type: string
+        currency:
+          type: string
+        thresholds:
+          type: array
+          items:
+            type: object
+            required:
+            - value
+            properties:
+              value:
+                type: number
+    AlertList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alert'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    Alert:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - usage_exceeded
+          - cost_exceeded
+          - credit_balance_depleted
+          - credit_balance_dropped
+          - credit_balance_recovered
+        enabled:
+          type: boolean
+        customer:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: string
+            external_customer_id:
+              type: string
+        subscription:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: string
+        currency:
+          type: string
+          nullable: true
+        thresholds:
+          type: array
+          items:
+            type: object
+            properties:
+              value:
+                type: number
+        created_at:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with an Orb API key sent as a Bearer token in the Authorization header: `Authorization: Bearer <ORB_API_KEY>`.'

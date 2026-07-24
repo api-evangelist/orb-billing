@@ -1,0 +1,309 @@
+openapi: 3.1.0
+info:
+  title: Orb Alerts Plans API
+  description: Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.
+  termsOfService: https://www.withorb.com/legal/terms-of-service
+  contact:
+    name: Orb Support
+    url: https://www.withorb.com
+    email: team@withorb.com
+  version: '1.0'
+servers:
+- url: https://api.withorb.com/v1
+  description: Orb production API
+security:
+- bearerAuth: []
+tags:
+- name: Plans
+paths:
+  /plans:
+    get:
+      operationId: listPlans
+      tags:
+      - Plans
+      summary: List plans
+      parameters:
+      - $ref: '#/components/parameters/Cursor'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of plans.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanList'
+    post:
+      operationId: createPlan
+      tags:
+      - Plans
+      summary: Create plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanCreate'
+      responses:
+        '201':
+          description: The newly created plan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+  /plans/{plan_id}:
+    parameters:
+    - name: plan_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: fetchPlan
+      tags:
+      - Plans
+      summary: Fetch plan
+      responses:
+        '200':
+          description: The requested plan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updatePlan
+      tags:
+      - Plans
+      summary: Update plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: object
+                  additionalProperties:
+                    type: string
+                external_plan_id:
+                  type: string
+      responses:
+        '200':
+          description: The updated plan.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
+  schemas:
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    Plan:
+      type: object
+      properties:
+        id:
+          type: string
+        external_plan_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+          - draft
+        currency:
+          type: string
+        net_terms:
+          type: integer
+          nullable: true
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        created_at:
+          type: string
+          format: date-time
+    Item:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        external_connections:
+          type: array
+          items:
+            type: object
+            properties:
+              external_connection_name:
+                type: string
+              external_entity_id:
+                type: string
+        created_at:
+          type: string
+          format: date-time
+    PlanList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Plan'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    PriceCreate:
+      type: object
+      required:
+      - name
+      - item_id
+      - cadence
+      - currency
+      - model_type
+      properties:
+        name:
+          type: string
+        item_id:
+          type: string
+        cadence:
+          type: string
+          enum:
+          - one_time
+          - monthly
+          - quarterly
+          - semi_annual
+          - annual
+        currency:
+          type: string
+        model_type:
+          type: string
+          enum:
+          - unit
+          - tiered
+          - package
+          - matrix
+          - bulk
+        billable_metric_id:
+          type: string
+        unit_config:
+          type: object
+          properties:
+            unit_amount:
+              type: string
+        external_price_id:
+          type: string
+    Price:
+      type: object
+      properties:
+        id:
+          type: string
+        external_price_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        price_type:
+          type: string
+          enum:
+          - usage_price
+          - fixed_price
+        model_type:
+          type: string
+          enum:
+          - unit
+          - tiered
+          - package
+          - matrix
+          - bulk
+          - tiered_package
+          - grouped_tiered
+          - threshold_total_amount
+        cadence:
+          type: string
+          enum:
+          - one_time
+          - monthly
+          - quarterly
+          - semi_annual
+          - annual
+        currency:
+          type: string
+        item:
+          $ref: '#/components/schemas/Item'
+        unit_config:
+          type: object
+          nullable: true
+          properties:
+            unit_amount:
+              type: string
+        created_at:
+          type: string
+          format: date-time
+    PlanCreate:
+      type: object
+      required:
+      - name
+      - currency
+      properties:
+        name:
+          type: string
+        currency:
+          type: string
+        external_plan_id:
+          type: string
+        net_terms:
+          type: integer
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceCreate'
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with an Orb API key sent as a Bearer token in the Authorization header: `Authorization: Bearer <ORB_API_KEY>`.'

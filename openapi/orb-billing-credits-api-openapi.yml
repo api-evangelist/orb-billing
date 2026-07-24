@@ -1,0 +1,297 @@
+openapi: 3.1.0
+info:
+  title: Orb Alerts Credits API
+  description: Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.
+  termsOfService: https://www.withorb.com/legal/terms-of-service
+  contact:
+    name: Orb Support
+    url: https://www.withorb.com
+    email: team@withorb.com
+  version: '1.0'
+servers:
+- url: https://api.withorb.com/v1
+  description: Orb production API
+security:
+- bearerAuth: []
+tags:
+- name: Credits
+paths:
+  /customers/{customer_id}/credits:
+    parameters:
+    - $ref: '#/components/parameters/CustomerId'
+    get:
+      operationId: fetchCustomerCredits
+      tags:
+      - Credits
+      summary: Fetch customer credit balance
+      description: Returns the unexpired, available credit blocks for a customer.
+      responses:
+        '200':
+          description: The customer's credit blocks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditBlockList'
+  /customers/{customer_id}/credits/ledger:
+    parameters:
+    - $ref: '#/components/parameters/CustomerId'
+    get:
+      operationId: fetchCustomerCreditsLedger
+      tags:
+      - Credits
+      summary: Fetch customer credits ledger
+      description: Returns the full ledger of credit additions, decrements, and expirations.
+      parameters:
+      - $ref: '#/components/parameters/Cursor'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated credit ledger.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerEntryList'
+  /customers/{customer_id}/credits/ledger_entries:
+    parameters:
+    - $ref: '#/components/parameters/CustomerId'
+    post:
+      operationId: createLedgerEntry
+      tags:
+      - Credits
+      summary: Create ledger entry
+      description: Adds, sets expiry, voids, or amends credits on a customer's ledger.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LedgerEntryCreate'
+      responses:
+        '201':
+          description: The created ledger entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerEntry'
+  /customers/{customer_id}/credits/top_ups:
+    parameters:
+    - $ref: '#/components/parameters/CustomerId'
+    post:
+      operationId: createTopUp
+      tags:
+      - Credits
+      summary: Create top-up
+      description: Configures an automatic credit top-up that fires when a balance falls below a threshold.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopUpCreate'
+      responses:
+        '201':
+          description: The created top-up.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopUp'
+    get:
+      operationId: listTopUps
+      tags:
+      - Credits
+      summary: List top-ups
+      responses:
+        '200':
+          description: The customer's top-ups.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TopUp'
+components:
+  schemas:
+    CreditBlock:
+      type: object
+      properties:
+        id:
+          type: string
+        balance:
+          type: number
+        status:
+          type: string
+          enum:
+          - active
+          - pending_payment
+        effective_date:
+          type: string
+          format: date-time
+          nullable: true
+        expiry_date:
+          type: string
+          format: date-time
+          nullable: true
+        per_unit_cost_basis:
+          type: string
+          nullable: true
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    LedgerEntryList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerEntry'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    CreditBlockList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditBlock'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    LedgerEntryCreate:
+      type: object
+      required:
+      - entry_type
+      properties:
+        entry_type:
+          type: string
+          enum:
+          - increment
+          - decrement
+          - expiration_change
+          - void
+          - amendment
+        amount:
+          type: number
+        currency:
+          type: string
+        effective_date:
+          type: string
+          format: date-time
+        expiry_date:
+          type: string
+          format: date-time
+        per_unit_cost_basis:
+          type: string
+        description:
+          type: string
+    TopUpCreate:
+      type: object
+      required:
+      - threshold
+      - amount
+      - currency
+      - per_unit_cost_basis
+      properties:
+        threshold:
+          type: string
+          description: Trigger a top-up when the balance falls to or below this value.
+        amount:
+          type: string
+          description: The number of credits to add per top-up.
+        currency:
+          type: string
+        per_unit_cost_basis:
+          type: string
+        expires_after:
+          type: integer
+          nullable: true
+        expires_after_unit:
+          type: string
+          enum:
+          - day
+          - month
+          nullable: true
+    TopUp:
+      type: object
+      properties:
+        id:
+          type: string
+        threshold:
+          type: string
+        amount:
+          type: string
+        currency:
+          type: string
+        per_unit_cost_basis:
+          type: string
+        active_from:
+          type: string
+          format: date-time
+          nullable: true
+    LedgerEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        entry_type:
+          type: string
+          enum:
+          - increment
+          - decrement
+          - expiration_change
+          - credit_block_expiry
+          - void
+          - void_initiated
+          - amendment
+        entry_status:
+          type: string
+          enum:
+          - committed
+          - pending
+        amount:
+          type: number
+        starting_balance:
+          type: number
+        ending_balance:
+          type: number
+        credit_block:
+          $ref: '#/components/schemas/CreditBlock'
+        description:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
+    CustomerId:
+      name: customer_id
+      in: path
+      required: true
+      description: The Orb-generated customer identifier.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with an Orb API key sent as a Bearer token in the Authorization header: `Authorization: Bearer <ORB_API_KEY>`.'

@@ -1,0 +1,357 @@
+openapi: 3.1.0
+info:
+  title: Orb Alerts Customers API
+  description: Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.
+  termsOfService: https://www.withorb.com/legal/terms-of-service
+  contact:
+    name: Orb Support
+    url: https://www.withorb.com
+    email: team@withorb.com
+  version: '1.0'
+servers:
+- url: https://api.withorb.com/v1
+  description: Orb production API
+security:
+- bearerAuth: []
+tags:
+- name: Customers
+paths:
+  /customers:
+    get:
+      operationId: listCustomers
+      tags:
+      - Customers
+      summary: List customers
+      description: Returns a paginated list of customers, ordered by descending creation time.
+      parameters:
+      - $ref: '#/components/parameters/Cursor'
+      - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A paginated list of customers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomer
+      tags:
+      - Customers
+      summary: Create customer
+      description: Creates a new customer, optionally with an external_customer_id alias.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreate'
+      responses:
+        '201':
+          description: The newly created customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /customers/{customer_id}:
+    parameters:
+    - $ref: '#/components/parameters/CustomerId'
+    get:
+      operationId: fetchCustomer
+      tags:
+      - Customers
+      summary: Fetch customer
+      responses:
+        '200':
+          description: The requested customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateCustomer
+      tags:
+      - Customers
+      summary: Update customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdate'
+      responses:
+        '200':
+          description: The updated customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCustomer
+      tags:
+      - Customers
+      summary: Delete customer
+      description: Permanently deletes a customer. This operation is irreversible.
+      responses:
+        '204':
+          description: The customer was deleted.
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/external_customer_id/{external_customer_id}:
+    parameters:
+    - $ref: '#/components/parameters/ExternalCustomerId'
+    get:
+      operationId: fetchCustomerByExternalId
+      tags:
+      - Customers
+      summary: Fetch customer by external ID
+      responses:
+        '200':
+          description: The requested customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /customers/{customer_id}/costs:
+    parameters:
+    - $ref: '#/components/parameters/CustomerId'
+    get:
+      operationId: fetchCustomerCosts
+      tags:
+      - Customers
+      summary: Fetch customer costs
+      description: Returns the cost breakdown for a customer over a time range.
+      parameters:
+      - name: timeframe_start
+        in: query
+        schema:
+          type: string
+          format: date-time
+      - name: timeframe_end
+        in: query
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: The customer's cost breakdown.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CostList'
+  /customers/{customer_id}/portal_sessions:
+    parameters:
+    - $ref: '#/components/parameters/CustomerId'
+    post:
+      operationId: createPortalSession
+      tags:
+      - Customers
+      summary: Create portal session
+      description: Creates a hosted customer portal session URL for the customer.
+      responses:
+        '201':
+          description: A portal session with a URL the customer can visit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortalSession'
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
+    ExternalCustomerId:
+      name: external_customer_id
+      in: path
+      required: true
+      description: The external customer ID alias mapped when the customer was created.
+      schema:
+        type: string
+    CustomerId:
+      name: customer_id
+      in: path
+      required: true
+      description: The Orb-generated customer identifier.
+      schema:
+        type: string
+  schemas:
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        external_customer_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        currency:
+          type: string
+          example: USD
+        timezone:
+          type: string
+          example: America/New_York
+        payment_provider:
+          type: string
+          nullable: true
+          enum:
+          - stripe_charge
+          - stripe_invoice
+          - quickbooks
+          - bill.com
+          - netsuite
+        balance:
+          type: string
+          description: The customer's account balance in the smallest currency unit.
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+    CostList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cost'
+    CustomerCreate:
+      type: object
+      required:
+      - name
+      - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        external_customer_id:
+          type: string
+        currency:
+          type: string
+        timezone:
+          type: string
+        payment_provider_id:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+    Cost:
+      type: object
+      properties:
+        timeframe_start:
+          type: string
+          format: date-time
+        timeframe_end:
+          type: string
+          format: date-time
+        total:
+          type: string
+        subtotal:
+          type: string
+    CustomerList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    PortalSession:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        token:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
+    CustomerUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        external_customer_id:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+  responses:
+    Unauthorized:
+      description: The API key was missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with an Orb API key sent as a Bearer token in the Authorization header: `Authorization: Bearer <ORB_API_KEY>`.'
