@@ -7,7 +7,20 @@ description: Orb is a usage-based billing and metering platform that turns produ
   ingests metered events, models customers, plans, prices, and items, runs subscriptions,
   and automates invoicing, credit ledgers, alerts, and webhooks for modern revenue
   teams.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/orb-billing.png
 tags:
 - Billing
 - Usage-Based Billing
@@ -19,210 +32,534 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-- aid: orb-billing:orb-customers-api
-  name: Orb Customers API
-  tags:
-  - Customers
-  - Accounts
-  - Portal
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: orb-billing:orb-billing-alerts-api
+  name: Orb Alerts API
+  description: The Alerts API from Orb — 4 operation(s) for alerts.
   humanURL: https://docs.withorb.com/api-reference/customer
   baseURL: https://api.withorb.com/v1
-  properties:
-  - url: https://docs.withorb.com/core-concepts/customers
-    type: Documentation
-  - url: https://docs.withorb.com/api-reference/customer
-    type: APIReference
-  - url: openapi/orb-billing-openapi.yml
-    type: OpenAPI
-  - url: collections/orb-billing.postman_collection.json
-    type: PostmanCollection
-  description: Create, fetch, update, list, and delete customers by Orb ID or external
-    ID, manage balance transactions, costs, payment methods, and hosted portal
-    sessions.
-- aid: orb-billing:orb-plans-api
-  name: Orb Plans API
-  tags:
-  - Plans
-  - Pricing
-  - Versions
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.withorb.com/api-reference/plan
-  baseURL: https://api.withorb.com/v1
-  properties:
-  - url: https://docs.withorb.com/core-concepts/plans-and-prices
-    type: Documentation
-  - url: https://docs.withorb.com/api-reference/plan
-    type: APIReference
-  - url: openapi/orb-billing-openapi.yml
-    type: OpenAPI
-  - url: collections/orb-billing.postman_collection.json
-    type: PostmanCollection
-  description: Define and version plans that bundle prices, with create, fetch, list,
-    update, version, and migration operations addressable by Orb ID or external plan
-    ID.
-- aid: orb-billing:orb-subscriptions-api
-  name: Orb Subscriptions API
-  tags:
-  - Subscriptions
-  - Lifecycle
-  - Schedules
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.withorb.com/api-reference/subscription
-  baseURL: https://api.withorb.com/v1
-  properties:
-  - url: https://docs.withorb.com/core-concepts/subscriptions
-    type: Documentation
-  - url: https://docs.withorb.com/api-reference/subscription
-    type: APIReference
-  - url: openapi/orb-billing-openapi.yml
-    type: OpenAPI
-  - url: collections/orb-billing.postman_collection.json
-    type: PostmanCollection
-  description: Create, fetch, list, update, and cancel subscriptions, schedule and
-    unschedule plan changes, redeem coupons, adjust price intervals and quantities,
-    and read subscription usage, costs, and schedules.
-- aid: orb-billing:orb-events-api
-  name: Orb Events & Ingestion API
-  tags:
-  - Events
-  - Ingestion
-  - Metering
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.withorb.com/api-reference/event
-  baseURL: https://api.withorb.com/v1
-  properties:
-  - url: https://docs.withorb.com/events-and-metrics/event-ingestion
-    type: Documentation
-  - url: https://docs.withorb.com/api-reference/event
-    type: APIReference
-  - url: openapi/orb-billing-openapi.yml
-    type: OpenAPI
-  - url: collections/orb-billing.postman_collection.json
-    type: PostmanCollection
-  description: Ingest timestamped, idempotent usage events into Orb's metering pipeline,
-    then amend, deprecate, search, backfill, and inspect event volume that feeds
-    billable metrics.
-- aid: orb-billing:orb-metrics-api
-  name: Orb Metrics API
-  tags:
-  - Metrics
-  - Billable Metrics
-  - Usage
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.withorb.com/api-reference/metrics
-  baseURL: https://api.withorb.com/v1
-  properties:
-  - url: https://docs.withorb.com/events-and-metrics/metrics
-    type: Documentation
-  - url: https://docs.withorb.com/api-reference/metrics
-    type: APIReference
-  - url: openapi/orb-billing-openapi.yml
-    type: OpenAPI
-  - url: collections/orb-billing.postman_collection.json
-    type: PostmanCollection
-  description: Create, fetch, list, and update billable metrics that aggregate raw
-    events into quantities prices can charge against.
-- aid: orb-billing:orb-invoices-api
-  name: Orb Invoices API
-  tags:
-  - Invoices
-  - Billing
-  - Line Items
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.withorb.com/api-reference/invoice
-  baseURL: https://api.withorb.com/v1
-  properties:
-  - url: https://docs.withorb.com/invoicing/structure
-    type: Documentation
-  - url: https://docs.withorb.com/api-reference/invoice
-    type: APIReference
-  - url: openapi/orb-billing-openapi.yml
-    type: OpenAPI
-  - url: collections/orb-billing.postman_collection.json
-    type: PostmanCollection
-  description: Create one-off invoices, manage line items, fetch upcoming and issued
-    invoices, issue, pay, mark as paid, void, and regenerate invoice and receipt
-    PDFs.
-- aid: orb-billing:orb-credits-ledger-api
-  name: Orb Credits & Ledger API
-  tags:
-  - Credits
-  - Ledger
-  - Prepaid
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.withorb.com/api-reference/credit
-  baseURL: https://api.withorb.com/v1
-  properties:
-  - url: https://docs.withorb.com/product-catalog/prepaid-credits
-    type: Documentation
-  - url: https://docs.withorb.com/api-reference/credit
-    type: APIReference
-  - url: openapi/orb-billing-openapi.yml
-    type: OpenAPI
-  - url: collections/orb-billing.postman_collection.json
-    type: PostmanCollection
-  description: Track and adjust customer credit balances through ledger entries, top-ups,
-    credit blocks, and credit notes, addressable by Orb ID or external customer ID.
-- aid: orb-billing:orb-prices-items-api
-  name: Orb Prices & Items API
-  tags:
-  - Prices
-  - Items
-  - Catalog
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.withorb.com/api-reference/price
-  baseURL: https://api.withorb.com/v1
-  properties:
-  - url: https://docs.withorb.com/core-concepts/plans-and-prices
-    type: Documentation
-  - url: https://docs.withorb.com/api-reference/price
-    type: APIReference
-  - url: openapi/orb-billing-openapi.yml
-    type: OpenAPI
-  - url: collections/orb-billing.postman_collection.json
-    type: PostmanCollection
-  description: Define unit, tiered, package, matrix, and other price models, evaluate
-    prices against events, and manage the items that prices and invoice line items
-    reference.
-- aid: orb-billing:orb-alerts-coupons-api
-  name: Orb Alerts & Coupons API
   tags:
   - Alerts
-  - Coupons
-  - Discounts
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.withorb.com/api-reference/alert
-  baseURL: https://api.withorb.com/v1
   properties:
-  - url: https://docs.withorb.com/guides/product-catalog/coupons
-    type: Documentation
-  - url: https://docs.withorb.com/api-reference/alert
-    type: APIReference
-  - url: openapi/orb-billing-openapi.yml
-    type: OpenAPI
-  - url: collections/orb-billing.postman_collection.json
-    type: PostmanCollection
-  description: Configure usage, cost, and credit-balance alerts on customers and
-    subscriptions, and create, fetch, list, and archive coupons that grant discounts
-    on subscriptions.
-- aid: orb-billing:orb-webhooks-api
-  name: Orb Webhooks API
+  - type: OpenAPI
+    url: openapi/orb-billing-alerts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/customers
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/customer
+  - type: PostmanCollection
+    url: collections/orb-billing.postman_collection.json
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/plans-and-prices
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/plan
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/subscriptions
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/subscription
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/event-ingestion
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/event
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/metrics
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/metrics
+  - type: Documentation
+    url: https://docs.withorb.com/invoicing/structure
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/invoice
+  - type: Documentation
+    url: https://docs.withorb.com/product-catalog/prepaid-credits
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/credit
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/price
+  - type: Documentation
+    url: https://docs.withorb.com/guides/product-catalog/coupons
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/alert
+  - type: Documentation
+    url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+- aid: orb-billing:orb-billing-coupons-api
+  name: Orb Coupons API
+  description: The Coupons API from Orb — 2 operation(s) for coupons.
+  humanURL: https://docs.withorb.com/api-reference/customer
+  baseURL: https://api.withorb.com/v1
   tags:
-  - Webhooks
-  - Events
-  - Notifications
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.withorb.com/guides/integrations-and-exports/webhooks
-  baseURL: https://api.withorb.com/v1
+  - Coupons
   properties:
-  - url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
-    type: Documentation
-  - url: openapi/orb-billing-openapi.yml
-    type: OpenAPI
-  description: At-least-once outbound webhooks for customer, subscription, invoice,
-    credit note, and alert lifecycle events, signed with an HMAC-SHA256 X-Orb-Signature
-    header and X-Orb-Timestamp for replay protection.
+  - type: OpenAPI
+    url: openapi/orb-billing-coupons-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/customers
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/customer
+  - type: PostmanCollection
+    url: collections/orb-billing.postman_collection.json
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/plans-and-prices
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/plan
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/subscriptions
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/subscription
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/event-ingestion
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/event
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/metrics
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/metrics
+  - type: Documentation
+    url: https://docs.withorb.com/invoicing/structure
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/invoice
+  - type: Documentation
+    url: https://docs.withorb.com/product-catalog/prepaid-credits
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/credit
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/price
+  - type: Documentation
+    url: https://docs.withorb.com/guides/product-catalog/coupons
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/alert
+  - type: Documentation
+    url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+- aid: orb-billing:orb-billing-credits-api
+  name: Orb Credits API
+  description: The Credits API from Orb — 4 operation(s) for credits.
+  humanURL: https://docs.withorb.com/api-reference/customer
+  baseURL: https://api.withorb.com/v1
+  tags:
+  - Credits
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-billing-credits-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/customers
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/customer
+  - type: PostmanCollection
+    url: collections/orb-billing.postman_collection.json
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/plans-and-prices
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/plan
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/subscriptions
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/subscription
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/event-ingestion
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/event
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/metrics
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/metrics
+  - type: Documentation
+    url: https://docs.withorb.com/invoicing/structure
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/invoice
+  - type: Documentation
+    url: https://docs.withorb.com/product-catalog/prepaid-credits
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/credit
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/price
+  - type: Documentation
+    url: https://docs.withorb.com/guides/product-catalog/coupons
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/alert
+  - type: Documentation
+    url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+- aid: orb-billing:orb-billing-customers-api
+  name: Orb Customers API
+  description: The Customers API from Orb — 5 operation(s) for customers.
+  humanURL: https://docs.withorb.com/api-reference/customer
+  baseURL: https://api.withorb.com/v1
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-billing-customers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/customers
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/customer
+  - type: PostmanCollection
+    url: collections/orb-billing.postman_collection.json
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/plans-and-prices
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/plan
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/subscriptions
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/subscription
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/event-ingestion
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/event
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/metrics
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/metrics
+  - type: Documentation
+    url: https://docs.withorb.com/invoicing/structure
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/invoice
+  - type: Documentation
+    url: https://docs.withorb.com/product-catalog/prepaid-credits
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/credit
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/price
+  - type: Documentation
+    url: https://docs.withorb.com/guides/product-catalog/coupons
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/alert
+  - type: Documentation
+    url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+- aid: orb-billing:orb-billing-events-api
+  name: Orb Events API
+  description: The Events API from Orb — 4 operation(s) for events.
+  humanURL: https://docs.withorb.com/api-reference/customer
+  baseURL: https://api.withorb.com/v1
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-billing-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/customers
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/customer
+  - type: PostmanCollection
+    url: collections/orb-billing.postman_collection.json
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/plans-and-prices
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/plan
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/subscriptions
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/subscription
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/event-ingestion
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/event
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/metrics
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/metrics
+  - type: Documentation
+    url: https://docs.withorb.com/invoicing/structure
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/invoice
+  - type: Documentation
+    url: https://docs.withorb.com/product-catalog/prepaid-credits
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/credit
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/price
+  - type: Documentation
+    url: https://docs.withorb.com/guides/product-catalog/coupons
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/alert
+  - type: Documentation
+    url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+- aid: orb-billing:orb-billing-invoices-api
+  name: Orb Invoices API
+  description: The Invoices API from Orb — 4 operation(s) for invoices.
+  humanURL: https://docs.withorb.com/api-reference/customer
+  baseURL: https://api.withorb.com/v1
+  tags:
+  - Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-billing-invoices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/customers
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/customer
+  - type: PostmanCollection
+    url: collections/orb-billing.postman_collection.json
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/plans-and-prices
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/plan
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/subscriptions
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/subscription
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/event-ingestion
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/event
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/metrics
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/metrics
+  - type: Documentation
+    url: https://docs.withorb.com/invoicing/structure
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/invoice
+  - type: Documentation
+    url: https://docs.withorb.com/product-catalog/prepaid-credits
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/credit
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/price
+  - type: Documentation
+    url: https://docs.withorb.com/guides/product-catalog/coupons
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/alert
+  - type: Documentation
+    url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+- aid: orb-billing:orb-billing-items-api
+  name: Orb Items API
+  description: The Items API from Orb — 2 operation(s) for items.
+  humanURL: https://docs.withorb.com/api-reference/customer
+  baseURL: https://api.withorb.com/v1
+  tags:
+  - Items
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-billing-items-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/customers
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/customer
+  - type: PostmanCollection
+    url: collections/orb-billing.postman_collection.json
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/plans-and-prices
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/plan
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/subscriptions
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/subscription
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/event-ingestion
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/event
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/metrics
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/metrics
+  - type: Documentation
+    url: https://docs.withorb.com/invoicing/structure
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/invoice
+  - type: Documentation
+    url: https://docs.withorb.com/product-catalog/prepaid-credits
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/credit
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/price
+  - type: Documentation
+    url: https://docs.withorb.com/guides/product-catalog/coupons
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/alert
+  - type: Documentation
+    url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+- aid: orb-billing:orb-billing-metrics-api
+  name: Orb Metrics API
+  description: The Metrics API from Orb — 2 operation(s) for metrics.
+  humanURL: https://docs.withorb.com/api-reference/customer
+  baseURL: https://api.withorb.com/v1
+  tags:
+  - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-billing-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/customers
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/customer
+  - type: PostmanCollection
+    url: collections/orb-billing.postman_collection.json
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/plans-and-prices
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/plan
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/subscriptions
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/subscription
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/event-ingestion
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/event
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/metrics
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/metrics
+  - type: Documentation
+    url: https://docs.withorb.com/invoicing/structure
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/invoice
+  - type: Documentation
+    url: https://docs.withorb.com/product-catalog/prepaid-credits
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/credit
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/price
+  - type: Documentation
+    url: https://docs.withorb.com/guides/product-catalog/coupons
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/alert
+  - type: Documentation
+    url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+- aid: orb-billing:orb-billing-plans-api
+  name: Orb Plans API
+  description: The Plans API from Orb — 2 operation(s) for plans.
+  humanURL: https://docs.withorb.com/api-reference/customer
+  baseURL: https://api.withorb.com/v1
+  tags:
+  - Plans
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-billing-plans-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/customers
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/customer
+  - type: PostmanCollection
+    url: collections/orb-billing.postman_collection.json
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/plans-and-prices
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/plan
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/subscriptions
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/subscription
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/event-ingestion
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/event
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/metrics
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/metrics
+  - type: Documentation
+    url: https://docs.withorb.com/invoicing/structure
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/invoice
+  - type: Documentation
+    url: https://docs.withorb.com/product-catalog/prepaid-credits
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/credit
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/price
+  - type: Documentation
+    url: https://docs.withorb.com/guides/product-catalog/coupons
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/alert
+  - type: Documentation
+    url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+- aid: orb-billing:orb-billing-prices-api
+  name: Orb Prices API
+  description: The Prices API from Orb — 3 operation(s) for prices.
+  humanURL: https://docs.withorb.com/api-reference/customer
+  baseURL: https://api.withorb.com/v1
+  tags:
+  - Prices
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-billing-prices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/customers
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/customer
+  - type: PostmanCollection
+    url: collections/orb-billing.postman_collection.json
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/plans-and-prices
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/plan
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/subscriptions
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/subscription
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/event-ingestion
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/event
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/metrics
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/metrics
+  - type: Documentation
+    url: https://docs.withorb.com/invoicing/structure
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/invoice
+  - type: Documentation
+    url: https://docs.withorb.com/product-catalog/prepaid-credits
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/credit
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/price
+  - type: Documentation
+    url: https://docs.withorb.com/guides/product-catalog/coupons
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/alert
+  - type: Documentation
+    url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+- aid: orb-billing:orb-billing-subscriptions-api
+  name: Orb Subscriptions API
+  description: The Subscriptions API from Orb — 5 operation(s) for subscriptions.
+  humanURL: https://docs.withorb.com/api-reference/customer
+  baseURL: https://api.withorb.com/v1
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-billing-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/customers
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/customer
+  - type: PostmanCollection
+    url: collections/orb-billing.postman_collection.json
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/plans-and-prices
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/plan
+  - type: Documentation
+    url: https://docs.withorb.com/core-concepts/subscriptions
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/subscription
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/event-ingestion
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/event
+  - type: Documentation
+    url: https://docs.withorb.com/events-and-metrics/metrics
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/metrics
+  - type: Documentation
+    url: https://docs.withorb.com/invoicing/structure
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/invoice
+  - type: Documentation
+    url: https://docs.withorb.com/product-catalog/prepaid-credits
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/credit
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/price
+  - type: Documentation
+    url: https://docs.withorb.com/guides/product-catalog/coupons
+  - type: APIReference
+    url: https://docs.withorb.com/api-reference/alert
+  - type: Documentation
+    url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
 common:
 - type: AgenticAccess
   url: agentic-access/orb-billing-agentic-access.yml
