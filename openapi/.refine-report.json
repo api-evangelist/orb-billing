@@ -1,0 +1,34 @@
+{
+  "provider": "orb-billing",
+  "sources": [
+    "orb-billing-alerts-api-openapi.yml",
+    "orb-billing-coupons-api-openapi.yml",
+    "orb-billing-credits-api-openapi.yml",
+    "orb-billing-customers-api-openapi.yml",
+    "orb-billing-events-api-openapi.yml",
+    "orb-billing-invoices-api-openapi.yml",
+    "orb-billing-items-api-openapi.yml",
+    "orb-billing-metrics-api-openapi.yml",
+    "orb-billing-plans-api-openapi.yml",
+    "orb-billing-prices-api-openapi.yml",
+    "orb-billing-subscriptions-api-openapi.yml"
+  ],
+  "outputs": [
+    "orb-billing-alerts-api-openapi.yml",
+    "orb-billing-coupons-api-openapi.yml",
+    "orb-billing-credits-api-openapi.yml",
+    "orb-billing-customers-api-openapi.yml",
+    "orb-billing-events-api-openapi.yml",
+    "orb-billing-invoices-api-openapi.yml",
+    "orb-billing-items-api-openapi.yml",
+    "orb-billing-metrics-api-openapi.yml",
+    "orb-billing-plans-api-openapi.yml",
+    "orb-billing-prices-api-openapi.yml",
+    "orb-billing-subscriptions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
