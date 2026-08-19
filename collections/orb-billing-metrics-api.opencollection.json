@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orb Alerts Metrics API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/metrics",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "An opaque cursor for the next page of results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page (default 20, max 100)."
+              }
+            ]
+          },
+          "docs": "List metrics"
+        },
+        {
+          "info": {
+            "name": "Create metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/metrics",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a billable metric defined by a SQL expression over events."
+        },
+        {
+          "info": {
+            "name": "Get metric",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/metrics/:metric_id",
+            "params": [
+              {
+                "name": "metric_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get metric"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

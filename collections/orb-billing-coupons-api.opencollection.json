@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orb Alerts Coupons API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Coupons",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List coupons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/coupons",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "An opaque cursor for the next page of results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page (default 20, max 100)."
+              }
+            ]
+          },
+          "docs": "List coupons"
+        },
+        {
+          "info": {
+            "name": "Create coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/coupons",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create coupon"
+        },
+        {
+          "info": {
+            "name": "Archive coupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/coupons/:coupon_id/archive",
+            "params": [
+              {
+                "name": "coupon_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Archive coupon"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

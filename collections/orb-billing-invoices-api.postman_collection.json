@@ -1,0 +1,599 @@
+{
+  "item": [
+    {
+      "id": "aa377137-b869-462b-84a4-842e053dd440",
+      "name": "Invoices",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "30b5a8b8-08ef-4dc8-ac4c-5b2a58351edb",
+          "name": "List invoices",
+          "request": {
+            "name": "List invoices",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "customer_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "subscription_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor for the next page of results."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The number of items to return per page (default 20, max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3178bb32-ea3e-4fae-b376-c3b0045a3525",
+              "name": "A paginated list of invoices.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "customer_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subscription_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"invoice_number\": \"string\",\n      \"status\": \"issued\",\n      \"customer\": {\n        \"id\": \"string\",\n        \"external_customer_id\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"LmU@NFuBdFXMesDwmLGKSNZKtHAsYSMk.tft\",\n        \"currency\": \"USD\",\n        \"timezone\": \"America/New_York\",\n        \"payment_provider\": \"stripe_invoice\",\n        \"balance\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\"\n        },\n        \"created_at\": \"1966-03-17T19:38:51.255Z\"\n      },\n      \"subscription\": {\n        \"id\": \"string\"\n      },\n      \"currency\": \"string\",\n      \"total\": \"string\",\n      \"subtotal\": \"string\",\n      \"amount_due\": \"string\",\n      \"due_date\": \"1956-06-26T03:59:47.677Z\",\n      \"issued_at\": \"1956-11-04T03:58:42.575Z\",\n      \"hosted_invoice_url\": \"https://BCHOEoCWbAiQl.qmmuMLaFnkC0Zj9dEpz-+g.kSB2egYbzvwIrApJW3,ylep1oy0gj\",\n      \"line_items\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"quantity\": 4906.336526322594,\n          \"amount\": \"string\",\n          \"start_date\": \"2007-06-24T10:27:35.531Z\",\n          \"end_date\": \"1975-02-06T01:51:28.769Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"quantity\": 9964.80803897563,\n          \"amount\": \"string\",\n          \"start_date\": \"2021-01-14T09:30:12.142Z\",\n          \"end_date\": \"1963-01-24T02:47:35.502Z\"\n        }\n      ],\n      \"created_at\": \"2017-12-31T12:23:08.880Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"invoice_number\": \"string\",\n      \"status\": \"issued\",\n      \"customer\": {\n        \"id\": \"string\",\n        \"external_customer_id\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"Hjpeq5-vxt5iukT@KVXcRmGVUSveUSem.vvh\",\n        \"currency\": \"USD\",\n        \"timezone\": \"America/New_York\",\n        \"payment_provider\": \"stripe_invoice\",\n        \"balance\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"created_at\": \"1994-11-24T05:44:14.640Z\"\n      },\n      \"subscription\": {\n        \"id\": \"string\"\n      },\n      \"currency\": \"string\",\n      \"total\": \"string\",\n      \"subtotal\": \"string\",\n      \"amount_due\": \"string\",\n      \"due_date\": \"1956-11-12T11:37:46.028Z\",\n      \"issued_at\": \"2000-02-01T06:21:44.660Z\",\n      \"hosted_invoice_url\": \"http://hEqP.fuwu42TQ7jAOQRT3R8aDVItb1JSlJz4h.vmA10UMg9eEqysB\",\n      \"line_items\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"quantity\": 694.8605064466562,\n          \"amount\": \"string\",\n          \"start_date\": \"2012-08-28T22:51:06.343Z\",\n          \"end_date\": \"2018-01-16T04:16:37.340Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"quantity\": 5701.713442602492,\n          \"amount\": \"string\",\n          \"start_date\": \"2023-06-21T04:20:50.916Z\",\n          \"end_date\": \"2022-06-03T16:29:04.677Z\"\n        }\n      ],\n      \"created_at\": \"1962-08-15T18:40:58.602Z\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"has_more\": false,\n    \"next_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6026246f-8903-4c72-98d8-728d0c410615",
+          "name": "Create a one-off invoice",
+          "request": {
+            "name": "Create a one-off invoice",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currency\": \"<string>\",\n  \"invoice_date\": \"<dateTime>\",\n  \"line_items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"unit_config\": {\n        \"unit_amount\": \"<string>\"\n      },\n      \"item_id\": \"<string>\",\n      \"start_date\": \"<date>\",\n      \"end_date\": \"<date>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"unit_config\": {\n        \"unit_amount\": \"<string>\"\n      },\n      \"item_id\": \"<string>\",\n      \"start_date\": \"<date>\",\n      \"end_date\": \"<date>\"\n    }\n  ],\n  \"customer_id\": \"<string>\",\n  \"external_customer_id\": \"<string>\",\n  \"net_terms\": \"<integer>\",\n  \"memo\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4d374df6-e1ad-43c2-b334-dcb555510c0e",
+              "name": "The newly created one-off invoice.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currency\": \"<string>\",\n  \"invoice_date\": \"<dateTime>\",\n  \"line_items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"unit_config\": {\n        \"unit_amount\": \"<string>\"\n      },\n      \"item_id\": \"<string>\",\n      \"start_date\": \"<date>\",\n      \"end_date\": \"<date>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<number>\",\n      \"unit_config\": {\n        \"unit_amount\": \"<string>\"\n      },\n      \"item_id\": \"<string>\",\n      \"start_date\": \"<date>\",\n      \"end_date\": \"<date>\"\n    }\n  ],\n  \"customer_id\": \"<string>\",\n  \"external_customer_id\": \"<string>\",\n  \"net_terms\": \"<integer>\",\n  \"memo\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"invoice_number\": \"string\",\n  \"status\": \"issued\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"NU8-6V7@rQEfDuydqsKbjNsJjLz.aneh\",\n    \"currency\": \"USD\",\n    \"timezone\": \"America/New_York\",\n    \"payment_provider\": \"bill.com\",\n    \"balance\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"created_at\": \"1984-12-27T12:34:47.024Z\"\n  },\n  \"subscription\": {\n    \"id\": \"string\"\n  },\n  \"currency\": \"string\",\n  \"total\": \"string\",\n  \"subtotal\": \"string\",\n  \"amount_due\": \"string\",\n  \"due_date\": \"1979-12-25T08:40:02.205Z\",\n  \"issued_at\": \"2014-01-28T16:41:30.665Z\",\n  \"hosted_invoice_url\": \"http://pBGwNXeUsXFyEDBsNUluMVyY.xlxl6SMWM2P6t9yot+FDQR4g5-tEjd68YpP,rwisKpHFr,ErQiGiHAEI0oq\",\n  \"line_items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"quantity\": 9285.447715857674,\n      \"amount\": \"string\",\n      \"start_date\": \"1988-10-12T02:38:39.017Z\",\n      \"end_date\": \"1997-10-04T07:46:02.721Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"quantity\": 3537.708814134085,\n      \"amount\": \"string\",\n      \"start_date\": \"1992-04-17T01:44:36.935Z\",\n      \"end_date\": \"1947-04-06T16:18:45.775Z\"\n    }\n  ],\n  \"created_at\": \"2000-02-19T02:10:18.060Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c08760e-5de5-4d80-a0ec-08fa27ec17d7",
+          "name": "Fetch invoice",
+          "request": {
+            "name": "Fetch invoice",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "invoice_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9e58a7b5-95a3-4a21-b757-3b6f5d144519",
+              "name": "The requested invoice.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"invoice_number\": \"string\",\n  \"status\": \"issued\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"NU8-6V7@rQEfDuydqsKbjNsJjLz.aneh\",\n    \"currency\": \"USD\",\n    \"timezone\": \"America/New_York\",\n    \"payment_provider\": \"bill.com\",\n    \"balance\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"created_at\": \"1984-12-27T12:34:47.024Z\"\n  },\n  \"subscription\": {\n    \"id\": \"string\"\n  },\n  \"currency\": \"string\",\n  \"total\": \"string\",\n  \"subtotal\": \"string\",\n  \"amount_due\": \"string\",\n  \"due_date\": \"1979-12-25T08:40:02.205Z\",\n  \"issued_at\": \"2014-01-28T16:41:30.665Z\",\n  \"hosted_invoice_url\": \"http://pBGwNXeUsXFyEDBsNUluMVyY.xlxl6SMWM2P6t9yot+FDQR4g5-tEjd68YpP,rwisKpHFr,ErQiGiHAEI0oq\",\n  \"line_items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"quantity\": 9285.447715857674,\n      \"amount\": \"string\",\n      \"start_date\": \"1988-10-12T02:38:39.017Z\",\n      \"end_date\": \"1997-10-04T07:46:02.721Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"quantity\": 3537.708814134085,\n      \"amount\": \"string\",\n      \"start_date\": \"1992-04-17T01:44:36.935Z\",\n      \"end_date\": \"1947-04-06T16:18:45.775Z\"\n    }\n  ],\n  \"created_at\": \"2000-02-19T02:10:18.060Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf280a00-7104-4004-87e2-19ef2a259bd2",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 2432,\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad9fc099-98ab-4aaf-9ba6-2aa0ed7d8918",
+          "name": "Issue invoice",
+          "request": {
+            "name": "Issue invoice",
+            "description": {
+              "content": "Transitions a draft invoice to issued, triggering payment collection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "issue"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "invoice_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "49909ebe-1758-4a1c-bddc-f7c670482e90",
+              "name": "The issued invoice.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "issue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"invoice_number\": \"string\",\n  \"status\": \"issued\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"NU8-6V7@rQEfDuydqsKbjNsJjLz.aneh\",\n    \"currency\": \"USD\",\n    \"timezone\": \"America/New_York\",\n    \"payment_provider\": \"bill.com\",\n    \"balance\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"created_at\": \"1984-12-27T12:34:47.024Z\"\n  },\n  \"subscription\": {\n    \"id\": \"string\"\n  },\n  \"currency\": \"string\",\n  \"total\": \"string\",\n  \"subtotal\": \"string\",\n  \"amount_due\": \"string\",\n  \"due_date\": \"1979-12-25T08:40:02.205Z\",\n  \"issued_at\": \"2014-01-28T16:41:30.665Z\",\n  \"hosted_invoice_url\": \"http://pBGwNXeUsXFyEDBsNUluMVyY.xlxl6SMWM2P6t9yot+FDQR4g5-tEjd68YpP,rwisKpHFr,ErQiGiHAEI0oq\",\n  \"line_items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"quantity\": 9285.447715857674,\n      \"amount\": \"string\",\n      \"start_date\": \"1988-10-12T02:38:39.017Z\",\n      \"end_date\": \"1997-10-04T07:46:02.721Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"quantity\": 3537.708814134085,\n      \"amount\": \"string\",\n      \"start_date\": \"1992-04-17T01:44:36.935Z\",\n      \"end_date\": \"1947-04-06T16:18:45.775Z\"\n    }\n  ],\n  \"created_at\": \"2000-02-19T02:10:18.060Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13e40fac-eda6-42f1-bf5d-a442bd18b290",
+          "name": "Void invoice",
+          "request": {
+            "name": "Void invoice",
+            "description": {},
+            "url": {
+              "path": [
+                "invoices",
+                ":invoice_id",
+                "void"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "invoice_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af4462d6-163b-4176-99f6-e3e76329d0d8",
+              "name": "The voided invoice.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "invoices",
+                    ":invoice_id",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "invoice_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"invoice_number\": \"string\",\n  \"status\": \"issued\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"NU8-6V7@rQEfDuydqsKbjNsJjLz.aneh\",\n    \"currency\": \"USD\",\n    \"timezone\": \"America/New_York\",\n    \"payment_provider\": \"bill.com\",\n    \"balance\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"created_at\": \"1984-12-27T12:34:47.024Z\"\n  },\n  \"subscription\": {\n    \"id\": \"string\"\n  },\n  \"currency\": \"string\",\n  \"total\": \"string\",\n  \"subtotal\": \"string\",\n  \"amount_due\": \"string\",\n  \"due_date\": \"1979-12-25T08:40:02.205Z\",\n  \"issued_at\": \"2014-01-28T16:41:30.665Z\",\n  \"hosted_invoice_url\": \"http://pBGwNXeUsXFyEDBsNUluMVyY.xlxl6SMWM2P6t9yot+FDQR4g5-tEjd68YpP,rwisKpHFr,ErQiGiHAEI0oq\",\n  \"line_items\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"quantity\": 9285.447715857674,\n      \"amount\": \"string\",\n      \"start_date\": \"1988-10-12T02:38:39.017Z\",\n      \"end_date\": \"1997-10-04T07:46:02.721Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"quantity\": 3537.708814134085,\n      \"amount\": \"string\",\n      \"start_date\": \"1992-04-17T01:44:36.935Z\",\n      \"end_date\": \"1947-04-06T16:18:45.775Z\"\n    }\n  ],\n  \"created_at\": \"2000-02-19T02:10:18.060Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.withorb.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5e261754-d22c-4342-b394-ce06131b8234",
+    "name": "Orb Alerts Invoices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.\n\nContact Support:\n Name: Orb Support\n Email: team@withorb.com",
+      "type": "text/plain"
+    }
+  }
+}

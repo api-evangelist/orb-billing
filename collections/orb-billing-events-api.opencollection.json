@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orb Alerts Events API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ingest events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/ingest",
+            "params": [
+              {
+                "name": "debug",
+                "value": "",
+                "type": "query",
+                "description": "When true, returns a debug breakdown of processed and ignored events."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Ingests a batch of usage events into Orb's metering pipeline. Each event is idempotent via its idempotency_key and must reference exactly one of customer_id or external_customer_id. Pass debug=true to receive a per-event accept/duplicate breakdown in the response."
+        },
+        {
+          "info": {
+            "name": "Amend event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.withorb.com/v1/events/:event_id/amend",
+            "params": [
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces the properties of a previously ingested event."
+        },
+        {
+          "info": {
+            "name": "Search events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/events/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches raw ingested events by event_ids or timeframe."
+        },
+        {
+          "info": {
+            "name": "Get event volume",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/events/volume",
+            "params": [
+              {
+                "name": "timeframe_start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timeframe_end",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns counts of ingested events bucketed over a timeframe."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orb Alerts Credits API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Credits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fetch customer credit balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/customers/:customer_id/credits",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The Orb-generated customer identifier."
+              }
+            ]
+          },
+          "docs": "Returns the unexpired, available credit blocks for a customer."
+        },
+        {
+          "info": {
+            "name": "Fetch customer credits ledger",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/customers/:customer_id/credits/ledger",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The Orb-generated customer identifier."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "An opaque cursor for the next page of results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page (default 20, max 100)."
+              }
+            ]
+          },
+          "docs": "Returns the full ledger of credit additions, decrements, and expirations."
+        },
+        {
+          "info": {
+            "name": "Create ledger entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/customers/:customer_id/credits/ledger_entries",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The Orb-generated customer identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds, sets expiry, voids, or amends credits on a customer's ledger."
+        },
+        {
+          "info": {
+            "name": "List top-ups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/customers/:customer_id/credits/top_ups",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The Orb-generated customer identifier."
+              }
+            ]
+          },
+          "docs": "List top-ups"
+        },
+        {
+          "info": {
+            "name": "Create top-up",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/customers/:customer_id/credits/top_ups",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The Orb-generated customer identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Configures an automatic credit top-up that fires when a balance falls below a threshold."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

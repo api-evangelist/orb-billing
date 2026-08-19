@@ -1,0 +1,428 @@
+{
+  "item": [
+    {
+      "id": "fa5165bf-7e20-47cb-94f1-b67cab6c3f4f",
+      "name": "Prices",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "87bf4d05-0228-4d9b-8c4c-0a9250ba70c4",
+          "name": "List prices",
+          "request": {
+            "name": "List prices",
+            "description": {},
+            "url": {
+              "path": [
+                "prices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor for the next page of results."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The number of items to return per page (default 20, max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8bbc010e-403c-4394-8e36-31ae7119e4ca",
+              "name": "A paginated list of prices.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"external_price_id\": \"string\",\n      \"name\": \"string\",\n      \"price_type\": \"usage_price\",\n      \"model_type\": \"bulk\",\n      \"cadence\": \"one_time\",\n      \"currency\": \"string\",\n      \"item\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"external_connections\": [\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          },\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          }\n        ],\n        \"created_at\": \"1977-08-02T14:44:50.185Z\"\n      },\n      \"unit_config\": {\n        \"unit_amount\": \"string\"\n      },\n      \"created_at\": \"2000-05-05T07:31:33.515Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"external_price_id\": \"string\",\n      \"name\": \"string\",\n      \"price_type\": \"usage_price\",\n      \"model_type\": \"bulk\",\n      \"cadence\": \"quarterly\",\n      \"currency\": \"string\",\n      \"item\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"external_connections\": [\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          },\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          }\n        ],\n        \"created_at\": \"1950-11-10T04:27:30.810Z\"\n      },\n      \"unit_config\": {\n        \"unit_amount\": \"string\"\n      },\n      \"created_at\": \"2019-04-05T03:12:58.988Z\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"has_more\": false,\n    \"next_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f98d376-200b-4168-9357-2a81c50e624c",
+          "name": "Create price",
+          "request": {
+            "name": "Create price",
+            "description": {},
+            "url": {
+              "path": [
+                "prices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"item_id\": \"<string>\",\n  \"cadence\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"model_type\": \"<string>\",\n  \"billable_metric_id\": \"<string>\",\n  \"unit_config\": {\n    \"unit_amount\": \"<string>\"\n  },\n  \"external_price_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b4d42d40-29c6-4c40-923c-13cdd1c4a1e4",
+              "name": "The newly created price.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"item_id\": \"<string>\",\n  \"cadence\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"model_type\": \"<string>\",\n  \"billable_metric_id\": \"<string>\",\n  \"unit_config\": {\n    \"unit_amount\": \"<string>\"\n  },\n  \"external_price_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"external_price_id\": \"string\",\n  \"name\": \"string\",\n  \"price_type\": \"usage_price\",\n  \"model_type\": \"bulk\",\n  \"cadence\": \"one_time\",\n  \"currency\": \"string\",\n  \"item\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"external_connections\": [\n      {\n        \"external_connection_name\": \"string\",\n        \"external_entity_id\": \"string\"\n      },\n      {\n        \"external_connection_name\": \"string\",\n        \"external_entity_id\": \"string\"\n      }\n    ],\n    \"created_at\": \"1964-10-14T14:11:30.301Z\"\n  },\n  \"unit_config\": {\n    \"unit_amount\": \"string\"\n  },\n  \"created_at\": \"2010-02-03T01:45:38.794Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d1e443b7-58cd-42d5-9e33-aeb490869bdd",
+          "name": "Fetch price",
+          "request": {
+            "name": "Fetch price",
+            "description": {},
+            "url": {
+              "path": [
+                "prices",
+                ":price_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "price_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0cb44ff-0f1f-4b7a-befc-9e7d54a186b9",
+              "name": "The requested price.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prices",
+                    ":price_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "price_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"external_price_id\": \"string\",\n  \"name\": \"string\",\n  \"price_type\": \"usage_price\",\n  \"model_type\": \"bulk\",\n  \"cadence\": \"one_time\",\n  \"currency\": \"string\",\n  \"item\": {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"external_connections\": [\n      {\n        \"external_connection_name\": \"string\",\n        \"external_entity_id\": \"string\"\n      },\n      {\n        \"external_connection_name\": \"string\",\n        \"external_entity_id\": \"string\"\n      }\n    ],\n    \"created_at\": \"1964-10-14T14:11:30.301Z\"\n  },\n  \"unit_config\": {\n    \"unit_amount\": \"string\"\n  },\n  \"created_at\": \"2010-02-03T01:45:38.794Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06ba4635-3a6b-40aa-ad50-13bdcc50629a",
+          "name": "Evaluate multiple prices",
+          "request": {
+            "name": "Evaluate multiple prices",
+            "description": {
+              "content": "Evaluates one or more prices against a set of events over a timeframe.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "prices",
+                "evaluate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"timeframe_start\": \"<dateTime>\",\n  \"timeframe_end\": \"<dateTime>\",\n  \"price_evaluations\": [\n    {\n      \"price_id\": \"<string>\",\n      \"external_price_id\": \"<string>\",\n      \"filter\": \"<string>\"\n    },\n    {\n      \"price_id\": \"<string>\",\n      \"external_price_id\": \"<string>\",\n      \"filter\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "774a4e5c-f8b7-45f0-993d-d3e6aabefbc1",
+              "name": "The evaluated price results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prices",
+                    "evaluate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"timeframe_start\": \"<dateTime>\",\n  \"timeframe_end\": \"<dateTime>\",\n  \"price_evaluations\": [\n    {\n      \"price_id\": \"<string>\",\n      \"external_price_id\": \"<string>\",\n      \"filter\": \"<string>\"\n    },\n    {\n      \"price_id\": \"<string>\",\n      \"external_price_id\": \"<string>\",\n      \"filter\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"price_id\": \"string\",\n      \"amount\": \"string\"\n    },\n    {\n      \"price_id\": \"string\",\n      \"amount\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.withorb.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "28c5c5f5-7d0c-494d-ab01-8fc6f9dfaf28",
+    "name": "Orb Alerts Prices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.\n\nContact Support:\n Name: Orb Support\n Email: team@withorb.com",
+      "type": "text/plain"
+    }
+  }
+}

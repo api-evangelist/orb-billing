@@ -1,0 +1,585 @@
+{
+  "item": [
+    {
+      "id": "b0ffa114-e9c7-42f2-b3dc-947783fd7faa",
+      "name": "Events",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1fcd5156-05a2-443b-a8d7-aacae428fb3e",
+          "name": "Ingest events",
+          "request": {
+            "name": "Ingest events",
+            "description": {
+              "content": "Ingests a batch of usage events into Orb's metering pipeline. Each event is idempotent via its idempotency_key and must reference exactly one of customer_id or external_customer_id. Pass debug=true to receive a per-event accept/duplicate breakdown in the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ingest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "debug",
+                  "value": "<boolean>",
+                  "description": "When true, returns a debug breakdown of processed and ignored events."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"events\": [\n    {\n      \"event_name\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"idempotency_key\": \"<string>\",\n      \"properties\": {\n        \"key_0\": 123,\n        \"key_1\": true\n      },\n      \"customer_id\": \"<string>\",\n      \"external_customer_id\": \"<string>\"\n    },\n    {\n      \"event_name\": \"<string>\",\n      \"timestamp\": \"<dateTime>\",\n      \"idempotency_key\": \"<string>\",\n      \"properties\": {\n        \"key_0\": true\n      },\n      \"customer_id\": \"<string>\",\n      \"external_customer_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "602a1e8c-8f0e-4a8d-b4f3-2140a4d2e56a",
+              "name": "The ingestion result, including any events that failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ingest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "debug",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"event_name\": \"string\",\n      \"timestamp\": \"1959-10-16T01:37:21.213Z\",\n      \"idempotency_key\": \"string\",\n      \"properties\": {\n        \"key_0\": 1064.0255966665436,\n        \"key_1\": false\n      },\n      \"customer_id\": \"string\",\n      \"external_customer_id\": \"string\"\n    },\n    {\n      \"event_name\": \"string\",\n      \"timestamp\": \"1979-09-27T12:44:46.856Z\",\n      \"idempotency_key\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      },\n      \"customer_id\": \"string\",\n      \"external_customer_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"validation_failed\": [\n    {\n      \"idempotency_key\": \"string\",\n      \"validation_errors\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"idempotency_key\": \"string\",\n      \"validation_errors\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"debug\": {\n    \"duplicate\": [\n      \"string\",\n      \"string\"\n    ],\n    \"ingested\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8a3db67f-8701-4092-bc2f-11c752587428",
+              "name": "The request was malformed or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ingest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "debug",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"event_name\": \"string\",\n      \"timestamp\": \"1959-10-16T01:37:21.213Z\",\n      \"idempotency_key\": \"string\",\n      \"properties\": {\n        \"key_0\": 1064.0255966665436,\n        \"key_1\": false\n      },\n      \"customer_id\": \"string\",\n      \"external_customer_id\": \"string\"\n    },\n    {\n      \"event_name\": \"string\",\n      \"timestamp\": \"1979-09-27T12:44:46.856Z\",\n      \"idempotency_key\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      },\n      \"customer_id\": \"string\",\n      \"external_customer_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 1473,\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a1711cf-d1b5-4163-938b-74db27c11921",
+              "name": "The API key was missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ingest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "debug",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"events\": [\n    {\n      \"event_name\": \"string\",\n      \"timestamp\": \"1959-10-16T01:37:21.213Z\",\n      \"idempotency_key\": \"string\",\n      \"properties\": {\n        \"key_0\": 1064.0255966665436,\n        \"key_1\": false\n      },\n      \"customer_id\": \"string\",\n      \"external_customer_id\": \"string\"\n    },\n    {\n      \"event_name\": \"string\",\n      \"timestamp\": \"1979-09-27T12:44:46.856Z\",\n      \"idempotency_key\": \"string\",\n      \"properties\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      },\n      \"customer_id\": \"string\",\n      \"external_customer_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 1473,\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42db684a-cdad-4c4e-99e6-f76f6257cb8e",
+          "name": "Amend event",
+          "request": {
+            "name": "Amend event",
+            "description": {
+              "content": "Replaces the properties of a previously ingested event.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                ":event_id",
+                "amend"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "event_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event_name\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"properties\": {\n    \"key_0\": true,\n    \"key_1\": 6796\n  },\n  \"customer_id\": \"<string>\",\n  \"external_customer_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21e19801-6f83-44b0-bd8b-5c0d449a0409",
+              "name": "The amended event reference.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_id",
+                    "amend"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event_name\": \"<string>\",\n  \"timestamp\": \"<dateTime>\",\n  \"properties\": {\n    \"key_0\": true,\n    \"key_1\": 9242.32187423036,\n    \"key_2\": false\n  },\n  \"customer_id\": \"<string>\",\n  \"external_customer_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amended\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70aec332-fc2a-4fb9-b007-67c81814e730",
+          "name": "Search events",
+          "request": {
+            "name": "Search events",
+            "description": {
+              "content": "Searches raw ingested events by event_ids or timeframe.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timeframe_start\": \"<dateTime>\",\n  \"timeframe_end\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "47070602-c697-4a54-a669-ffd0b0a42b76",
+              "name": "Matching events.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"timeframe_start\": \"<dateTime>\",\n  \"timeframe_end\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"event_name\": \"string\",\n      \"timestamp\": \"1960-09-06T19:28:07.449Z\",\n      \"customer_id\": \"string\",\n      \"external_customer_id\": \"string\",\n      \"properties\": {\n        \"key_0\": true\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"event_name\": \"string\",\n      \"timestamp\": \"1978-04-25T13:25:34.929Z\",\n      \"customer_id\": \"string\",\n      \"external_customer_id\": \"string\",\n      \"properties\": {\n        \"key_0\": false,\n        \"key_1\": 6528.687051706167\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3719178-5b47-4b1e-9378-d9b7dcdab47d",
+          "name": "Get event volume",
+          "request": {
+            "name": "Get event volume",
+            "description": {
+              "content": "Returns counts of ingested events bucketed over a timeframe.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                "volume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeframe_start",
+                  "value": "<dateTime>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe_end",
+                  "value": "<dateTime>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54c94740-f432-4601-9f67-fb8bd49fd4bc",
+              "name": "Event volume buckets.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    "volume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeframe_start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "timeframe_end",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"timeframe_start\": \"1993-09-05T18:05:08.288Z\",\n      \"timeframe_end\": \"1994-12-05T20:04:43.363Z\",\n      \"count\": 5461\n    },\n    {\n      \"timeframe_start\": \"1963-07-27T08:01:42.808Z\",\n      \"timeframe_end\": \"1963-08-01T17:50:34.942Z\",\n      \"count\": 8272\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.withorb.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "de502f66-12d6-4d60-af25-2003850600dd",
+    "name": "Orb Alerts Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.\n\nContact Support:\n Name: Orb Support\n Email: team@withorb.com",
+      "type": "text/plain"
+    }
+  }
+}

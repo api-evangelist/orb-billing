@@ -1,0 +1,493 @@
+{
+  "item": [
+    {
+      "id": "f704f48e-a1d6-4cf3-95d4-d6b120e2ebce",
+      "name": "Plans",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "46359aff-c730-49fe-b131-8683ff306fc5",
+          "name": "List plans",
+          "request": {
+            "name": "List plans",
+            "description": {},
+            "url": {
+              "path": [
+                "plans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor for the next page of results."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The number of items to return per page (default 20, max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "33dc501f-c1da-42f6-aa40-2fec8475b39e",
+              "name": "A paginated list of plans.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"external_plan_id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"status\": \"archived\",\n      \"currency\": \"string\",\n      \"net_terms\": 8529,\n      \"prices\": [\n        {\n          \"id\": \"string\",\n          \"external_price_id\": \"string\",\n          \"name\": \"string\",\n          \"price_type\": \"usage_price\",\n          \"model_type\": \"bulk\",\n          \"cadence\": \"one_time\",\n          \"currency\": \"string\",\n          \"item\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"external_connections\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1996-08-07T01:00:07.729Z\"\n          },\n          \"unit_config\": {\n            \"unit_amount\": \"string\"\n          },\n          \"created_at\": \"1971-10-28T14:20:44.774Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"external_price_id\": \"string\",\n          \"name\": \"string\",\n          \"price_type\": \"fixed_price\",\n          \"model_type\": \"grouped_tiered\",\n          \"cadence\": \"quarterly\",\n          \"currency\": \"string\",\n          \"item\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"external_connections\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1969-11-23T06:11:13.837Z\"\n          },\n          \"unit_config\": {\n            \"unit_amount\": \"string\"\n          },\n          \"created_at\": \"1954-06-17T23:16:36.342Z\"\n        }\n      ],\n      \"created_at\": \"2008-01-31T05:15:11.503Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"external_plan_id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"status\": \"archived\",\n      \"currency\": \"string\",\n      \"net_terms\": 4009,\n      \"prices\": [\n        {\n          \"id\": \"string\",\n          \"external_price_id\": \"string\",\n          \"name\": \"string\",\n          \"price_type\": \"usage_price\",\n          \"model_type\": \"tiered_package\",\n          \"cadence\": \"one_time\",\n          \"currency\": \"string\",\n          \"item\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"external_connections\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"1972-10-12T17:54:06.078Z\"\n          },\n          \"unit_config\": {\n            \"unit_amount\": \"string\"\n          },\n          \"created_at\": \"1947-05-22T06:08:03.484Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"external_price_id\": \"string\",\n          \"name\": \"string\",\n          \"price_type\": \"usage_price\",\n          \"model_type\": \"package\",\n          \"cadence\": \"semi_annual\",\n          \"currency\": \"string\",\n          \"item\": {\n            \"id\": \"string\",\n            \"name\": \"string\",\n            \"external_connections\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"created_at\": \"2012-06-07T11:16:52.131Z\"\n          },\n          \"unit_config\": {\n            \"unit_amount\": \"string\"\n          },\n          \"created_at\": \"2011-08-31T14:50:28.251Z\"\n        }\n      ],\n      \"created_at\": \"1995-12-28T07:30:25.639Z\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"has_more\": false,\n    \"next_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5a6b520f-e5ea-449b-bd4c-206c8fe3e768",
+          "name": "Create plan",
+          "request": {
+            "name": "Create plan",
+            "description": {},
+            "url": {
+              "path": [
+                "plans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"external_plan_id\": \"<string>\",\n  \"net_terms\": \"<integer>\",\n  \"prices\": [\n    {\n      \"name\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"cadence\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"model_type\": \"<string>\",\n      \"billable_metric_id\": \"<string>\",\n      \"unit_config\": {\n        \"unit_amount\": \"<string>\"\n      },\n      \"external_price_id\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"item_id\": \"<string>\",\n      \"cadence\": \"<string>\",\n      \"currency\": \"<string>\",\n      \"model_type\": \"<string>\",\n      \"billable_metric_id\": \"<string>\",\n      \"unit_config\": {\n        \"unit_amount\": \"<string>\"\n      },\n      \"external_price_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2b790d7a-869f-4da3-a441-1cc13cc8b625",
+              "name": "The newly created plan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"external_plan_id\": \"<string>\",\n  \"net_terms\": \"<integer>\",\n  \"prices\": [\n    {\n      \"name\": \"string\",\n      \"item_id\": \"string\",\n      \"cadence\": \"annual\",\n      \"currency\": \"string\",\n      \"model_type\": \"bulk\",\n      \"billable_metric_id\": \"string\",\n      \"unit_config\": {\n        \"unit_amount\": \"string\"\n      },\n      \"external_price_id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"item_id\": \"string\",\n      \"cadence\": \"monthly\",\n      \"currency\": \"string\",\n      \"model_type\": \"matrix\",\n      \"billable_metric_id\": \"string\",\n      \"unit_config\": {\n        \"unit_amount\": \"string\"\n      },\n      \"external_price_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"external_plan_id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"status\": \"draft\",\n  \"currency\": \"string\",\n  \"net_terms\": 8136,\n  \"prices\": [\n    {\n      \"id\": \"string\",\n      \"external_price_id\": \"string\",\n      \"name\": \"string\",\n      \"price_type\": \"usage_price\",\n      \"model_type\": \"bulk\",\n      \"cadence\": \"quarterly\",\n      \"currency\": \"string\",\n      \"item\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"external_connections\": [\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          },\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          }\n        ],\n        \"created_at\": \"1949-07-24T11:06:05.126Z\"\n      },\n      \"unit_config\": {\n        \"unit_amount\": \"string\"\n      },\n      \"created_at\": \"1967-12-01T03:15:47.080Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"external_price_id\": \"string\",\n      \"name\": \"string\",\n      \"price_type\": \"usage_price\",\n      \"model_type\": \"matrix\",\n      \"cadence\": \"semi_annual\",\n      \"currency\": \"string\",\n      \"item\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"external_connections\": [\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          },\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          }\n        ],\n        \"created_at\": \"1956-01-24T11:37:14.092Z\"\n      },\n      \"unit_config\": {\n        \"unit_amount\": \"string\"\n      },\n      \"created_at\": \"1951-08-18T09:42:54.912Z\"\n    }\n  ],\n  \"created_at\": \"1961-07-07T21:13:18.644Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a369d401-85d9-4ebb-93c1-4b521ab0ac6d",
+          "name": "Fetch plan",
+          "request": {
+            "name": "Fetch plan",
+            "description": {},
+            "url": {
+              "path": [
+                "plans",
+                ":plan_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "plan_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b896243d-51b3-40c1-b32b-154cde7c8468",
+              "name": "The requested plan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans",
+                    ":plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "plan_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"external_plan_id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"status\": \"draft\",\n  \"currency\": \"string\",\n  \"net_terms\": 8136,\n  \"prices\": [\n    {\n      \"id\": \"string\",\n      \"external_price_id\": \"string\",\n      \"name\": \"string\",\n      \"price_type\": \"usage_price\",\n      \"model_type\": \"bulk\",\n      \"cadence\": \"quarterly\",\n      \"currency\": \"string\",\n      \"item\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"external_connections\": [\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          },\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          }\n        ],\n        \"created_at\": \"1949-07-24T11:06:05.126Z\"\n      },\n      \"unit_config\": {\n        \"unit_amount\": \"string\"\n      },\n      \"created_at\": \"1967-12-01T03:15:47.080Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"external_price_id\": \"string\",\n      \"name\": \"string\",\n      \"price_type\": \"usage_price\",\n      \"model_type\": \"matrix\",\n      \"cadence\": \"semi_annual\",\n      \"currency\": \"string\",\n      \"item\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"external_connections\": [\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          },\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          }\n        ],\n        \"created_at\": \"1956-01-24T11:37:14.092Z\"\n      },\n      \"unit_config\": {\n        \"unit_amount\": \"string\"\n      },\n      \"created_at\": \"1951-08-18T09:42:54.912Z\"\n    }\n  ],\n  \"created_at\": \"1961-07-07T21:13:18.644Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fda39e8b-55c1-4a67-9bcf-06a14dd3ae70",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans",
+                    ":plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "plan_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 5529,\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "152d74da-414a-4eca-b207-3e1bffcbe501",
+          "name": "Update plan",
+          "request": {
+            "name": "Update plan",
+            "description": {},
+            "url": {
+              "path": [
+                "plans",
+                ":plan_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "plan_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"external_plan_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bbaef576-e2ee-428c-ab8e-762685300291",
+              "name": "The updated plan.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans",
+                    ":plan_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "plan_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"external_plan_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"external_plan_id\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"status\": \"draft\",\n  \"currency\": \"string\",\n  \"net_terms\": 8136,\n  \"prices\": [\n    {\n      \"id\": \"string\",\n      \"external_price_id\": \"string\",\n      \"name\": \"string\",\n      \"price_type\": \"usage_price\",\n      \"model_type\": \"bulk\",\n      \"cadence\": \"quarterly\",\n      \"currency\": \"string\",\n      \"item\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"external_connections\": [\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          },\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          }\n        ],\n        \"created_at\": \"1949-07-24T11:06:05.126Z\"\n      },\n      \"unit_config\": {\n        \"unit_amount\": \"string\"\n      },\n      \"created_at\": \"1967-12-01T03:15:47.080Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"external_price_id\": \"string\",\n      \"name\": \"string\",\n      \"price_type\": \"usage_price\",\n      \"model_type\": \"matrix\",\n      \"cadence\": \"semi_annual\",\n      \"currency\": \"string\",\n      \"item\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"external_connections\": [\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          },\n          {\n            \"external_connection_name\": \"string\",\n            \"external_entity_id\": \"string\"\n          }\n        ],\n        \"created_at\": \"1956-01-24T11:37:14.092Z\"\n      },\n      \"unit_config\": {\n        \"unit_amount\": \"string\"\n      },\n      \"created_at\": \"1951-08-18T09:42:54.912Z\"\n    }\n  ],\n  \"created_at\": \"1961-07-07T21:13:18.644Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.withorb.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c68b25a9-e47f-4da9-b371-cf6212d5bdea",
+    "name": "Orb Alerts Plans API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.\n\nContact Support:\n Name: Orb Support\n Email: team@withorb.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,329 @@
+{
+  "item": [
+    {
+      "id": "e912b810-8ba6-40e8-918c-04d220d232dc",
+      "name": "Coupons",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fca572c7-ed2c-40f8-8498-0d1925ad26b6",
+          "name": "List coupons",
+          "request": {
+            "name": "List coupons",
+            "description": {},
+            "url": {
+              "path": [
+                "coupons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor for the next page of results."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The number of items to return per page (default 20, max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e8e84a9-edc2-4d0b-8dfa-d2a193b89b4c",
+              "name": "A paginated list of coupons.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "coupons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"redemption_code\": \"string\",\n      \"discount\": {\n        \"discount_type\": \"amount\",\n        \"percentage_discount\": 804.8721568546247,\n        \"amount_discount\": \"string\"\n      },\n      \"times_redeemed\": 4291,\n      \"max_redemptions\": 4088,\n      \"duration_in_months\": 5993,\n      \"archived_at\": \"2007-02-11T15:23:16.705Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"redemption_code\": \"string\",\n      \"discount\": {\n        \"discount_type\": \"amount\",\n        \"percentage_discount\": 167.11028578075715,\n        \"amount_discount\": \"string\"\n      },\n      \"times_redeemed\": 7618,\n      \"max_redemptions\": 8458,\n      \"duration_in_months\": 8457,\n      \"archived_at\": \"1990-10-03T08:39:14.332Z\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"has_more\": true,\n    \"next_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd7db5ea-1215-4c62-9326-e271e9ddc0a9",
+          "name": "Create coupon",
+          "request": {
+            "name": "Create coupon",
+            "description": {},
+            "url": {
+              "path": [
+                "coupons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"redemption_code\": \"<string>\",\n  \"discount\": {\n    \"discount_type\": \"<string>\",\n    \"percentage_discount\": \"<number>\",\n    \"amount_discount\": \"<string>\"\n  },\n  \"max_redemptions\": \"<integer>\",\n  \"duration_in_months\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b18174ba-ecd9-4a27-a5ac-7a98facaf4a2",
+              "name": "The newly created coupon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "coupons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"redemption_code\": \"<string>\",\n  \"discount\": {\n    \"discount_type\": \"<string>\",\n    \"percentage_discount\": \"<number>\",\n    \"amount_discount\": \"<string>\"\n  },\n  \"max_redemptions\": \"<integer>\",\n  \"duration_in_months\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"redemption_code\": \"string\",\n  \"discount\": {\n    \"discount_type\": \"amount\",\n    \"percentage_discount\": 1694.2923501840378,\n    \"amount_discount\": \"string\"\n  },\n  \"times_redeemed\": 2654,\n  \"max_redemptions\": 623,\n  \"duration_in_months\": 1346,\n  \"archived_at\": \"2007-05-28T18:21:57.027Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a10b98b-eb09-4163-8189-a3b98943efbc",
+          "name": "Archive coupon",
+          "request": {
+            "name": "Archive coupon",
+            "description": {},
+            "url": {
+              "path": [
+                "coupons",
+                ":coupon_id",
+                "archive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "coupon_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b88cc5e-ddf7-4d86-b208-ef14d924be48",
+              "name": "The archived coupon.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "coupons",
+                    ":coupon_id",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "coupon_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"redemption_code\": \"string\",\n  \"discount\": {\n    \"discount_type\": \"amount\",\n    \"percentage_discount\": 1694.2923501840378,\n    \"amount_discount\": \"string\"\n  },\n  \"times_redeemed\": 2654,\n  \"max_redemptions\": 623,\n  \"duration_in_months\": 1346,\n  \"archived_at\": \"2007-05-28T18:21:57.027Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.withorb.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "742ad3ac-a03a-4371-8e32-c7b1d49ffa55",
+    "name": "Orb Alerts Coupons API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.\n\nContact Support:\n Name: Orb Support\n Email: team@withorb.com",
+      "type": "text/plain"
+    }
+  }
+}

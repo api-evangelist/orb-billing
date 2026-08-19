@@ -1,0 +1,538 @@
+{
+  "item": [
+    {
+      "id": "21fb657f-9fcb-4977-a0eb-c0f78c296818",
+      "name": "Alerts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "281733b8-6d79-474c-b886-720cfada1116",
+          "name": "List alerts",
+          "request": {
+            "name": "List alerts",
+            "description": {},
+            "url": {
+              "path": [
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "customer_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "subscription_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor for the next page of results."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The number of items to return per page (default 20, max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aefad079-7ae3-43ce-92bf-81209b55a5f1",
+              "name": "A paginated list of alerts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "customer_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subscription_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"credit_balance_depleted\",\n      \"enabled\": true,\n      \"customer\": {\n        \"id\": \"string\",\n        \"external_customer_id\": \"string\"\n      },\n      \"subscription\": {\n        \"id\": \"string\"\n      },\n      \"currency\": \"string\",\n      \"thresholds\": [\n        {\n          \"value\": 3792.241856549229\n        },\n        {\n          \"value\": 8805.917941412721\n        }\n      ],\n      \"created_at\": \"2022-07-20T09:51:14.452Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"credit_balance_depleted\",\n      \"enabled\": false,\n      \"customer\": {\n        \"id\": \"string\",\n        \"external_customer_id\": \"string\"\n      },\n      \"subscription\": {\n        \"id\": \"string\"\n      },\n      \"currency\": \"string\",\n      \"thresholds\": [\n        {\n          \"value\": 2633.6960073999494\n        },\n        {\n          \"value\": 4847.708454147437\n        }\n      ],\n      \"created_at\": \"1954-10-01T10:11:18.151Z\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"has_more\": true,\n    \"next_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50b7a835-7c54-4c19-b0a1-ce43238ac4e2",
+          "name": "Create alert",
+          "request": {
+            "name": "Create alert",
+            "description": {
+              "content": "Creates a usage, cost, or credit-balance alert on a customer or subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"external_customer_id\": \"<string>\",\n  \"subscription_id\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"thresholds\": [\n    {\n      \"value\": \"<number>\"\n    },\n    {\n      \"value\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "30c79209-2946-4fe9-8b1c-c2cc6e1e7cb9",
+              "name": "The newly created alert.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"external_customer_id\": \"<string>\",\n  \"subscription_id\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"thresholds\": [\n    {\n      \"value\": \"<number>\"\n    },\n    {\n      \"value\": \"<number>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"usage_exceeded\",\n  \"enabled\": false,\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\"\n  },\n  \"subscription\": {\n    \"id\": \"string\"\n  },\n  \"currency\": \"string\",\n  \"thresholds\": [\n    {\n      \"value\": 5858.810327099001\n    },\n    {\n      \"value\": 3854.6190580232987\n    }\n  ],\n  \"created_at\": \"1952-03-11T04:58:10.154Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ad4ce199-e878-4435-a3ad-efde9a2906df",
+          "name": "Fetch alert",
+          "request": {
+            "name": "Fetch alert",
+            "description": {},
+            "url": {
+              "path": [
+                "alerts",
+                ":alert_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "alert_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "99ac34dc-6740-4c9b-a6ca-e661b1a00c3b",
+              "name": "The requested alert.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts",
+                    ":alert_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"usage_exceeded\",\n  \"enabled\": false,\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\"\n  },\n  \"subscription\": {\n    \"id\": \"string\"\n  },\n  \"currency\": \"string\",\n  \"thresholds\": [\n    {\n      \"value\": 5858.810327099001\n    },\n    {\n      \"value\": 3854.6190580232987\n    }\n  ],\n  \"created_at\": \"1952-03-11T04:58:10.154Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c918a26-0865-4992-ad9b-d9f4525248fb",
+          "name": "Enable alert",
+          "request": {
+            "name": "Enable alert",
+            "description": {},
+            "url": {
+              "path": [
+                "alerts",
+                ":alert_id",
+                "enable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "alert_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ee66b05-fbb9-465d-9bbb-65ece6d8abb3",
+              "name": "The enabled alert.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts",
+                    ":alert_id",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"usage_exceeded\",\n  \"enabled\": false,\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\"\n  },\n  \"subscription\": {\n    \"id\": \"string\"\n  },\n  \"currency\": \"string\",\n  \"thresholds\": [\n    {\n      \"value\": 5858.810327099001\n    },\n    {\n      \"value\": 3854.6190580232987\n    }\n  ],\n  \"created_at\": \"1952-03-11T04:58:10.154Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22c533ae-2b4a-4b34-8c7a-dd084ac3af11",
+          "name": "Disable alert",
+          "request": {
+            "name": "Disable alert",
+            "description": {},
+            "url": {
+              "path": [
+                "alerts",
+                ":alert_id",
+                "disable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "alert_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2bfefca7-25da-423d-a72a-84a104829bda",
+              "name": "The disabled alert.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alerts",
+                    ":alert_id",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"type\": \"usage_exceeded\",\n  \"enabled\": false,\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\"\n  },\n  \"subscription\": {\n    \"id\": \"string\"\n  },\n  \"currency\": \"string\",\n  \"thresholds\": [\n    {\n      \"value\": 5858.810327099001\n    },\n    {\n      \"value\": 3854.6190580232987\n    }\n  ],\n  \"created_at\": \"1952-03-11T04:58:10.154Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.withorb.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "50b429fa-02ac-43e1-95d7-969938070cb7",
+    "name": "Orb Alerts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.\n\nContact Support:\n Name: Orb Support\n Email: team@withorb.com",
+      "type": "text/plain"
+    }
+  }
+}

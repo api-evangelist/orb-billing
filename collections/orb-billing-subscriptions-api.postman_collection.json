@@ -1,0 +1,924 @@
+{
+  "item": [
+    {
+      "id": "d3b21134-1a02-47dc-97c7-7e0ec3cd986c",
+      "name": "Subscriptions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e50f00c7-f35c-46ee-9978-a61b917e3588",
+          "name": "List subscriptions",
+          "request": {
+            "name": "List subscriptions",
+            "description": {},
+            "url": {
+              "path": [
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "customer_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "external_customer_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor for the next page of results."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The number of items to return per page (default 20, max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a721bd99-5d4f-43f1-b3d5-98bbd17dc42a",
+              "name": "A paginated list of subscriptions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "customer_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "external_customer_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"customer\": {\n        \"id\": \"string\",\n        \"external_customer_id\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"etgU@EOEaYQpODAghMrDjjvvkQHBfA.bsui\",\n        \"currency\": \"USD\",\n        \"timezone\": \"America/New_York\",\n        \"payment_provider\": \"stripe_charge\",\n        \"balance\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\"\n        },\n        \"created_at\": \"1969-07-08T11:57:18.355Z\"\n      },\n      \"plan\": {\n        \"id\": \"string\",\n        \"external_plan_id\": \"string\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"draft\",\n        \"currency\": \"string\",\n        \"net_terms\": 6337,\n        \"prices\": [\n          {\n            \"id\": \"string\",\n            \"external_price_id\": \"string\",\n            \"name\": \"string\",\n            \"price_type\": \"fixed_price\",\n            \"model_type\": \"threshold_total_amount\",\n            \"cadence\": \"quarterly\",\n            \"currency\": \"string\",\n            \"item\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit_config\": {\n              \"unit_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"created_at\": \"1966-07-06T08:33:05.899Z\"\n          },\n          {\n            \"id\": \"string\",\n            \"external_price_id\": \"string\",\n            \"name\": \"string\",\n            \"price_type\": \"fixed_price\",\n            \"model_type\": \"threshold_total_amount\",\n            \"cadence\": \"annual\",\n            \"currency\": \"string\",\n            \"item\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit_config\": {\n              \"unit_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"created_at\": \"1957-02-19T20:23:49.589Z\"\n          }\n        ],\n        \"created_at\": \"1989-07-07T11:16:44.961Z\"\n      },\n      \"status\": \"upcoming\",\n      \"start_date\": \"2007-05-24T20:51:29.434Z\",\n      \"end_date\": \"1981-03-02T04:38:02.668Z\",\n      \"current_billing_period_start_date\": \"2024-08-22T12:48:00.788Z\",\n      \"current_billing_period_end_date\": \"1990-06-08T10:20:34.571Z\",\n      \"net_terms\": 2129,\n      \"auto_collection\": true,\n      \"metadata\": {\n        \"key_0\": \"string\"\n      },\n      \"created_at\": \"1967-04-05T12:37:08.065Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"customer\": {\n        \"id\": \"string\",\n        \"external_customer_id\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"pLvnSEDO1@bHd.wrm\",\n        \"currency\": \"USD\",\n        \"timezone\": \"America/New_York\",\n        \"payment_provider\": \"bill.com\",\n        \"balance\": \"string\",\n        \"metadata\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"created_at\": \"1951-02-12T08:38:01.027Z\"\n      },\n      \"plan\": {\n        \"id\": \"string\",\n        \"external_plan_id\": \"string\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"active\",\n        \"currency\": \"string\",\n        \"net_terms\": 8290,\n        \"prices\": [\n          {\n            \"id\": \"string\",\n            \"external_price_id\": \"string\",\n            \"name\": \"string\",\n            \"price_type\": \"usage_price\",\n            \"model_type\": \"bulk\",\n            \"cadence\": \"one_time\",\n            \"currency\": \"string\",\n            \"item\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit_config\": {\n              \"unit_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"created_at\": \"1990-05-08T03:36:47.149Z\"\n          },\n          {\n            \"id\": \"string\",\n            \"external_price_id\": \"string\",\n            \"name\": \"string\",\n            \"price_type\": \"fixed_price\",\n            \"model_type\": \"tiered_package\",\n            \"cadence\": \"quarterly\",\n            \"currency\": \"string\",\n            \"item\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"unit_config\": {\n              \"unit_amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            \"created_at\": \"1987-01-28T16:52:57.043Z\"\n          }\n        ],\n        \"created_at\": \"1989-01-21T17:18:28.042Z\"\n      },\n      \"status\": \"upcoming\",\n      \"start_date\": \"1956-02-15T17:59:39.780Z\",\n      \"end_date\": \"1990-05-02T22:17:45.575Z\",\n      \"current_billing_period_start_date\": \"1983-04-04T11:15:21.409Z\",\n      \"current_billing_period_end_date\": \"1969-07-04T02:40:31.176Z\",\n      \"net_terms\": 8937,\n      \"auto_collection\": false,\n      \"metadata\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"created_at\": \"1982-05-27T18:36:43.396Z\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"has_more\": false,\n    \"next_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbc30af5-526f-42b6-a22f-b29d26a3f0bf",
+          "name": "Create subscription",
+          "request": {
+            "name": "Create subscription",
+            "description": {
+              "content": "Creates a subscription that associates a customer with a plan, starting the accrual of usage charges into a draft invoice.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_id\": \"<string>\",\n  \"external_customer_id\": \"<string>\",\n  \"plan_id\": \"<string>\",\n  \"external_plan_id\": \"<string>\",\n  \"start_date\": \"<dateTime>\",\n  \"net_terms\": \"<integer>\",\n  \"auto_collection\": \"<boolean>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ff30e335-c8bf-4e72-900a-777d7d560e60",
+              "name": "The newly created subscription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer_id\": \"<string>\",\n  \"external_customer_id\": \"<string>\",\n  \"plan_id\": \"<string>\",\n  \"external_plan_id\": \"<string>\",\n  \"start_date\": \"<dateTime>\",\n  \"net_terms\": \"<integer>\",\n  \"auto_collection\": \"<boolean>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"kx2@PppyrWoqj.sud\",\n    \"currency\": \"USD\",\n    \"timezone\": \"America/New_York\",\n    \"payment_provider\": \"stripe_invoice\",\n    \"balance\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"created_at\": \"1986-07-09T23:21:38.400Z\"\n  },\n  \"plan\": {\n    \"id\": \"string\",\n    \"external_plan_id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"status\": \"draft\",\n    \"currency\": \"string\",\n    \"net_terms\": 773,\n    \"prices\": [\n      {\n        \"id\": \"string\",\n        \"external_price_id\": \"string\",\n        \"name\": \"string\",\n        \"price_type\": \"usage_price\",\n        \"model_type\": \"package\",\n        \"cadence\": \"monthly\",\n        \"currency\": \"string\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"created_at\": \"1946-11-20T16:52:03.836Z\"\n        },\n        \"unit_config\": {\n          \"unit_amount\": \"string\"\n        },\n        \"created_at\": \"1999-03-15T06:02:48.245Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"external_price_id\": \"string\",\n        \"name\": \"string\",\n        \"price_type\": \"usage_price\",\n        \"model_type\": \"grouped_tiered\",\n        \"cadence\": \"semi_annual\",\n        \"currency\": \"string\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"created_at\": \"2009-06-13T20:18:30.312Z\"\n        },\n        \"unit_config\": {\n          \"unit_amount\": \"string\"\n        },\n        \"created_at\": \"1957-12-31T12:03:42.581Z\"\n      }\n    ],\n    \"created_at\": \"1999-03-11T23:02:14.127Z\"\n  },\n  \"status\": \"active\",\n  \"start_date\": \"2025-01-11T13:52:40.578Z\",\n  \"end_date\": \"1946-11-10T02:48:50.452Z\",\n  \"current_billing_period_start_date\": \"2010-03-06T05:43:19.491Z\",\n  \"current_billing_period_end_date\": \"2012-03-04T11:15:08.030Z\",\n  \"net_terms\": 1569,\n  \"auto_collection\": true,\n  \"metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"created_at\": \"1959-09-16T19:15:39.101Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a369771-54cc-4a6f-a37c-c76b32f4a4a4",
+              "name": "The request was malformed or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer_id\": \"<string>\",\n  \"external_customer_id\": \"<string>\",\n  \"plan_id\": \"<string>\",\n  \"external_plan_id\": \"<string>\",\n  \"start_date\": \"<dateTime>\",\n  \"net_terms\": \"<integer>\",\n  \"auto_collection\": \"<boolean>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 699,\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "faed498f-7536-4916-a18e-919ff2d3a41a",
+          "name": "Fetch subscription",
+          "request": {
+            "name": "Fetch subscription",
+            "description": {},
+            "url": {
+              "path": [
+                "subscriptions",
+                ":subscription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscription_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ba6fbdcc-00dd-4ed7-baa6-a15ca25cc7ee",
+              "name": "The requested subscription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscription_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"kx2@PppyrWoqj.sud\",\n    \"currency\": \"USD\",\n    \"timezone\": \"America/New_York\",\n    \"payment_provider\": \"stripe_invoice\",\n    \"balance\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"created_at\": \"1986-07-09T23:21:38.400Z\"\n  },\n  \"plan\": {\n    \"id\": \"string\",\n    \"external_plan_id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"status\": \"draft\",\n    \"currency\": \"string\",\n    \"net_terms\": 773,\n    \"prices\": [\n      {\n        \"id\": \"string\",\n        \"external_price_id\": \"string\",\n        \"name\": \"string\",\n        \"price_type\": \"usage_price\",\n        \"model_type\": \"package\",\n        \"cadence\": \"monthly\",\n        \"currency\": \"string\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"created_at\": \"1946-11-20T16:52:03.836Z\"\n        },\n        \"unit_config\": {\n          \"unit_amount\": \"string\"\n        },\n        \"created_at\": \"1999-03-15T06:02:48.245Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"external_price_id\": \"string\",\n        \"name\": \"string\",\n        \"price_type\": \"usage_price\",\n        \"model_type\": \"grouped_tiered\",\n        \"cadence\": \"semi_annual\",\n        \"currency\": \"string\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"created_at\": \"2009-06-13T20:18:30.312Z\"\n        },\n        \"unit_config\": {\n          \"unit_amount\": \"string\"\n        },\n        \"created_at\": \"1957-12-31T12:03:42.581Z\"\n      }\n    ],\n    \"created_at\": \"1999-03-11T23:02:14.127Z\"\n  },\n  \"status\": \"active\",\n  \"start_date\": \"2025-01-11T13:52:40.578Z\",\n  \"end_date\": \"1946-11-10T02:48:50.452Z\",\n  \"current_billing_period_start_date\": \"2010-03-06T05:43:19.491Z\",\n  \"current_billing_period_end_date\": \"2012-03-04T11:15:08.030Z\",\n  \"net_terms\": 1569,\n  \"auto_collection\": true,\n  \"metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"created_at\": \"1959-09-16T19:15:39.101Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c25fca8-b69e-46f7-b7ca-389a8a83664a",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscription_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 699,\n  \"type\": \"string\",\n  \"title\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb89f5ef-7ba7-468b-b06a-3104b3645314",
+          "name": "Update subscription",
+          "request": {
+            "name": "Update subscription",
+            "description": {},
+            "url": {
+              "path": [
+                "subscriptions",
+                ":subscription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscription_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "821dd3c1-e1e3-4824-9de1-5a31634ea4d5",
+              "name": "The updated subscription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscription_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"kx2@PppyrWoqj.sud\",\n    \"currency\": \"USD\",\n    \"timezone\": \"America/New_York\",\n    \"payment_provider\": \"stripe_invoice\",\n    \"balance\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"created_at\": \"1986-07-09T23:21:38.400Z\"\n  },\n  \"plan\": {\n    \"id\": \"string\",\n    \"external_plan_id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"status\": \"draft\",\n    \"currency\": \"string\",\n    \"net_terms\": 773,\n    \"prices\": [\n      {\n        \"id\": \"string\",\n        \"external_price_id\": \"string\",\n        \"name\": \"string\",\n        \"price_type\": \"usage_price\",\n        \"model_type\": \"package\",\n        \"cadence\": \"monthly\",\n        \"currency\": \"string\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"created_at\": \"1946-11-20T16:52:03.836Z\"\n        },\n        \"unit_config\": {\n          \"unit_amount\": \"string\"\n        },\n        \"created_at\": \"1999-03-15T06:02:48.245Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"external_price_id\": \"string\",\n        \"name\": \"string\",\n        \"price_type\": \"usage_price\",\n        \"model_type\": \"grouped_tiered\",\n        \"cadence\": \"semi_annual\",\n        \"currency\": \"string\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"created_at\": \"2009-06-13T20:18:30.312Z\"\n        },\n        \"unit_config\": {\n          \"unit_amount\": \"string\"\n        },\n        \"created_at\": \"1957-12-31T12:03:42.581Z\"\n      }\n    ],\n    \"created_at\": \"1999-03-11T23:02:14.127Z\"\n  },\n  \"status\": \"active\",\n  \"start_date\": \"2025-01-11T13:52:40.578Z\",\n  \"end_date\": \"1946-11-10T02:48:50.452Z\",\n  \"current_billing_period_start_date\": \"2010-03-06T05:43:19.491Z\",\n  \"current_billing_period_end_date\": \"2012-03-04T11:15:08.030Z\",\n  \"net_terms\": 1569,\n  \"auto_collection\": true,\n  \"metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"created_at\": \"1959-09-16T19:15:39.101Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee6e18ba-eaf1-4f24-a4f4-1aa723b4b3e5",
+          "name": "Cancel subscription",
+          "request": {
+            "name": "Cancel subscription",
+            "description": {},
+            "url": {
+              "path": [
+                "subscriptions",
+                ":subscription_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscription_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cancel_option\": \"<string>\",\n  \"cancellation_date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e1be15da-66f9-443f-b977-8e09d831fd89",
+              "name": "The canceled subscription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscription_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cancel_option\": \"<string>\",\n  \"cancellation_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"kx2@PppyrWoqj.sud\",\n    \"currency\": \"USD\",\n    \"timezone\": \"America/New_York\",\n    \"payment_provider\": \"stripe_invoice\",\n    \"balance\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"created_at\": \"1986-07-09T23:21:38.400Z\"\n  },\n  \"plan\": {\n    \"id\": \"string\",\n    \"external_plan_id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"status\": \"draft\",\n    \"currency\": \"string\",\n    \"net_terms\": 773,\n    \"prices\": [\n      {\n        \"id\": \"string\",\n        \"external_price_id\": \"string\",\n        \"name\": \"string\",\n        \"price_type\": \"usage_price\",\n        \"model_type\": \"package\",\n        \"cadence\": \"monthly\",\n        \"currency\": \"string\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"created_at\": \"1946-11-20T16:52:03.836Z\"\n        },\n        \"unit_config\": {\n          \"unit_amount\": \"string\"\n        },\n        \"created_at\": \"1999-03-15T06:02:48.245Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"external_price_id\": \"string\",\n        \"name\": \"string\",\n        \"price_type\": \"usage_price\",\n        \"model_type\": \"grouped_tiered\",\n        \"cadence\": \"semi_annual\",\n        \"currency\": \"string\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"created_at\": \"2009-06-13T20:18:30.312Z\"\n        },\n        \"unit_config\": {\n          \"unit_amount\": \"string\"\n        },\n        \"created_at\": \"1957-12-31T12:03:42.581Z\"\n      }\n    ],\n    \"created_at\": \"1999-03-11T23:02:14.127Z\"\n  },\n  \"status\": \"active\",\n  \"start_date\": \"2025-01-11T13:52:40.578Z\",\n  \"end_date\": \"1946-11-10T02:48:50.452Z\",\n  \"current_billing_period_start_date\": \"2010-03-06T05:43:19.491Z\",\n  \"current_billing_period_end_date\": \"2012-03-04T11:15:08.030Z\",\n  \"net_terms\": 1569,\n  \"auto_collection\": true,\n  \"metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"created_at\": \"1959-09-16T19:15:39.101Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bf541593-dbff-49b7-8f01-6ee2d553dadb",
+          "name": "Fetch subscription usage",
+          "request": {
+            "name": "Fetch subscription usage",
+            "description": {
+              "content": "Returns usage quantities for the subscription's billable metrics over a window.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":subscription_id",
+                "usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "timeframe_start",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "timeframe_end",
+                  "value": "<dateTime>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscription_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "22e88eb5-e7a5-4b72-9190-d9eea5fe9ec4",
+              "name": "The subscription usage breakdown.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscription_id",
+                    "usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "timeframe_start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "timeframe_end",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"billable_metric\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"active\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": \"string\",\n              \"external_entity_id\": \"string\"\n            },\n            {\n              \"external_connection_name\": \"string\",\n              \"external_entity_id\": \"string\"\n            }\n          ],\n          \"created_at\": \"2025-06-12T23:11:45.391Z\"\n        },\n        \"metadata\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        }\n      },\n      \"usage\": [\n        {\n          \"quantity\": 6731.7000395027935,\n          \"timeframe_start\": \"2002-06-13T13:48:41.794Z\",\n          \"timeframe_end\": \"1975-02-27T16:31:53.346Z\"\n        },\n        {\n          \"quantity\": 4707.544759263469,\n          \"timeframe_start\": \"2007-02-01T09:29:32.931Z\",\n          \"timeframe_end\": \"2017-11-02T11:45:57.834Z\"\n        }\n      ]\n    },\n    {\n      \"billable_metric\": {\n        \"id\": \"string\",\n        \"name\": \"string\",\n        \"description\": \"string\",\n        \"status\": \"archived\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": \"string\",\n              \"external_entity_id\": \"string\"\n            },\n            {\n              \"external_connection_name\": \"string\",\n              \"external_entity_id\": \"string\"\n            }\n          ],\n          \"created_at\": \"1998-09-10T18:58:26.851Z\"\n        },\n        \"metadata\": {\n          \"key_0\": \"string\"\n        }\n      },\n      \"usage\": [\n        {\n          \"quantity\": 950.276195461932,\n          \"timeframe_start\": \"1990-01-19T19:16:09.098Z\",\n          \"timeframe_end\": \"1955-10-17T03:39:49.339Z\"\n        },\n        {\n          \"quantity\": 7538.564761492315,\n          \"timeframe_start\": \"2011-11-02T04:56:38.027Z\",\n          \"timeframe_end\": \"1950-02-02T22:59:51.169Z\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d561383-80ee-4c20-907f-6d85b22b5f48",
+          "name": "Schedule plan change",
+          "request": {
+            "name": "Schedule plan change",
+            "description": {},
+            "url": {
+              "path": [
+                "subscriptions",
+                ":subscription_id",
+                "schedule_plan_change"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscription_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"change_option\": \"<string>\",\n  \"plan_id\": \"<string>\",\n  \"external_plan_id\": \"<string>\",\n  \"change_date\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a9d5b200-5a4a-425e-80ab-9cc61782ca07",
+              "name": "The subscription with the scheduled change.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscription_id",
+                    "schedule_plan_change"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"change_option\": \"<string>\",\n  \"plan_id\": \"<string>\",\n  \"external_plan_id\": \"<string>\",\n  \"change_date\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"customer\": {\n    \"id\": \"string\",\n    \"external_customer_id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"kx2@PppyrWoqj.sud\",\n    \"currency\": \"USD\",\n    \"timezone\": \"America/New_York\",\n    \"payment_provider\": \"stripe_invoice\",\n    \"balance\": \"string\",\n    \"metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"created_at\": \"1986-07-09T23:21:38.400Z\"\n  },\n  \"plan\": {\n    \"id\": \"string\",\n    \"external_plan_id\": \"string\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"status\": \"draft\",\n    \"currency\": \"string\",\n    \"net_terms\": 773,\n    \"prices\": [\n      {\n        \"id\": \"string\",\n        \"external_price_id\": \"string\",\n        \"name\": \"string\",\n        \"price_type\": \"usage_price\",\n        \"model_type\": \"package\",\n        \"cadence\": \"monthly\",\n        \"currency\": \"string\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"created_at\": \"1946-11-20T16:52:03.836Z\"\n        },\n        \"unit_config\": {\n          \"unit_amount\": \"string\"\n        },\n        \"created_at\": \"1999-03-15T06:02:48.245Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"external_price_id\": \"string\",\n        \"name\": \"string\",\n        \"price_type\": \"usage_price\",\n        \"model_type\": \"grouped_tiered\",\n        \"cadence\": \"semi_annual\",\n        \"currency\": \"string\",\n        \"item\": {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"external_connections\": [\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"external_connection_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"external_entity_id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"created_at\": \"2009-06-13T20:18:30.312Z\"\n        },\n        \"unit_config\": {\n          \"unit_amount\": \"string\"\n        },\n        \"created_at\": \"1957-12-31T12:03:42.581Z\"\n      }\n    ],\n    \"created_at\": \"1999-03-11T23:02:14.127Z\"\n  },\n  \"status\": \"active\",\n  \"start_date\": \"2025-01-11T13:52:40.578Z\",\n  \"end_date\": \"1946-11-10T02:48:50.452Z\",\n  \"current_billing_period_start_date\": \"2010-03-06T05:43:19.491Z\",\n  \"current_billing_period_end_date\": \"2012-03-04T11:15:08.030Z\",\n  \"net_terms\": 1569,\n  \"auto_collection\": true,\n  \"metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"created_at\": \"1959-09-16T19:15:39.101Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.withorb.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "35b33f6f-5520-4363-b698-863e2e94470d",
+    "name": "Orb Alerts Subscriptions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.\n\nContact Support:\n Name: Orb Support\n Email: team@withorb.com",
+      "type": "text/plain"
+    }
+  }
+}

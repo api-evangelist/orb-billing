@@ -1,0 +1,600 @@
+{
+  "item": [
+    {
+      "id": "a3536755-8b5b-4f28-9d4e-a209b449a5e7",
+      "name": "Credits",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "11a056c0-f913-42fb-ba2d-8ff156a0531c",
+          "name": "Fetch customer credit balance",
+          "request": {
+            "name": "Fetch customer credit balance",
+            "description": {
+              "content": "Returns the unexpired, available credit blocks for a customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customer_id",
+                "credits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) The Orb-generated customer identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23866022-7b91-4b53-a96c-bb72a5edbc01",
+              "name": "The customer's credit blocks.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customer_id",
+                    "credits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) The Orb-generated customer identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"balance\": 1805.2895997451012,\n      \"status\": \"pending_payment\",\n      \"effective_date\": \"1947-06-18T11:09:12.309Z\",\n      \"expiry_date\": \"1956-10-11T07:14:10.697Z\",\n      \"per_unit_cost_basis\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"balance\": 7116.986733393471,\n      \"status\": \"pending_payment\",\n      \"effective_date\": \"2017-01-24T08:02:53.098Z\",\n      \"expiry_date\": \"1982-10-10T00:37:36.272Z\",\n      \"per_unit_cost_basis\": \"string\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"has_more\": false,\n    \"next_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd13ab2e-f904-4212-9e91-a7c0911964a7",
+          "name": "Fetch customer credits ledger",
+          "request": {
+            "name": "Fetch customer credits ledger",
+            "description": {
+              "content": "Returns the full ledger of credit additions, decrements, and expirations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customer_id",
+                "credits",
+                "ledger"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "An opaque cursor for the next page of results."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "The number of items to return per page (default 20, max 100)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) The Orb-generated customer identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1a5897c-863d-4414-9d4a-92deafe72a27",
+              "name": "A paginated credit ledger.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customer_id",
+                    "credits",
+                    "ledger"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) The Orb-generated customer identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"entry_type\": \"void_initiated\",\n      \"entry_status\": \"pending\",\n      \"amount\": 9444.045197500673,\n      \"starting_balance\": 6273.586793145498,\n      \"ending_balance\": 9376.264065256715,\n      \"credit_block\": {\n        \"id\": \"string\",\n        \"balance\": 3262.454949273533,\n        \"status\": \"active\",\n        \"effective_date\": \"1966-07-18T19:39:44.506Z\",\n        \"expiry_date\": \"1975-05-25T17:20:45.117Z\",\n        \"per_unit_cost_basis\": \"string\"\n      },\n      \"description\": \"string\",\n      \"created_at\": \"1994-10-27T22:27:34.295Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"entry_type\": \"void_initiated\",\n      \"entry_status\": \"committed\",\n      \"amount\": 2104.829747320491,\n      \"starting_balance\": 69.66309140789994,\n      \"ending_balance\": 6583.718139850221,\n      \"credit_block\": {\n        \"id\": \"string\",\n        \"balance\": 9657.895189426077,\n        \"status\": \"pending_payment\",\n        \"effective_date\": \"2020-10-04T13:57:01.972Z\",\n        \"expiry_date\": \"2017-01-06T03:03:36.497Z\",\n        \"per_unit_cost_basis\": \"string\"\n      },\n      \"description\": \"string\",\n      \"created_at\": \"2020-02-20T22:51:02.522Z\"\n    }\n  ],\n  \"pagination_metadata\": {\n    \"has_more\": false,\n    \"next_cursor\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "672070d1-8ad4-4932-bdf0-030b6dc62f51",
+          "name": "Create ledger entry",
+          "request": {
+            "name": "Create ledger entry",
+            "description": {
+              "content": "Adds, sets expiry, voids, or amends credits on a customer's ledger.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customer_id",
+                "credits",
+                "ledger_entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) The Orb-generated customer identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entry_type\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"effective_date\": \"<dateTime>\",\n  \"expiry_date\": \"<dateTime>\",\n  \"per_unit_cost_basis\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dd3e0870-5f7d-46d7-9a96-743ae97ff67e",
+              "name": "The created ledger entry.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customer_id",
+                    "credits",
+                    "ledger_entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) The Orb-generated customer identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entry_type\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"currency\": \"<string>\",\n  \"effective_date\": \"<dateTime>\",\n  \"expiry_date\": \"<dateTime>\",\n  \"per_unit_cost_basis\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"entry_type\": \"credit_block_expiry\",\n  \"entry_status\": \"committed\",\n  \"amount\": 7464.6121394818965,\n  \"starting_balance\": 7825.644124674084,\n  \"ending_balance\": 6480.751498394437,\n  \"credit_block\": {\n    \"id\": \"string\",\n    \"balance\": 8018.4232324005925,\n    \"status\": \"active\",\n    \"effective_date\": \"2004-08-31T16:52:23.677Z\",\n    \"expiry_date\": \"2014-06-12T15:51:09.344Z\",\n    \"per_unit_cost_basis\": \"string\"\n  },\n  \"description\": \"string\",\n  \"created_at\": \"1962-08-28T17:48:14.380Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "638a1de4-85f9-4afe-8733-3328ae46fec2",
+          "name": "Create top-up",
+          "request": {
+            "name": "Create top-up",
+            "description": {
+              "content": "Configures an automatic credit top-up that fires when a balance falls below a threshold.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customer_id",
+                "credits",
+                "top_ups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) The Orb-generated customer identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"threshold\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"per_unit_cost_basis\": \"<string>\",\n  \"expires_after\": \"<integer>\",\n  \"expires_after_unit\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ac6d9f48-200c-4a24-802b-fdb9ca237b23",
+              "name": "The created top-up.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customer_id",
+                    "credits",
+                    "top_ups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) The Orb-generated customer identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"threshold\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"per_unit_cost_basis\": \"<string>\",\n  \"expires_after\": \"<integer>\",\n  \"expires_after_unit\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"threshold\": \"string\",\n  \"amount\": \"string\",\n  \"currency\": \"string\",\n  \"per_unit_cost_basis\": \"string\",\n  \"active_from\": \"1977-03-28T23:16:25.132Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6c35fcf6-3632-4925-857e-66468e8cf04e",
+          "name": "List top-ups",
+          "request": {
+            "name": "List top-ups",
+            "description": {},
+            "url": {
+              "path": [
+                "customers",
+                ":customer_id",
+                "credits",
+                "top_ups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_id",
+                  "description": "(Required) The Orb-generated customer identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "774f954e-f1e8-4bd5-87a1-164705369fd9",
+              "name": "The customer's top-ups.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customer_id",
+                    "credits",
+                    "top_ups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_id",
+                      "description": "(Required) The Orb-generated customer identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"threshold\": \"string\",\n      \"amount\": \"string\",\n      \"currency\": \"string\",\n      \"per_unit_cost_basis\": \"string\",\n      \"active_from\": \"1995-06-06T05:04:17.609Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"threshold\": \"string\",\n      \"amount\": \"string\",\n      \"currency\": \"string\",\n      \"per_unit_cost_basis\": \"string\",\n      \"active_from\": \"2013-07-11T18:51:14.748Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.withorb.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f4316ebd-c994-4022-bbed-ad3858d4ee77",
+    "name": "Orb Alerts Credits API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Orb is a usage-based billing and metering platform. The REST API ingests timestamped usage events, models customers, plans, prices, items, and billable metrics, manages subscriptions, and automates invoicing, credit ledgers, coupons, alerts, and webhooks. All endpoints are served over HTTPS at https://api.withorb.com/v1 and authenticated with a Bearer API key.\n\nContact Support:\n Name: Orb Support\n Email: team@withorb.com",
+      "type": "text/plain"
+    }
+  }
+}

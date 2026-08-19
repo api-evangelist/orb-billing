@@ -1,0 +1,192 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Orb Alerts Customers API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List customers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/customers",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "An opaque cursor for the next page of results."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page (default 20, max 100)."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of customers, ordered by descending creation time."
+        },
+        {
+          "info": {
+            "name": "Create customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/customers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new customer, optionally with an external_customer_id alias."
+        },
+        {
+          "info": {
+            "name": "Fetch customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/customers/:customer_id",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The Orb-generated customer identifier."
+              }
+            ]
+          },
+          "docs": "Fetch customer"
+        },
+        {
+          "info": {
+            "name": "Update customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.withorb.com/v1/customers/:customer_id",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The Orb-generated customer identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update customer"
+        },
+        {
+          "info": {
+            "name": "Delete customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.withorb.com/v1/customers/:customer_id",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The Orb-generated customer identifier."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a customer. This operation is irreversible."
+        },
+        {
+          "info": {
+            "name": "Fetch customer by external ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/customers/external_customer_id/:external_customer_id",
+            "params": [
+              {
+                "name": "external_customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The external customer ID alias mapped when the customer was created."
+              }
+            ]
+          },
+          "docs": "Fetch customer by external ID"
+        },
+        {
+          "info": {
+            "name": "Fetch customer costs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.withorb.com/v1/customers/:customer_id/costs",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The Orb-generated customer identifier."
+              },
+              {
+                "name": "timeframe_start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timeframe_end",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the cost breakdown for a customer over a time range."
+        },
+        {
+          "info": {
+            "name": "Create portal session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.withorb.com/v1/customers/:customer_id/portal_sessions",
+            "params": [
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path",
+                "description": "The Orb-generated customer identifier."
+              }
+            ]
+          },
+          "docs": "Creates a hosted customer portal session URL for the customer."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
