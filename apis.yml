@@ -25,6 +25,13 @@ tags:
 - Billing
 - Usage-Based Billing
 - Metering
+- Subscription
+- Invoicing
+- FinOps
+tags_raw:
+- Billing
+- Usage-Based Billing
+- Metering
 - Subscriptions
 - Invoicing
 - FinOps
@@ -230,6 +237,8 @@ apis:
   humanURL: https://docs.withorb.com/api-reference/customer
   baseURL: https://api.withorb.com/v1
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -326,6 +335,8 @@ apis:
   humanURL: https://docs.withorb.com/api-reference/customer
   baseURL: https://api.withorb.com/v1
   tags:
+  - Item
+  tags_raw:
   - Items
   properties:
   - type: OpenAPI
@@ -518,6 +529,8 @@ apis:
   humanURL: https://docs.withorb.com/api-reference/customer
   baseURL: https://api.withorb.com/v1
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
