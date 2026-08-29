@@ -7,6 +7,18 @@ description: Orb is a usage-based billing and metering platform that turns produ
   ingests metered events, models customers, plans, prices, and items, runs subscriptions,
   and automates invoicing, credit ledgers, alerts, and webhooks for modern revenue
   teams.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
