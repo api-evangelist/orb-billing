@@ -2,11 +2,9 @@ aid: orb-billing
 url: https://raw.githubusercontent.com/api-evangelist/orb-billing/refs/heads/main/apis.yml
 name: Orb
 kind: company
-description: Orb is a usage-based billing and metering platform that turns product
-  usage events into subscriptions, prices, invoices, and credits. The Orb REST API
-  ingests metered events, models customers, plans, prices, and items, runs subscriptions,
-  and automates invoicing, credit ledgers, alerts, and webhooks for modern revenue
-  teams.
+description: Orb is a usage-based billing and metering platform that turns product usage events into subscriptions,
+  prices, invoices, and credits. The Orb REST API ingests metered events, models customers, plans, prices, and items,
+  runs subscriptions, and automates invoicing, credit ledgers, alerts, and webhooks for modern revenue teams.
 deliveryModel:
   model: saas
   open_source: false
@@ -21,16 +19,17 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: paid
-  onboarding: self-serve
+  onboarding: unknown
   trial: false
   try_now: false
   public: false
-  label: Paid · Self-serve signup
-  confidence: high
+  label: Paid
+  confidence: medium
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/orb-billing.png
 tags:
@@ -585,6 +584,140 @@ apis:
     url: https://docs.withorb.com/api-reference/alert
   - type: Documentation
     url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
+- aid: orb-billing:orb-alerts-api
+  name: Orb Alerts API
+  description: The Alerts API from Orb — 3 operation(s) for alerts.
+  humanURL: https://www.withorb.com/
+  tags:
+  - Alerts
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-alerts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/
+  - type: GettingStarted
+    url: https://docs.withorb.com/
+- aid: orb-billing:orb-availability-api
+  name: Orb Availability API
+  description: The Availability API from Orb — 1 operation(s) for availability.
+  humanURL: https://www.withorb.com/
+  tags:
+  - Availability
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-availability-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/
+  - type: GettingStarted
+    url: https://docs.withorb.com/
+- aid: orb-billing:orb-coupons-api
+  name: Orb Coupons API
+  description: The Coupons API from Orb — 1 operation(s) for coupons.
+  humanURL: https://www.withorb.com/
+  tags:
+  - Coupons
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-coupons-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/
+  - type: GettingStarted
+    url: https://docs.withorb.com/
+- aid: orb-billing:orb-credit-notes-api
+  name: Orb Credit Notes API
+  description: The Credit Notes API from Orb — 1 operation(s) for credit notes.
+  humanURL: https://www.withorb.com/
+  tags:
+  - Credit Notes
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-credit-notes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/
+  - type: GettingStarted
+    url: https://docs.withorb.com/
+- aid: orb-billing:orb-customers-api
+  name: Orb Customers API
+  description: The Customers API from Orb — 2 operation(s) for customers.
+  humanURL: https://www.withorb.com/
+  tags:
+  - Customers
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-customers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/
+  - type: GettingStarted
+    url: https://docs.withorb.com/
+- aid: orb-billing:orb-events-api
+  name: Orb Events API
+  description: The Events API from Orb — 1 operation(s) for events.
+  humanURL: https://www.withorb.com/
+  tags:
+  - Event
+  tags_raw:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/
+  - type: GettingStarted
+    url: https://docs.withorb.com/
+- aid: orb-billing:orb-invoices-api
+  name: Orb Invoices API
+  description: The Invoices API from Orb — 1 operation(s) for invoices.
+  humanURL: https://www.withorb.com/
+  tags:
+  - Invoices
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-invoices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/
+  - type: GettingStarted
+    url: https://docs.withorb.com/
+- aid: orb-billing:orb-plans-api
+  name: Orb Plans API
+  description: The Plans API from Orb — 1 operation(s) for plans.
+  humanURL: https://www.withorb.com/
+  tags:
+  - Plans
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-plans-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/
+  - type: GettingStarted
+    url: https://docs.withorb.com/
+- aid: orb-billing:orb-prices-api
+  name: Orb Prices API
+  description: The Prices API from Orb — 1 operation(s) for prices.
+  humanURL: https://www.withorb.com/
+  tags:
+  - Prices
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-prices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/
+  - type: GettingStarted
+    url: https://docs.withorb.com/
+- aid: orb-billing:orb-subscriptions-api
+  name: Orb Subscriptions API
+  description: The Subscriptions API from Orb — 2 operation(s) for subscriptions.
+  humanURL: https://www.withorb.com/
+  tags:
+  - Subscription
+  tags_raw:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/orb-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.withorb.com/
+  - type: GettingStarted
+    url: https://docs.withorb.com/
 common:
 - type: AgenticAccess
   url: agentic-access/orb-billing-agentic-access.yml
