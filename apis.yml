@@ -152,6 +152,8 @@ apis:
   humanURL: https://docs.withorb.com/api-reference/customer
   baseURL: https://api.withorb.com/v1
   tags:
+  - Credit
+  tags_raw:
   - Credits
   properties:
   - type: OpenAPI
