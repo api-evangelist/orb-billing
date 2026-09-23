@@ -1,17 +1,7 @@
 {
   "provider": "orb-billing",
   "sources": [
-    "orb-billing-alerts-api-openapi.yml",
-    "orb-billing-coupons-api-openapi.yml",
-    "orb-billing-credits-api-openapi.yml",
-    "orb-billing-customers-api-openapi.yml",
-    "orb-billing-events-api-openapi.yml",
-    "orb-billing-invoices-api-openapi.yml",
-    "orb-billing-items-api-openapi.yml",
-    "orb-billing-metrics-api-openapi.yml",
-    "orb-billing-plans-api-openapi.yml",
-    "orb-billing-prices-api-openapi.yml",
-    "orb-billing-subscriptions-api-openapi.yml"
+    "_original/orb-billing-openapi.yml"
   ],
   "outputs": [
     "orb-billing-alerts-api-openapi.yml",
@@ -29,6 +19,22 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "orb-billing-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "orb-billing-alerts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orb-billing-coupons-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orb-billing-credits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orb-billing-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orb-billing-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orb-billing-invoices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orb-billing-items-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orb-billing-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orb-billing-plans-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orb-billing-prices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "orb-billing-subscriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
