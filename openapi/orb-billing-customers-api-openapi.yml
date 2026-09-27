@@ -167,7 +167,73 @@ paths:
               schema:
                 $ref: '#/components/schemas/PortalSession'
 components:
+  parameters:
+    ExternalCustomerId:
+      name: external_customer_id
+      in: path
+      required: true
+      description: The external customer ID alias mapped when the customer was created.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    CustomerId:
+      name: customer_id
+      in: path
+      required: true
+      description: The Orb-generated customer identifier.
+      schema:
+        type: string
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   schemas:
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+    CostList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cost'
+    PortalSession:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        token:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
     CustomerList:
       type: object
       properties:
@@ -177,11 +243,8 @@ components:
             $ref: '#/components/schemas/Customer'
         pagination_metadata:
           $ref: '#/components/schemas/PaginationMetadata'
-    CustomerCreate:
+    CustomerUpdate:
       type: object
-      required:
-      - name
-      - email
       properties:
         name:
           type: string
@@ -189,12 +252,6 @@ components:
           type: string
           format: email
         external_customer_id:
-          type: string
-        currency:
-          type: string
-        timezone:
-          type: string
-        payment_provider_id:
           type: string
         metadata:
           type: object
@@ -238,13 +295,6 @@ components:
         created_at:
           type: string
           format: date-time
-    CostList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Cost'
     Cost:
       type: object
       properties:
@@ -258,38 +308,11 @@ components:
           type: string
         subtotal:
           type: string
-    PortalSession:
+    CustomerCreate:
       type: object
-      properties:
-        url:
-          type: string
-          format: uri
-        token:
-          type: string
-        expires_at:
-          type: string
-          format: date-time
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type: string
-          nullable: true
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        type:
-          type: string
-        title:
-          type: string
-        detail:
-          type: string
-    CustomerUpdate:
-      type: object
+      required:
+      - name
+      - email
       properties:
         name:
           type: string
@@ -298,42 +321,19 @@ components:
           format: email
         external_customer_id:
           type: string
+        currency:
+          type: string
+        timezone:
+          type: string
+        payment_provider_id:
+          type: string
         metadata:
           type: object
           additionalProperties:
             type: string
-  parameters:
-    ExternalCustomerId:
-      name: external_customer_id
-      in: path
-      required: true
-      description: The external customer ID alias mapped when the customer was created.
-      schema:
-        type: string
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
-    CustomerId:
-      name: customer_id
-      in: path
-      required: true
-      description: The Orb-generated customer identifier.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      description: The number of items to return per page (default 20, max 100).
-      schema:
-        type: integer
-        default: 20
-        maximum: 100
   responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
+    Unauthorized:
+      description: The API key was missing or invalid.
       content:
         application/json:
           schema:
@@ -344,8 +344,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The API key was missing or invalid.
+    BadRequest:
+      description: The request was malformed or failed validation.
       content:
         application/json:
           schema:

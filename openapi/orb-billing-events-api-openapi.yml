@@ -153,7 +153,78 @@ paths:
                         count:
                           type: integer
 components:
+  responses:
+    Unauthorized:
+      description: The API key was missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+    IngestResponse:
+      type: object
+      properties:
+        validation_failed:
+          type: array
+          description: Events that failed validation, keyed by idempotency_key.
+          items:
+            type: object
+            properties:
+              idempotency_key:
+                type: string
+              validation_errors:
+                type: array
+                items:
+                  type: string
+        debug:
+          type: object
+          nullable: true
+          description: Present only when debug=true; lists ingested and duplicate idempotency keys.
+          properties:
+            duplicate:
+              type: array
+              items:
+                type: string
+            ingested:
+              type: array
+              items:
+                type: string
+    EventAmend:
+      type: object
+      required:
+      - event_name
+      - timestamp
+      - properties
+      properties:
+        event_name:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        customer_id:
+          type: string
+        external_customer_id:
+          type: string
+        properties:
+          type: object
+          additionalProperties: true
     IngestRequest:
       type: object
       required:
@@ -210,77 +281,6 @@ components:
         properties:
           type: object
           additionalProperties: true
-    EventAmend:
-      type: object
-      required:
-      - event_name
-      - timestamp
-      - properties
-      properties:
-        event_name:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        customer_id:
-          type: string
-        external_customer_id:
-          type: string
-        properties:
-          type: object
-          additionalProperties: true
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        type:
-          type: string
-        title:
-          type: string
-        detail:
-          type: string
-    IngestResponse:
-      type: object
-      properties:
-        validation_failed:
-          type: array
-          description: Events that failed validation, keyed by idempotency_key.
-          items:
-            type: object
-            properties:
-              idempotency_key:
-                type: string
-              validation_errors:
-                type: array
-                items:
-                  type: string
-        debug:
-          type: object
-          nullable: true
-          description: Present only when debug=true; lists ingested and duplicate idempotency keys.
-          properties:
-            duplicate:
-              type: array
-              items:
-                type: string
-            ingested:
-              type: array
-              items:
-                type: string
-  responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The API key was missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

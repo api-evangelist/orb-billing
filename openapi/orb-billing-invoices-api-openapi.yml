@@ -130,6 +130,97 @@ paths:
                 $ref: '#/components/schemas/Invoice'
 components:
   schemas:
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    InvoiceList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+    InvoiceCreate:
+      type: object
+      required:
+      - currency
+      - invoice_date
+      - line_items
+      properties:
+        customer_id:
+          type: string
+        external_customer_id:
+          type: string
+        currency:
+          type: string
+        invoice_date:
+          type: string
+          format: date-time
+        net_terms:
+          type: integer
+        memo:
+          type: string
+        line_items:
+          type: array
+          items:
+            type: object
+            required:
+            - name
+            - quantity
+            - unit_config
+            properties:
+              name:
+                type: string
+              quantity:
+                type: number
+              item_id:
+                type: string
+              start_date:
+                type: string
+                format: date
+              end_date:
+                type: string
+                format: date
+              unit_config:
+                type: object
+                properties:
+                  unit_amount:
+                    type: string
+    InvoiceLineItem:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        quantity:
+          type: number
+        amount:
+          type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
     Customer:
       type: object
       properties:
@@ -166,51 +257,6 @@ components:
           additionalProperties:
             type: string
         created_at:
-          type: string
-          format: date-time
-    InvoiceList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invoice'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type: string
-          nullable: true
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        type:
-          type: string
-        title:
-          type: string
-        detail:
-          type: string
-    InvoiceLineItem:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        quantity:
-          type: number
-        amount:
-          type: string
-        start_date:
-          type: string
-          format: date-time
-        end_date:
           type: string
           format: date-time
     Invoice:
@@ -263,59 +309,7 @@ components:
         created_at:
           type: string
           format: date-time
-    InvoiceCreate:
-      type: object
-      required:
-      - currency
-      - invoice_date
-      - line_items
-      properties:
-        customer_id:
-          type: string
-        external_customer_id:
-          type: string
-        currency:
-          type: string
-        invoice_date:
-          type: string
-          format: date-time
-        net_terms:
-          type: integer
-        memo:
-          type: string
-        line_items:
-          type: array
-          items:
-            type: object
-            required:
-            - name
-            - quantity
-            - unit_config
-            properties:
-              name:
-                type: string
-              quantity:
-                type: number
-              item_id:
-                type: string
-              start_date:
-                type: string
-                format: date
-              end_date:
-                type: string
-                format: date
-              unit_config:
-                type: object
-                properties:
-                  unit_amount:
-                    type: string
   parameters:
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -324,6 +318,12 @@ components:
         type: integer
         default: 20
         maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   responses:
     NotFound:
       description: The requested resource was not found.

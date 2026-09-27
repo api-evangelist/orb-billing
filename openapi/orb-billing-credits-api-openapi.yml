@@ -114,6 +114,115 @@ paths:
                       $ref: '#/components/schemas/TopUp'
 components:
   schemas:
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    LedgerEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        entry_type:
+          type: string
+          enum:
+          - increment
+          - decrement
+          - expiration_change
+          - credit_block_expiry
+          - void
+          - void_initiated
+          - amendment
+        entry_status:
+          type: string
+          enum:
+          - committed
+          - pending
+        amount:
+          type: number
+        starting_balance:
+          type: number
+        ending_balance:
+          type: number
+        credit_block:
+          $ref: '#/components/schemas/CreditBlock'
+        description:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+    TopUp:
+      type: object
+      properties:
+        id:
+          type: string
+        threshold:
+          type: string
+        amount:
+          type: string
+        currency:
+          type: string
+        per_unit_cost_basis:
+          type: string
+        active_from:
+          type: string
+          format: date-time
+          nullable: true
+    LedgerEntryCreate:
+      type: object
+      required:
+      - entry_type
+      properties:
+        entry_type:
+          type: string
+          enum:
+          - increment
+          - decrement
+          - expiration_change
+          - void
+          - amendment
+        amount:
+          type: number
+        currency:
+          type: string
+        effective_date:
+          type: string
+          format: date-time
+        expiry_date:
+          type: string
+          format: date-time
+        per_unit_cost_basis:
+          type: string
+        description:
+          type: string
+    CreditBlock:
+      type: object
+      properties:
+        id:
+          type: string
+        balance:
+          type: number
+        status:
+          type: string
+          enum:
+          - active
+          - pending_payment
+        effective_date:
+          type: string
+          format: date-time
+          nullable: true
+        expiry_date:
+          type: string
+          format: date-time
+          nullable: true
+        per_unit_cost_basis:
+          type: string
+          nullable: true
     TopUpCreate:
       type: object
       required:
@@ -150,92 +259,6 @@ components:
             $ref: '#/components/schemas/CreditBlock'
         pagination_metadata:
           $ref: '#/components/schemas/PaginationMetadata'
-    LedgerEntryCreate:
-      type: object
-      required:
-      - entry_type
-      properties:
-        entry_type:
-          type: string
-          enum:
-          - increment
-          - decrement
-          - expiration_change
-          - void
-          - amendment
-        amount:
-          type: number
-        currency:
-          type: string
-        effective_date:
-          type: string
-          format: date-time
-        expiry_date:
-          type: string
-          format: date-time
-        per_unit_cost_basis:
-          type: string
-        description:
-          type: string
-    LedgerEntry:
-      type: object
-      properties:
-        id:
-          type: string
-        entry_type:
-          type: string
-          enum:
-          - increment
-          - decrement
-          - expiration_change
-          - credit_block_expiry
-          - void
-          - void_initiated
-          - amendment
-        entry_status:
-          type: string
-          enum:
-          - committed
-          - pending
-        amount:
-          type: number
-        starting_balance:
-          type: number
-        ending_balance:
-          type: number
-        credit_block:
-          $ref: '#/components/schemas/CreditBlock'
-        description:
-          type: string
-          nullable: true
-        created_at:
-          type: string
-          format: date-time
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type: string
-          nullable: true
-    TopUp:
-      type: object
-      properties:
-        id:
-          type: string
-        threshold:
-          type: string
-        amount:
-          type: string
-        currency:
-          type: string
-        per_unit_cost_basis:
-          type: string
-        active_from:
-          type: string
-          format: date-time
-          nullable: true
     LedgerEntryList:
       type: object
       properties:
@@ -245,43 +268,7 @@ components:
             $ref: '#/components/schemas/LedgerEntry'
         pagination_metadata:
           $ref: '#/components/schemas/PaginationMetadata'
-    CreditBlock:
-      type: object
-      properties:
-        id:
-          type: string
-        balance:
-          type: number
-        status:
-          type: string
-          enum:
-          - active
-          - pending_payment
-        effective_date:
-          type: string
-          format: date-time
-          nullable: true
-        expiry_date:
-          type: string
-          format: date-time
-          nullable: true
-        per_unit_cost_basis:
-          type: string
-          nullable: true
   parameters:
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
-    CustomerId:
-      name: customer_id
-      in: path
-      required: true
-      description: The Orb-generated customer identifier.
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -290,6 +277,19 @@ components:
         type: integer
         default: 20
         maximum: 100
+    CustomerId:
+      name: customer_id
+      in: path
+      required: true
+      description: The Orb-generated customer identifier.
+      schema:
+        type: string
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -98,71 +98,25 @@ paths:
                 $ref: '#/components/schemas/Plan'
 components:
   schemas:
-    PlanCreate:
-      type: object
-      required:
-      - name
-      - currency
-      properties:
-        name:
-          type: string
-        currency:
-          type: string
-        external_plan_id:
-          type: string
-        net_terms:
-          type: integer
-        prices:
-          type: array
-          items:
-            $ref: '#/components/schemas/PriceCreate'
-    PlanList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Plan'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
-    Plan:
+    Item:
       type: object
       properties:
         id:
           type: string
-        external_plan_id:
-          type: string
-          nullable: true
         name:
           type: string
-        description:
-          type: string
-        status:
-          type: string
-          enum:
-          - active
-          - archived
-          - draft
-        currency:
-          type: string
-        net_terms:
-          type: integer
-          nullable: true
-        prices:
+        external_connections:
           type: array
           items:
-            $ref: '#/components/schemas/Price'
+            type: object
+            properties:
+              external_connection_name:
+                type: string
+              external_entity_id:
+                type: string
         created_at:
           type: string
           format: date-time
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type: string
-          nullable: true
     PriceCreate:
       type: object
       required:
@@ -203,6 +157,44 @@ components:
               type: string
         external_price_id:
           type: string
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    Plan:
+      type: object
+      properties:
+        id:
+          type: string
+        external_plan_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+          - draft
+        currency:
+          type: string
+        net_terms:
+          type: integer
+          nullable: true
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        created_at:
+          type: string
+          format: date-time
     Error:
       type: object
       properties:
@@ -214,25 +206,33 @@ components:
           type: string
         detail:
           type: string
-    Item:
+    PlanCreate:
       type: object
+      required:
+      - name
+      - currency
       properties:
-        id:
-          type: string
         name:
           type: string
-        external_connections:
+        currency:
+          type: string
+        external_plan_id:
+          type: string
+        net_terms:
+          type: integer
+        prices:
           type: array
           items:
-            type: object
-            properties:
-              external_connection_name:
-                type: string
-              external_entity_id:
-                type: string
-        created_at:
-          type: string
-          format: date-time
+            $ref: '#/components/schemas/PriceCreate'
+    PlanList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Plan'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
     Price:
       type: object
       properties:
@@ -281,12 +281,6 @@ components:
           type: string
           format: date-time
   parameters:
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -295,6 +289,12 @@ components:
         type: integer
         default: 20
         maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   responses:
     NotFound:
       description: The requested resource was not found.

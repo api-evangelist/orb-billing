@@ -71,6 +71,49 @@ paths:
                 $ref: '#/components/schemas/Coupon'
 components:
   schemas:
+    CouponList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Coupon'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    CouponCreate:
+      type: object
+      required:
+      - redemption_code
+      - discount
+      properties:
+        redemption_code:
+          type: string
+        discount:
+          type: object
+          required:
+          - discount_type
+          properties:
+            discount_type:
+              type: string
+              enum:
+              - percentage
+              - amount
+            percentage_discount:
+              type: number
+            amount_discount:
+              type: string
+        max_redemptions:
+          type: integer
+        duration_in_months:
+          type: integer
     Coupon:
       type: object
       properties:
@@ -104,56 +147,7 @@ components:
           type: string
           format: date-time
           nullable: true
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type: string
-          nullable: true
-    CouponList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Coupon'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
-    CouponCreate:
-      type: object
-      required:
-      - redemption_code
-      - discount
-      properties:
-        redemption_code:
-          type: string
-        discount:
-          type: object
-          required:
-          - discount_type
-          properties:
-            discount_type:
-              type: string
-              enum:
-              - percentage
-              - amount
-            percentage_discount:
-              type: number
-            amount_discount:
-              type: string
-        max_redemptions:
-          type: integer
-        duration_in_months:
-          type: integer
   parameters:
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -162,6 +156,12 @@ components:
         type: integer
         default: 20
         maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
