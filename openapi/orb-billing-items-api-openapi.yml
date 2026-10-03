@@ -75,6 +75,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/Item'
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   schemas:
     ItemList:
       type: object
@@ -112,21 +127,6 @@ components:
         next_cursor:
           type: string
           nullable: true
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: The number of items to return per page (default 20, max 100).
-      schema:
-        type: integer
-        default: 20
-        maximum: 100
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

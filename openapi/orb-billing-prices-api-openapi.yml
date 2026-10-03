@@ -120,7 +120,31 @@ paths:
                         amount:
                           type: string
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   schemas:
+    PriceList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
     Item:
       type: object
       properties:
@@ -140,6 +164,14 @@ components:
         created_at:
           type: string
           format: date-time
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
     PriceCreate:
       type: object
       required:
@@ -180,23 +212,6 @@ components:
               type: string
         external_price_id:
           type: string
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type: string
-          nullable: true
-    PriceList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Price'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
     Price:
       type: object
       properties:
@@ -244,21 +259,6 @@ components:
         created_at:
           type: string
           format: date-time
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: The number of items to return per page (default 20, max 100).
-      schema:
-        type: integer
-        default: 20
-        maximum: 100
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

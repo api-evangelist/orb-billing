@@ -168,13 +168,6 @@ paths:
                 $ref: '#/components/schemas/PortalSession'
 components:
   parameters:
-    ExternalCustomerId:
-      name: external_customer_id
-      in: path
-      required: true
-      description: The external customer ID alias mapped when the customer was created.
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -196,44 +189,33 @@ components:
       description: An opaque cursor for the next page of results.
       schema:
         type: string
+    ExternalCustomerId:
+      name: external_customer_id
+      in: path
+      required: true
+      description: The external customer ID alias mapped when the customer was created.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key was missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type: string
-          nullable: true
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        type:
-          type: string
-        title:
-          type: string
-        detail:
-          type: string
-    CostList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Cost'
-    PortalSession:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-        token:
-          type: string
-        expires_at:
-          type: string
-          format: date-time
     CustomerList:
       type: object
       properties:
@@ -243,20 +225,6 @@ components:
             $ref: '#/components/schemas/Customer'
         pagination_metadata:
           $ref: '#/components/schemas/PaginationMetadata'
-    CustomerUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-          format: email
-        external_customer_id:
-          type: string
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
     Customer:
       type: object
       properties:
@@ -331,25 +299,57 @@ components:
           type: object
           additionalProperties:
             type: string
-  responses:
-    Unauthorized:
-      description: The API key was missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    CostList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Cost'
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+    CustomerUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        external_customer_id:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    PortalSession:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        token:
+          type: string
+        expires_at:
+          type: string
+          format: date-time
   securitySchemes:
     bearerAuth:
       type: http

@@ -113,14 +113,81 @@ paths:
                     items:
                       $ref: '#/components/schemas/TopUp'
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    CustomerId:
+      name: customer_id
+      in: path
+      required: true
+      description: The Orb-generated customer identifier.
+      schema:
+        type: string
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   schemas:
-    PaginationMetadata:
+    TopUp:
       type: object
       properties:
-        has_more:
-          type: boolean
-        next_cursor:
+        id:
           type: string
+        threshold:
+          type: string
+        amount:
+          type: string
+        currency:
+          type: string
+        per_unit_cost_basis:
+          type: string
+        active_from:
+          type: string
+          format: date-time
+          nullable: true
+    CreditBlockList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditBlock'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    TopUpCreate:
+      type: object
+      required:
+      - threshold
+      - amount
+      - currency
+      - per_unit_cost_basis
+      properties:
+        threshold:
+          type: string
+          description: Trigger a top-up when the balance falls to or below this value.
+        amount:
+          type: string
+          description: The number of credits to add per top-up.
+        currency:
+          type: string
+        per_unit_cost_basis:
+          type: string
+        expires_after:
+          type: integer
+          nullable: true
+        expires_after_unit:
+          type: string
+          enum:
+          - day
+          - month
           nullable: true
     LedgerEntry:
       type: object
@@ -156,22 +223,45 @@ components:
         created_at:
           type: string
           format: date-time
-    TopUp:
+    LedgerEntryList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerEntry'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    CreditBlock:
       type: object
       properties:
         id:
           type: string
-        threshold:
+        balance:
+          type: number
+        status:
           type: string
-        amount:
-          type: string
-        currency:
-          type: string
-        per_unit_cost_basis:
-          type: string
-        active_from:
+          enum:
+          - active
+          - pending_payment
+        effective_date:
           type: string
           format: date-time
+          nullable: true
+        expiry_date:
+          type: string
+          format: date-time
+          nullable: true
+        per_unit_cost_basis:
+          type: string
+          nullable: true
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
           nullable: true
     LedgerEntryCreate:
       type: object
@@ -200,96 +290,6 @@ components:
           type: string
         description:
           type: string
-    CreditBlock:
-      type: object
-      properties:
-        id:
-          type: string
-        balance:
-          type: number
-        status:
-          type: string
-          enum:
-          - active
-          - pending_payment
-        effective_date:
-          type: string
-          format: date-time
-          nullable: true
-        expiry_date:
-          type: string
-          format: date-time
-          nullable: true
-        per_unit_cost_basis:
-          type: string
-          nullable: true
-    TopUpCreate:
-      type: object
-      required:
-      - threshold
-      - amount
-      - currency
-      - per_unit_cost_basis
-      properties:
-        threshold:
-          type: string
-          description: Trigger a top-up when the balance falls to or below this value.
-        amount:
-          type: string
-          description: The number of credits to add per top-up.
-        currency:
-          type: string
-        per_unit_cost_basis:
-          type: string
-        expires_after:
-          type: integer
-          nullable: true
-        expires_after_unit:
-          type: string
-          enum:
-          - day
-          - month
-          nullable: true
-    CreditBlockList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditBlock'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
-    LedgerEntryList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LedgerEntry'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: The number of items to return per page (default 20, max 100).
-      schema:
-        type: integer
-        default: 20
-        maximum: 100
-    CustomerId:
-      name: customer_id
-      in: path
-      required: true
-      description: The Orb-generated customer identifier.
-      schema:
-        type: string
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

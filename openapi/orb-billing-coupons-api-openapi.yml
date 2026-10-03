@@ -70,7 +70,55 @@ paths:
               schema:
                 $ref: '#/components/schemas/Coupon'
 components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   schemas:
+    Coupon:
+      type: object
+      properties:
+        id:
+          type: string
+        redemption_code:
+          type: string
+        discount:
+          type: object
+          properties:
+            discount_type:
+              type: string
+              enum:
+              - percentage
+              - amount
+            percentage_discount:
+              type: number
+              nullable: true
+            amount_discount:
+              type: string
+              nullable: true
+        times_redeemed:
+          type: integer
+        max_redemptions:
+          type: integer
+          nullable: true
+        duration_in_months:
+          type: integer
+          nullable: true
+        archived_at:
+          type: string
+          format: date-time
+          nullable: true
     CouponList:
       type: object
       properties:
@@ -114,54 +162,6 @@ components:
           type: integer
         duration_in_months:
           type: integer
-    Coupon:
-      type: object
-      properties:
-        id:
-          type: string
-        redemption_code:
-          type: string
-        discount:
-          type: object
-          properties:
-            discount_type:
-              type: string
-              enum:
-              - percentage
-              - amount
-            percentage_discount:
-              type: number
-              nullable: true
-            amount_discount:
-              type: string
-              nullable: true
-        times_redeemed:
-          type: integer
-        max_redemptions:
-          type: integer
-          nullable: true
-        duration_in_months:
-          type: integer
-          nullable: true
-        archived_at:
-          type: string
-          format: date-time
-          nullable: true
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: The number of items to return per page (default 20, max 100).
-      schema:
-        type: integer
-        default: 20
-        maximum: 100
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

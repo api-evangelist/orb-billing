@@ -130,34 +130,6 @@ paths:
                 $ref: '#/components/schemas/Invoice'
 components:
   schemas:
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type: string
-          nullable: true
-    InvoiceList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Invoice'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        type:
-          type: string
-        title:
-          type: string
-        detail:
-          type: string
     InvoiceCreate:
       type: object
       required:
@@ -204,61 +176,6 @@ components:
                 properties:
                   unit_amount:
                     type: string
-    InvoiceLineItem:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        quantity:
-          type: number
-        amount:
-          type: string
-        start_date:
-          type: string
-          format: date-time
-        end_date:
-          type: string
-          format: date-time
-    Customer:
-      type: object
-      properties:
-        id:
-          type: string
-        external_customer_id:
-          type: string
-          nullable: true
-        name:
-          type: string
-        email:
-          type: string
-          format: email
-        currency:
-          type: string
-          example: USD
-        timezone:
-          type: string
-          example: America/New_York
-        payment_provider:
-          type: string
-          nullable: true
-          enum:
-          - stripe_charge
-          - stripe_invoice
-          - quickbooks
-          - bill.com
-          - netsuite
-        balance:
-          type: string
-          description: The customer's account balance in the smallest currency unit.
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-        created_at:
-          type: string
-          format: date-time
     Invoice:
       type: object
       properties:
@@ -309,6 +226,89 @@ components:
         created_at:
           type: string
           format: date-time
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        external_customer_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        currency:
+          type: string
+          example: USD
+        timezone:
+          type: string
+          example: America/New_York
+        payment_provider:
+          type: string
+          nullable: true
+          enum:
+          - stripe_charge
+          - stripe_invoice
+          - quickbooks
+          - bill.com
+          - netsuite
+        balance:
+          type: string
+          description: The customer's account balance in the smallest currency unit.
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+    InvoiceLineItem:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        quantity:
+          type: number
+        amount:
+          type: string
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+    InvoiceList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Invoice'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
   parameters:
     Limit:
       name: limit

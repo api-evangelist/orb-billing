@@ -154,19 +154,94 @@ paths:
                           type: integer
 components:
   responses:
-    Unauthorized:
-      description: The API key was missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request was malformed or failed validation.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key was missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    IngestRequest:
+      type: object
+      required:
+      - events
+      properties:
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventInput'
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        event_name:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        customer_id:
+          type: string
+          nullable: true
+        external_customer_id:
+          type: string
+          nullable: true
+        properties:
+          type: object
+          additionalProperties: true
+    EventAmend:
+      type: object
+      required:
+      - event_name
+      - timestamp
+      - properties
+      properties:
+        event_name:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        customer_id:
+          type: string
+        external_customer_id:
+          type: string
+        properties:
+          type: object
+          additionalProperties: true
+    EventInput:
+      type: object
+      required:
+      - event_name
+      - timestamp
+      - idempotency_key
+      - properties
+      properties:
+        event_name:
+          type: string
+          description: A name that meaningfully identifies the action or event type.
+        timestamp:
+          type: string
+          format: date-time
+          description: An ISO 8601 UTC timestamp with no timezone offset.
+        idempotency_key:
+          type: string
+          description: A client-generated unique value used to de-duplicate events.
+        customer_id:
+          type: string
+          description: The Orb-generated customer identifier. Exactly one of customer_id or external_customer_id is required.
+        external_customer_id:
+          type: string
+          description: The external customer alias. Exactly one of customer_id or external_customer_id is required.
+        properties:
+          type: object
+          description: Custom properties whose values must be numeric, boolean, or string.
+          additionalProperties: true
     Error:
       type: object
       properties:
@@ -206,81 +281,6 @@ components:
               type: array
               items:
                 type: string
-    EventAmend:
-      type: object
-      required:
-      - event_name
-      - timestamp
-      - properties
-      properties:
-        event_name:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        customer_id:
-          type: string
-        external_customer_id:
-          type: string
-        properties:
-          type: object
-          additionalProperties: true
-    IngestRequest:
-      type: object
-      required:
-      - events
-      properties:
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/EventInput'
-    EventInput:
-      type: object
-      required:
-      - event_name
-      - timestamp
-      - idempotency_key
-      - properties
-      properties:
-        event_name:
-          type: string
-          description: A name that meaningfully identifies the action or event type.
-        timestamp:
-          type: string
-          format: date-time
-          description: An ISO 8601 UTC timestamp with no timezone offset.
-        idempotency_key:
-          type: string
-          description: A client-generated unique value used to de-duplicate events.
-        customer_id:
-          type: string
-          description: The Orb-generated customer identifier. Exactly one of customer_id or external_customer_id is required.
-        external_customer_id:
-          type: string
-          description: The external customer alias. Exactly one of customer_id or external_customer_id is required.
-        properties:
-          type: object
-          description: Custom properties whose values must be numeric, boolean, or string.
-          additionalProperties: true
-    Event:
-      type: object
-      properties:
-        id:
-          type: string
-        event_name:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        customer_id:
-          type: string
-          nullable: true
-        external_customer_id:
-          type: string
-          nullable: true
-        properties:
-          type: object
-          additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http
