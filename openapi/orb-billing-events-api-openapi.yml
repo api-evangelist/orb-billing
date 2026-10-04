@@ -153,20 +153,35 @@ paths:
                         count:
                           type: integer
 components:
-  responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The API key was missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    IngestResponse:
+      type: object
+      properties:
+        validation_failed:
+          type: array
+          description: Events that failed validation, keyed by idempotency_key.
+          items:
+            type: object
+            properties:
+              idempotency_key:
+                type: string
+              validation_errors:
+                type: array
+                items:
+                  type: string
+        debug:
+          type: object
+          nullable: true
+          description: Present only when debug=true; lists ingested and duplicate idempotency keys.
+          properties:
+            duplicate:
+              type: array
+              items:
+                type: string
+            ingested:
+              type: array
+              items:
+                type: string
     IngestRequest:
       type: object
       required:
@@ -176,25 +191,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EventInput'
-    Event:
-      type: object
-      properties:
-        id:
-          type: string
-        event_name:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        customer_id:
-          type: string
-          nullable: true
-        external_customer_id:
-          type: string
-          nullable: true
-        properties:
-          type: object
-          additionalProperties: true
     EventAmend:
       type: object
       required:
@@ -211,6 +207,36 @@ components:
           type: string
         external_customer_id:
           type: string
+        properties:
+          type: object
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        event_name:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        customer_id:
+          type: string
+          nullable: true
+        external_customer_id:
+          type: string
+          nullable: true
         properties:
           type: object
           additionalProperties: true
@@ -242,45 +268,19 @@ components:
           type: object
           description: Custom properties whose values must be numeric, boolean, or string.
           additionalProperties: true
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        type:
-          type: string
-        title:
-          type: string
-        detail:
-          type: string
-    IngestResponse:
-      type: object
-      properties:
-        validation_failed:
-          type: array
-          description: Events that failed validation, keyed by idempotency_key.
-          items:
-            type: object
-            properties:
-              idempotency_key:
-                type: string
-              validation_errors:
-                type: array
-                items:
-                  type: string
-        debug:
-          type: object
-          nullable: true
-          description: Present only when debug=true; lists ingested and duplicate idempotency keys.
-          properties:
-            duplicate:
-              type: array
-              items:
-                type: string
-            ingested:
-              type: array
-              items:
-                type: string
+  responses:
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The API key was missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

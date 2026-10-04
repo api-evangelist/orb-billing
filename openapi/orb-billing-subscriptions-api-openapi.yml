@@ -223,35 +223,46 @@ paths:
               schema:
                 $ref: '#/components/schemas/Subscription'
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: The number of items to return per page (default 20, max 100).
-      schema:
-        type: integer
-        default: 20
-        maximum: 100
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
-  responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Subscription:
+      type: object
+      properties:
+        id:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        plan:
+          $ref: '#/components/schemas/Plan'
+        status:
+          type: string
+          enum:
+          - active
+          - ended
+          - upcoming
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+        current_billing_period_start_date:
+          type: string
+          format: date-time
+        current_billing_period_end_date:
+          type: string
+          format: date-time
+        net_terms:
+          type: integer
+        auto_collection:
+          type: boolean
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
     SubscriptionList:
       type: object
       properties:
@@ -261,74 +272,6 @@ components:
             $ref: '#/components/schemas/Subscription'
         pagination_metadata:
           $ref: '#/components/schemas/PaginationMetadata'
-    Plan:
-      type: object
-      properties:
-        id:
-          type: string
-        external_plan_id:
-          type: string
-          nullable: true
-        name:
-          type: string
-        description:
-          type: string
-        status:
-          type: string
-          enum:
-          - active
-          - archived
-          - draft
-        currency:
-          type: string
-        net_terms:
-          type: integer
-          nullable: true
-        prices:
-          type: array
-          items:
-            $ref: '#/components/schemas/Price'
-        created_at:
-          type: string
-          format: date-time
-    Customer:
-      type: object
-      properties:
-        id:
-          type: string
-        external_customer_id:
-          type: string
-          nullable: true
-        name:
-          type: string
-        email:
-          type: string
-          format: email
-        currency:
-          type: string
-          example: USD
-        timezone:
-          type: string
-          example: America/New_York
-        payment_provider:
-          type: string
-          nullable: true
-          enum:
-          - stripe_charge
-          - stripe_invoice
-          - quickbooks
-          - bill.com
-          - netsuite
-        balance:
-          type: string
-          description: The customer's account balance in the smallest currency unit.
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-        created_at:
-          type: string
-          format: date-time
     SubscriptionUsage:
       type: object
       properties:
@@ -374,25 +317,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    Item:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        external_connections:
-          type: array
-          items:
-            type: object
-            properties:
-              external_connection_name:
-                type: string
-              external_entity_id:
-                type: string
-        created_at:
-          type: string
-          format: date-time
     PaginationMetadata:
       type: object
       properties:
@@ -401,56 +325,6 @@ components:
         next_cursor:
           type: string
           nullable: true
-    Subscription:
-      type: object
-      properties:
-        id:
-          type: string
-        customer:
-          $ref: '#/components/schemas/Customer'
-        plan:
-          $ref: '#/components/schemas/Plan'
-        status:
-          type: string
-          enum:
-          - active
-          - ended
-          - upcoming
-        start_date:
-          type: string
-          format: date-time
-        end_date:
-          type: string
-          format: date-time
-          nullable: true
-        current_billing_period_start_date:
-          type: string
-          format: date-time
-        current_billing_period_end_date:
-          type: string
-          format: date-time
-        net_terms:
-          type: integer
-        auto_collection:
-          type: boolean
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-        created_at:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        status:
-          type: integer
-        type:
-          type: string
-        title:
-          type: string
-        detail:
-          type: string
     Metric:
       type: object
       properties:
@@ -473,6 +347,104 @@ components:
           type: object
           additionalProperties:
             type: string
+    Item:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        external_connections:
+          type: array
+          items:
+            type: object
+            properties:
+              external_connection_name:
+                type: string
+              external_entity_id:
+                type: string
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        external_customer_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        currency:
+          type: string
+          example: USD
+        timezone:
+          type: string
+          example: America/New_York
+        payment_provider:
+          type: string
+          nullable: true
+          enum:
+          - stripe_charge
+          - stripe_invoice
+          - quickbooks
+          - bill.com
+          - netsuite
+        balance:
+          type: string
+          description: The customer's account balance in the smallest currency unit.
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+    Plan:
+      type: object
+      properties:
+        id:
+          type: string
+        external_plan_id:
+          type: string
+          nullable: true
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - archived
+          - draft
+        currency:
+          type: string
+        net_terms:
+          type: integer
+          nullable: true
+        prices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        created_at:
+          type: string
+          format: date-time
     Price:
       type: object
       properties:
@@ -520,6 +492,34 @@ components:
         created_at:
           type: string
           format: date-time
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request was malformed or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

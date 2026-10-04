@@ -75,31 +75,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/Item'
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: The number of items to return per page (default 20, max 100).
-      schema:
-        type: integer
-        default: 20
-        maximum: 100
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
   schemas:
-    ItemList:
+    PaginationMetadata:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
     Item:
       type: object
       properties:
@@ -119,14 +103,30 @@ components:
         created_at:
           type: string
           format: date-time
-    PaginationMetadata:
+    ItemList:
       type: object
       properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type: string
-          nullable: true
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

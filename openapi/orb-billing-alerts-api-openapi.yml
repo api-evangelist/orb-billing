@@ -117,31 +117,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/Alert'
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: The number of items to return per page (default 20, max 100).
-      schema:
-        type: integer
-        default: 20
-        maximum: 100
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
   schemas:
-    AlertList:
+    AlertCreate:
       type: object
+      required:
+      - type
       properties:
-        data:
+        type:
+          type: string
+          enum:
+          - usage_exceeded
+          - cost_exceeded
+          - credit_balance_depleted
+          - credit_balance_dropped
+          - credit_balance_recovered
+        customer_id:
+          type: string
+        external_customer_id:
+          type: string
+        subscription_id:
+          type: string
+        currency:
+          type: string
+        thresholds:
           type: array
           items:
-            $ref: '#/components/schemas/Alert'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
+            type: object
+            required:
+            - value
+            properties:
+              value:
+                type: number
     PaginationMetadata:
       type: object
       properties:
@@ -192,36 +198,30 @@ components:
         created_at:
           type: string
           format: date-time
-    AlertCreate:
+    AlertList:
       type: object
-      required:
-      - type
       properties:
-        type:
-          type: string
-          enum:
-          - usage_exceeded
-          - cost_exceeded
-          - credit_balance_depleted
-          - credit_balance_dropped
-          - credit_balance_recovered
-        customer_id:
-          type: string
-        external_customer_id:
-          type: string
-        subscription_id:
-          type: string
-        currency:
-          type: string
-        thresholds:
+        data:
           type: array
           items:
-            type: object
-            required:
-            - value
-            properties:
-              value:
-                type: number
+            $ref: '#/components/schemas/Alert'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

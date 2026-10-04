@@ -70,22 +70,41 @@ paths:
               schema:
                 $ref: '#/components/schemas/Coupon'
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: The number of items to return per page (default 20, max 100).
-      schema:
-        type: integer
-        default: 20
-        maximum: 100
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
   schemas:
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    CouponCreate:
+      type: object
+      required:
+      - redemption_code
+      - discount
+      properties:
+        redemption_code:
+          type: string
+        discount:
+          type: object
+          required:
+          - discount_type
+          properties:
+            discount_type:
+              type: string
+              enum:
+              - percentage
+              - amount
+            percentage_discount:
+              type: number
+            amount_discount:
+              type: string
+        max_redemptions:
+          type: integer
+        duration_in_months:
+          type: integer
     Coupon:
       type: object
       properties:
@@ -128,40 +147,21 @@ components:
             $ref: '#/components/schemas/Coupon'
         pagination_metadata:
           $ref: '#/components/schemas/PaginationMetadata'
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type: string
-          nullable: true
-    CouponCreate:
-      type: object
-      required:
-      - redemption_code
-      - discount
-      properties:
-        redemption_code:
-          type: string
-        discount:
-          type: object
-          required:
-          - discount_type
-          properties:
-            discount_type:
-              type: string
-              enum:
-              - percentage
-              - amount
-            percentage_discount:
-              type: number
-            amount_discount:
-              type: string
-        max_redemptions:
-          type: integer
-        duration_in_months:
-          type: integer
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      description: The number of items to return per page (default 20, max 100).
+      schema:
+        type: integer
+        default: 20
+        maximum: 100
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

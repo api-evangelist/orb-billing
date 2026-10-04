@@ -114,6 +114,13 @@ paths:
                       $ref: '#/components/schemas/TopUp'
 components:
   parameters:
+    CustomerId:
+      name: customer_id
+      in: path
+      required: true
+      description: The Orb-generated customer identifier.
+      schema:
+        type: string
     Limit:
       name: limit
       in: query
@@ -122,13 +129,6 @@ components:
         type: integer
         default: 20
         maximum: 100
-    CustomerId:
-      name: customer_id
-      in: path
-      required: true
-      description: The Orb-generated customer identifier.
-      schema:
-        type: string
     Cursor:
       name: cursor
       in: query
@@ -136,6 +136,82 @@ components:
       schema:
         type: string
   schemas:
+    PaginationMetadata:
+      type: object
+      properties:
+        has_more:
+          type: boolean
+        next_cursor:
+          type: string
+          nullable: true
+    CreditBlockList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditBlock'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
+    LedgerEntryCreate:
+      type: object
+      required:
+      - entry_type
+      properties:
+        entry_type:
+          type: string
+          enum:
+          - increment
+          - decrement
+          - expiration_change
+          - void
+          - amendment
+        amount:
+          type: number
+        currency:
+          type: string
+        effective_date:
+          type: string
+          format: date-time
+        expiry_date:
+          type: string
+          format: date-time
+        per_unit_cost_basis:
+          type: string
+        description:
+          type: string
+    CreditBlock:
+      type: object
+      properties:
+        id:
+          type: string
+        balance:
+          type: number
+        status:
+          type: string
+          enum:
+          - active
+          - pending_payment
+        effective_date:
+          type: string
+          format: date-time
+          nullable: true
+        expiry_date:
+          type: string
+          format: date-time
+          nullable: true
+        per_unit_cost_basis:
+          type: string
+          nullable: true
+    LedgerEntryList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerEntry'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
     TopUp:
       type: object
       properties:
@@ -153,15 +229,6 @@ components:
           type: string
           format: date-time
           nullable: true
-    CreditBlockList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreditBlock'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
     TopUpCreate:
       type: object
       required:
@@ -223,73 +290,6 @@ components:
         created_at:
           type: string
           format: date-time
-    LedgerEntryList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/LedgerEntry'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
-    CreditBlock:
-      type: object
-      properties:
-        id:
-          type: string
-        balance:
-          type: number
-        status:
-          type: string
-          enum:
-          - active
-          - pending_payment
-        effective_date:
-          type: string
-          format: date-time
-          nullable: true
-        expiry_date:
-          type: string
-          format: date-time
-          nullable: true
-        per_unit_cost_basis:
-          type: string
-          nullable: true
-    PaginationMetadata:
-      type: object
-      properties:
-        has_more:
-          type: boolean
-        next_cursor:
-          type: string
-          nullable: true
-    LedgerEntryCreate:
-      type: object
-      required:
-      - entry_type
-      properties:
-        entry_type:
-          type: string
-          enum:
-          - increment
-          - decrement
-          - expiration_change
-          - void
-          - amendment
-        amount:
-          type: number
-        currency:
-          type: string
-        effective_date:
-          type: string
-          format: date-time
-        expiry_date:
-          type: string
-          format: date-time
-        per_unit_cost_basis:
-          type: string
-        description:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http
