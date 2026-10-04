@@ -1,0 +1,74 @@
+slug: orb-billing
+provider: Orb
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Invoices
+  spec_file: orb-billing-invoices-api-openapi.yml
+  capability_id: BC-4250.30
+  capability_id_l1: BC-4250
+  capability_name: Invoicing & Statement Management
+  confidence: 0.94
+  evidence: POST /invoices createInvoice Create a one-off invoice; POST /invoices/{invoice_id}/issue Issue
+    invoice; POST /invoices/{invoice_id}/void Void invoice
+  reason: Generation, issuance and adjustment of subscription invoices is invoicing and statement management.
+- tag: Events
+  spec_file: orb-billing-events-api-openapi.yml
+  capability_id: BC-4250.10
+  capability_id_l1: BC-4250
+  capability_name: Usage Metering
+  confidence: 0.92
+  evidence: POST /ingest ingestEvents Ingest events ... GET /events/volume Get event volume; 'The REST
+    API ingests timestamped usage events'
+  reason: Ingestion, amendment and aggregation of timestamped usage events feeding rating and billing
+    is exactly usage metering.
+- tag: Subscriptions
+  spec_file: orb-billing-subscriptions-api-openapi.yml
+  capability_id: BC-4240
+  capability_id_l1: BC-4240
+  capability_name: Subscription Lifecycle Management
+  confidence: 0.9
+  evidence: POST /subscriptions createSubscription; POST /subscriptions/{subscription_id}/cancel Cancel
+    subscription; POST /subscriptions/{subscription_id}/schedule_plan_change Schedule plan change
+  reason: Creation, modification, plan change and cancellation of subscriptions spans several sub-capabilities
+    of subscription lifecycle management, so the L1 is the honest level.
+- tag: Coupons
+  spec_file: orb-billing-coupons-api-openapi.yml
+  capability_id: BC-440.30
+  capability_id_l1: BC-440
+  capability_name: Discount & Promotion Management
+  confidence: 0.75
+  evidence: POST /coupons  Create coupon; POST /coupons/{coupon_id}/archive  Archive coupon; schema CouponCreate
+  reason: Coupon lifecycle on a billing platform is discount and promotion management. Alternatively could
+    fold into BC-4250.20 Rating & Charging (discounts applied to charges), hence moderate confidence on
+    the specific sub-capability.
+- tag: Metrics
+  spec_file: orb-billing-metrics-api-openapi.yml
+  capability_id: BC-4250.10
+  capability_id_l1: BC-4250
+  capability_name: Usage Metering
+  confidence: 0.72
+  evidence: 'POST /metrics createMetric Create metric; vendor description: ''models customers, plans,
+    prices, items, and billable metrics'''
+  reason: In Orb a Metric is a billable metric defining how ingested usage events are aggregated for billing,
+    which is part of usage metering rather than observability metrics.
+- tag: Credits
+  spec_file: orb-billing-credits-api-openapi.yml
+  capability_id: BC-4250.20
+  capability_id_l1: BC-4250
+  capability_name: Rating & Charging
+  confidence: 0.7
+  evidence: GET /customers/{customer_id}/credits  Fetch customer credit balance; GET .../credits/ledger  Fetch
+    customer credits ledger; POST .../credits/top_ups  Create top-up
+  reason: Prepaid credit blocks, ledgers and top-ups are part of Orb's usage-based rating and charging
+    model for subscription billing. Some ambiguity between rating/charging and invoicing sub-capabilities.

@@ -587,6 +587,9 @@ apis:
   - type: Documentation
     url: https://docs.withorb.com/guides/integrations-and-exports/webhooks
 common:
+- type: CapabilityMap
+  url: capabilities/orb-billing-capability-edges.yml
+  name: Orb Business Capability Map
 - type: AgenticAccess
   url: agentic-access/orb-billing-agentic-access.yml
 - type: TrustCenter
