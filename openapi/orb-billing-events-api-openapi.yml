@@ -154,34 +154,6 @@ paths:
                           type: integer
 components:
   schemas:
-    IngestResponse:
-      type: object
-      properties:
-        validation_failed:
-          type: array
-          description: Events that failed validation, keyed by idempotency_key.
-          items:
-            type: object
-            properties:
-              idempotency_key:
-                type: string
-              validation_errors:
-                type: array
-                items:
-                  type: string
-        debug:
-          type: object
-          nullable: true
-          description: Present only when debug=true; lists ingested and duplicate idempotency keys.
-          properties:
-            duplicate:
-              type: array
-              items:
-                type: string
-            ingested:
-              type: array
-              items:
-                type: string
     IngestRequest:
       type: object
       required:
@@ -191,6 +163,34 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EventInput'
+    EventInput:
+      type: object
+      required:
+      - event_name
+      - timestamp
+      - idempotency_key
+      - properties
+      properties:
+        event_name:
+          type: string
+          description: A name that meaningfully identifies the action or event type.
+        timestamp:
+          type: string
+          format: date-time
+          description: An ISO 8601 UTC timestamp with no timezone offset.
+        idempotency_key:
+          type: string
+          description: A client-generated unique value used to de-duplicate events.
+        customer_id:
+          type: string
+          description: The Orb-generated customer identifier. Exactly one of customer_id or external_customer_id is required.
+        external_customer_id:
+          type: string
+          description: The external customer alias. Exactly one of customer_id or external_customer_id is required.
+        properties:
+          type: object
+          description: Custom properties whose values must be numeric, boolean, or string.
+          additionalProperties: true
     EventAmend:
       type: object
       required:
@@ -240,43 +240,43 @@ components:
         properties:
           type: object
           additionalProperties: true
-    EventInput:
+    IngestResponse:
       type: object
-      required:
-      - event_name
-      - timestamp
-      - idempotency_key
-      - properties
       properties:
-        event_name:
-          type: string
-          description: A name that meaningfully identifies the action or event type.
-        timestamp:
-          type: string
-          format: date-time
-          description: An ISO 8601 UTC timestamp with no timezone offset.
-        idempotency_key:
-          type: string
-          description: A client-generated unique value used to de-duplicate events.
-        customer_id:
-          type: string
-          description: The Orb-generated customer identifier. Exactly one of customer_id or external_customer_id is required.
-        external_customer_id:
-          type: string
-          description: The external customer alias. Exactly one of customer_id or external_customer_id is required.
-        properties:
+        validation_failed:
+          type: array
+          description: Events that failed validation, keyed by idempotency_key.
+          items:
+            type: object
+            properties:
+              idempotency_key:
+                type: string
+              validation_errors:
+                type: array
+                items:
+                  type: string
+        debug:
           type: object
-          description: Custom properties whose values must be numeric, boolean, or string.
-          additionalProperties: true
+          nullable: true
+          description: Present only when debug=true; lists ingested and duplicate idempotency keys.
+          properties:
+            duplicate:
+              type: array
+              items:
+                type: string
+            ingested:
+              type: array
+              items:
+                type: string
   responses:
-    BadRequest:
-      description: The request was malformed or failed validation.
+    Unauthorized:
+      description: The API key was missing or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The API key was missing or invalid.
+    BadRequest:
+      description: The request was malformed or failed validation.
       content:
         application/json:
           schema:

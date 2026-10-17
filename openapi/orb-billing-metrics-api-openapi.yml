@@ -72,14 +72,25 @@ paths:
                 $ref: '#/components/schemas/Metric'
 components:
   schemas:
-    PaginationMetadata:
+    Item:
       type: object
       properties:
-        has_more:
-          type: boolean
-        next_cursor:
+        id:
           type: string
-          nullable: true
+        name:
+          type: string
+        external_connections:
+          type: array
+          items:
+            type: object
+            properties:
+              external_connection_name:
+                type: string
+              external_entity_id:
+                type: string
+        created_at:
+          type: string
+          format: date-time
     MetricCreate:
       type: object
       required:
@@ -96,6 +107,15 @@ components:
           description: The SQL expression that aggregates events into a billable quantity.
         item_id:
           type: string
+    MetricList:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metric'
+        pagination_metadata:
+          $ref: '#/components/schemas/PaginationMetadata'
     Metric:
       type: object
       properties:
@@ -118,35 +138,21 @@ components:
           type: object
           additionalProperties:
             type: string
-    Item:
+    PaginationMetadata:
       type: object
       properties:
-        id:
+        has_more:
+          type: boolean
+        next_cursor:
           type: string
-        name:
-          type: string
-        external_connections:
-          type: array
-          items:
-            type: object
-            properties:
-              external_connection_name:
-                type: string
-              external_entity_id:
-                type: string
-        created_at:
-          type: string
-          format: date-time
-    MetricList:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Metric'
-        pagination_metadata:
-          $ref: '#/components/schemas/PaginationMetadata'
+          nullable: true
   parameters:
+    Cursor:
+      name: cursor
+      in: query
+      description: An opaque cursor for the next page of results.
+      schema:
+        type: string
     Limit:
       name: limit
       in: query
@@ -155,12 +161,6 @@ components:
         type: integer
         default: 20
         maximum: 100
-    Cursor:
-      name: cursor
-      in: query
-      description: An opaque cursor for the next page of results.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http
