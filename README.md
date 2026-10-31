@@ -1,4 +1,4 @@
-# Orb (orb-billing)
+# Orb
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,233 +66,138 @@
 
 Orb is a usage-based billing and metering platform that turns product usage events into subscriptions, prices, invoices, and credits. The Orb REST API ingests metered events, models customers, plans, prices, and items, runs subscriptions, and automates invoicing, credit ledgers, alerts, and webhooks for modern revenue teams.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/orb-billing/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/orb-billing/refs/heads/main/apis.yml)
+**Areas:** Billing · Usage-Based Billing · Metering · Subscription · Invoicing · FinOps
 
-## Tags
+## Orb on APIs.io
 
-- Billing
-- Usage-Based Billing
-- Metering
-- Subscriptions
-- Invoicing
-- FinOps
+Everything profiled for Orb is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/orb-billing/](https://apis.io/providers/orb-billing/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (11)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [Orb Alerts API](https://apis.io/apis/orb-billing/orb-billing-alerts-api/) — The Alerts API from Orb — 4 operation(s) for alerts.
+- [Orb Coupons API](https://apis.io/apis/orb-billing/orb-billing-coupons-api/) — The Coupons API from Orb — 2 operation(s) for coupons.
+- [Orb Credits API](https://apis.io/apis/orb-billing/orb-billing-credits-api/) — The Credits API from Orb — 4 operation(s) for credits.
+- [Orb Customers API](https://apis.io/apis/orb-billing/orb-billing-customers-api/) — The Customers API from Orb — 5 operation(s) for customers.
+- [Orb Events API](https://apis.io/apis/orb-billing/orb-billing-events-api/) — The Events API from Orb — 4 operation(s) for events.
+- [Orb Invoices API](https://apis.io/apis/orb-billing/orb-billing-invoices-api/) — The Invoices API from Orb — 4 operation(s) for invoices.
+- [Orb Items API](https://apis.io/apis/orb-billing/orb-billing-items-api/) — The Items API from Orb — 2 operation(s) for items.
+- [Orb Metrics API](https://apis.io/apis/orb-billing/orb-billing-metrics-api/) — The Metrics API from Orb — 2 operation(s) for metrics.
+- [Orb Plans API](https://apis.io/apis/orb-billing/orb-billing-plans-api/) — The Plans API from Orb — 2 operation(s) for plans.
+- [Orb Prices API](https://apis.io/apis/orb-billing/orb-billing-prices-api/) — The Prices API from Orb — 3 operation(s) for prices.
+- [Orb Subscriptions API](https://apis.io/apis/orb-billing/orb-billing-subscriptions-api/) — The Subscriptions API from Orb — 5 operation(s) for subscriptions.
 
-## APIs
+### Published properties
 
-### Orb Customers API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Create, fetch, update, list, and delete customers by Orb ID or external ID, manage balance transactions, costs, payment methods, and hosted portal sessions.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.withorb.com/api-reference/customer](https://docs.withorb.com/api-reference/customer)
-- **Base URL:** `https://api.withorb.com/v1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Orb Billing Agentic Access](https://apis.io/agentic-access/orb-billing/orb-billing-agentic-access/)
 
-- Customers
-- Accounts
-- Portal
+#### Collections (12)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://docs.withorb.com/core-concepts/customers)
-- [API Reference](https://docs.withorb.com/api-reference/customer)
-- [OpenAPI](openapi/orb-billing-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orb-billing.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Orb API](https://apis.io/collections/orb-billing/open-orb-billing/)
+- [Orb Alerts API](https://apis.io/collections/orb-billing/open-orb-billing-alerts-api/)
+- [Orb Alerts Coupons API](https://apis.io/collections/orb-billing/open-orb-billing-coupons-api/)
+- [Orb Alerts Credits API](https://apis.io/collections/orb-billing/open-orb-billing-credits-api/)
+- [Orb Alerts Customers API](https://apis.io/collections/orb-billing/open-orb-billing-customers-api/)
+- [Orb Alerts Events API](https://apis.io/collections/orb-billing/open-orb-billing-events-api/)
+- [Orb Alerts Invoices API](https://apis.io/collections/orb-billing/open-orb-billing-invoices-api/)
+- [Orb Alerts Items API](https://apis.io/collections/orb-billing/open-orb-billing-items-api/)
+- [Orb Alerts Metrics API](https://apis.io/collections/orb-billing/open-orb-billing-metrics-api/)
+- [Orb Alerts Plans API](https://apis.io/collections/orb-billing/open-orb-billing-plans-api/)
+- [Orb Alerts Prices API](https://apis.io/collections/orb-billing/open-orb-billing-prices-api/)
+- [Orb Alerts Subscriptions API](https://apis.io/collections/orb-billing/open-orb-billing-subscriptions-api/)
 
-### Orb Plans API
+#### Security (4)
 
-Define and version plans that bundle prices, with create, fetch, list, update, version, and migration operations addressable by Orb ID or external plan ID.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.withorb.com/api-reference/plan](https://docs.withorb.com/api-reference/plan)
-- **Base URL:** `https://api.withorb.com/v1`
+- [Orb Billing Authentication](https://apis.io/security/orb-billing/orb-billing-authentication/)
+- [Orb Billing Domain Security](https://apis.io/security/orb-billing/orb-billing-domain-security/)
+- [Orb Billing Trust Center](https://apis.io/security/orb-billing/orb-billing-trust-center/)
+- [Orb Billing Vulnerability Disclosure](https://apis.io/security/orb-billing/orb-billing-vulnerability-disclosure/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Plans
-- Pricing
-- Versions
+Published plans, tiers and prices.
 
-#### Properties
+- [Orb Billing Plans Pricing](https://apis.io/plans/orb-billing/orb-billing-plans-pricing/)
 
-- [Documentation](https://docs.withorb.com/core-concepts/plans-and-prices)
-- [API Reference](https://docs.withorb.com/api-reference/plan)
-- [OpenAPI](openapi/orb-billing-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orb-billing.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+#### Rate limits (1)
 
-### Orb Subscriptions API
+Published request limits.
 
-Create, fetch, list, update, and cancel subscriptions, schedule and unschedule plan changes, redeem coupons, adjust price intervals and quantities, and read subscription usage, costs, and schedules.
+- [Orb Billing Rate Limits](https://apis.io/rate-limits/orb-billing/orb-billing-rate-limits/)
 
-- **Human URL:** [https://docs.withorb.com/api-reference/subscription](https://docs.withorb.com/api-reference/subscription)
-- **Base URL:** `https://api.withorb.com/v1`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Subscriptions
-- Lifecycle
-- Schedules
+- [Orb Billing Finops](https://apis.io/finops/orb-billing/orb-billing-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://docs.withorb.com/core-concepts/subscriptions)
-- [API Reference](https://docs.withorb.com/api-reference/subscription)
-- [OpenAPI](openapi/orb-billing-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orb-billing.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Orb Events & Ingestion API
-
-Ingest timestamped, idempotent usage events into Orb's metering pipeline, then amend, deprecate, search, backfill, and inspect event volume that feeds billable metrics.
-
-- **Human URL:** [https://docs.withorb.com/api-reference/event](https://docs.withorb.com/api-reference/event)
-- **Base URL:** `https://api.withorb.com/v1`
-
-#### Tags
-
-- Events
-- Ingestion
-- Metering
-
-#### Properties
-
-- [Documentation](https://docs.withorb.com/events-and-metrics/event-ingestion)
-- [API Reference](https://docs.withorb.com/api-reference/event)
-- [OpenAPI](openapi/orb-billing-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orb-billing.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-
-### Orb Metrics API
-
-Create, fetch, list, and update billable metrics that aggregate raw events into quantities prices can charge against.
-
-- **Human URL:** [https://docs.withorb.com/api-reference/metrics](https://docs.withorb.com/api-reference/metrics)
-- **Base URL:** `https://api.withorb.com/v1`
-
-#### Tags
-
-- Metrics
-- Billable Metrics
-- Usage
-
-#### Properties
-
-- [Documentation](https://docs.withorb.com/events-and-metrics/metrics)
-- [API Reference](https://docs.withorb.com/api-reference/metrics)
-- [OpenAPI](openapi/orb-billing-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orb-billing.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-
-### Orb Invoices API
-
-Create one-off invoices, manage line items, fetch upcoming and issued invoices, issue, pay, mark as paid, void, and regenerate invoice and receipt PDFs.
-
-- **Human URL:** [https://docs.withorb.com/api-reference/invoice](https://docs.withorb.com/api-reference/invoice)
-- **Base URL:** `https://api.withorb.com/v1`
-
-#### Tags
-
-- Invoices
-- Billing
-- Line Items
-
-#### Properties
-
-- [Documentation](https://docs.withorb.com/invoicing/structure)
-- [API Reference](https://docs.withorb.com/api-reference/invoice)
-- [OpenAPI](openapi/orb-billing-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orb-billing.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-
-### Orb Credits & Ledger API
-
-Track and adjust customer credit balances through ledger entries, top-ups, credit blocks, and credit notes, addressable by Orb ID or external customer ID.
-
-- **Human URL:** [https://docs.withorb.com/api-reference/credit](https://docs.withorb.com/api-reference/credit)
-- **Base URL:** `https://api.withorb.com/v1`
-
-#### Tags
-
-- Credits
-- Ledger
-- Prepaid
-
-#### Properties
-
-- [Documentation](https://docs.withorb.com/product-catalog/prepaid-credits)
-- [API Reference](https://docs.withorb.com/api-reference/credit)
-- [OpenAPI](openapi/orb-billing-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orb-billing.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-
-### Orb Prices & Items API
-
-Define unit, tiered, package, matrix, and other price models, evaluate prices against events, and manage the items that prices and invoice line items reference.
-
-- **Human URL:** [https://docs.withorb.com/api-reference/price](https://docs.withorb.com/api-reference/price)
-- **Base URL:** `https://api.withorb.com/v1`
-
-#### Tags
-
-- Prices
-- Items
-- Catalog
-
-#### Properties
-
-- [Documentation](https://docs.withorb.com/core-concepts/plans-and-prices)
-- [API Reference](https://docs.withorb.com/api-reference/price)
-- [OpenAPI](openapi/orb-billing-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orb-billing.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-
-### Orb Alerts & Coupons API
-
-Configure usage, cost, and credit-balance alerts on customers and subscriptions, and create, fetch, list, and archive coupons that grant discounts on subscriptions.
-
-- **Human URL:** [https://docs.withorb.com/api-reference/alert](https://docs.withorb.com/api-reference/alert)
-- **Base URL:** `https://api.withorb.com/v1`
-
-#### Tags
-
-- Alerts
-- Coupons
-- Discounts
-
-#### Properties
-
-- [Documentation](https://docs.withorb.com/guides/product-catalog/coupons)
-- [API Reference](https://docs.withorb.com/api-reference/alert)
-- [OpenAPI](openapi/orb-billing-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/orb-billing.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-
-### Orb Webhooks API
-
-At-least-once outbound webhooks for customer, subscription, invoice, credit note, and alert lifecycle events, signed with an HMAC-SHA256 X-Orb-Signature header and X-Orb-Timestamp for replay protection.
-
-- **Human URL:** [https://docs.withorb.com/guides/integrations-and-exports/webhooks](https://docs.withorb.com/guides/integrations-and-exports/webhooks)
-- **Base URL:** `https://api.withorb.com/v1`
-
-#### Tags
-
-- Webhooks
-- Events
-- Notifications
-
-#### Properties
-
-- [Documentation](https://docs.withorb.com/guides/integrations-and-exports/webhooks)
-- [OpenAPI](openapi/orb-billing-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/orbcorp)
-- [LinkedIn](https://www.linkedin.com/company/withorb)
 - [Website](https://www.withorb.com)
 - [Documentation](https://docs.withorb.com)
-- [Plans](plans/orb-billing-plans-pricing.yml)
-- [Rate Limits](rate-limits/orb-billing-rate-limits.yml)
-- [Fin Ops](finops/orb-billing-finops.yml)
+- [Blog](https://www.withorb.com/blog)
+- [GitHub](https://github.com/orbcorp)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 32.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 48.4 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 13.2 |
+
+**Agent readiness 19.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 22.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/orb-billing/](https://apis.io/providers/orb-billing/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Orb: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/orb-billing/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
